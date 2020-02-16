@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import mechanize
 from http.cookiejar import LWPCookieJar
 
@@ -54,11 +56,11 @@ class Usuario():
         except Exception as e:
             print(e)
 
-    def requestQuestao(self, codigo_questao):
+    def requestQuestao(self, id_questao):
         url_api = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php"
         payload = {
             "action" : "filtrar",
-            "data[filtroJSON][idQuestao]" :	codigo_questao,
+            "data[filtroJSON][idQuestao]" :	id_questao,
             "data[filtroJSON][temaAleatorio]" :	0,	
             "data[filtroJSON][tagAndOr]" : "tagAnd",
             "data[filtroJSON][destinoAndOr]" :	"destinoAnd",
@@ -70,4 +72,9 @@ class Usuario():
         request_form_questao = mechanize.Request(url_api,data)
         response = self.br.open(request_form_questao)
         dados_questao = response.get_data().decode("latin1")
+        # TODO já vincular o cadastro das informações no banco de dados interno
+        # seguindo o link de edição de questao que vem como resposta do request
         return dados_questao
+
+    def estruturaQuestao(self):
+        pass

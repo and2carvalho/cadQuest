@@ -1,6 +1,6 @@
 
 from usuario import Usuario
-from servidor import loginApp, serializaRequest
+from api import loginApp, serializaRequest
 
 if __name__ == "__main__":
     
