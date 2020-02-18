@@ -1,3 +1,9 @@
+def loginApp(Usuario):
+    try:
+        Usuario.loginIntranet()
+    except Exception as e:
+        print("Não foi possível fazer login no sistema\nVerificar dados de usuario e senha.")
+        print("\ne")
 
 def serializaRequest(payload):
     # TODO colocar filtro de variaveis reservadas, para usuario nao ter acesso 
@@ -25,18 +31,30 @@ def _cadastraUSUARIO():
 def addQuestao(request_args):
     ''' os argumentos precisam vir como dicionario ou lista de dicionaro
     do requesta de consulta de questao '''
-    from .db import model, conn
+    from model import Questao, Session
     import json
+    #TODO Colocar condição para nao adicionar caso o idQuestao já exista 
     consulta = json.loads(request_args)
-    for questao in consulta:
-        result = model.Questao(questao)
-        print(result)
-        print("\n")
-        session = conn.Session()
-        query = session.add(result)
-        session.commit()
-        pass
+    atributos = dict(consulta[0])
+    #TODO Colocar loop para consultas de mais de uma questao
+    result = Questao(**atributos)
+    print("\n")
+    session = Session()
+    session.add(result)
+    session.commit()
+    return result
 
+def viewQuestao(id=None):
+    from model import Questao, Session
+    session = Session()
+    if not id:
+        query = session.query(Questao).all()
+        for result in query:
+            print(result)
+    else:
+        query = session.query(Questao).filter(Questao.codigo)
+        for result in query:
+            print(result)
 def addOcorrencia():
     #TODO Pegar os dados de tutor, id questao e horario para registro
     pass

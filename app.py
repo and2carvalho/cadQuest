@@ -1,6 +1,6 @@
 
 from usuario import Usuario
-from api import loginApp, serializaRequest
+from api import loginApp, serializaRequest, addQuestao, viewQuestao
 
 if __name__ == "__main__":
     
@@ -11,11 +11,16 @@ if __name__ == "__main__":
 
     dados_questao = tutor.requestQuestao(codigo_questao)
     result = serializaRequest(dados_questao)
-    import json
+    addQuestao(result) 
+    viewQuestao()
+    input("Aperte uma tecla para finalizar")
+    
+    '''import json
     consulta = json.loads(result)
     for questao in consulta:
         print(questao)
         print("\n")
-    input("Aperte uma tecla para finalizar")
+   
     # link para novo cadastro de questoes
     #l_formNovoCadatro = br.find_link(nr=17)
+'''

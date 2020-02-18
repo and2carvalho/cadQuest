@@ -26,7 +26,7 @@ class Usuario():
         self.br.set_handle_referer( False ) 
         self.br.set_handle_robots( False )
         self.br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
-        #self.br.set_debug_http(True)
+        self.br.set_debug_http(True)
         #self.br.set_debug_http(True)
         #self.br.set_debug_redirects(True)
         #self.br.set_debug_responses(True)

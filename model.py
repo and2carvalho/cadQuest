@@ -1,14 +1,15 @@
 # coding=utf-8
-from sqlalchemy import create_engine, MetaData, Column, String, Integer, Date, ForeignKey
-from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy import Column, String, Integer, Date, ForeignKey
+from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import create_engine, MetaData
+from sqlalchemy.orm import sessionmaker
   
     
 db = create_engine('sqlite:///db_questoes.db')
 Session = sessionmaker(bind=db)
 
 Base = declarative_base()
-
 
 class Tutor(Base):
     __tablename__ = 'tutor'
@@ -17,14 +18,9 @@ class Tutor(Base):
     login = Column(String(50))
     dtAcesso = Column(Date)
 
-class Questao(Base,dict):
+class Questao(Base):
     
     __tablename__= 'questao'
-
-    def __init__(self, dicionario):
-        for key in dicionario:
-            setattr(self,key, dicionario[key])
-
 
     codigo = Column(Integer(), primary_key=True)
     idQuestao =  Column(Integer)
@@ -51,8 +47,7 @@ class Ocorrencia(Base):
     __tablename__ = 'ocorrencia'
 
     ocor = Column(Integer, primary_key=True)
-    dtAcessoCodigo = Column(ForeignKey('tutor.dtAcesso'))
-    dtAcesso = relationship(Tutor)
+    #dtAcessoCodigo = Column(ForeignKey('tutor.dtAcesso'))
     dtOcor = Column(Date, nullable=False)
     idQuestaoCodigo = Column(ForeignKey('questao.idQuestao'))
     idQuestao = relationship(Questao)
@@ -64,4 +59,4 @@ class Ocorrencia(Base):
 #TODO if not db_questoes.db in __name__ directory: 
 #cria_banco(db)
 
-Base.metadata.create_all(db)
+#Base.metadata.create_all(db)
