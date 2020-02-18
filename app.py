@@ -1,3 +1,4 @@
+# coding=utf-8
 
 from usuario import Usuario
 from api import loginApp, serializaRequest, addQuestao, viewQuestao
@@ -7,7 +8,7 @@ if __name__ == "__main__":
     tutor = Usuario()
     loginApp(tutor)
     tutor.acessaFrmQuestao()
-    codigo_questao = input("\n\nDigite o(s) código(s) da(s) questao(oes).\nse nao souber digite 208454\n\n"+9*"-"+">  \n")
+    codigo_questao = input("\n\nDigite o(s) cÃ³digo(s) da(s) questao(oes).\nse nao souber digite 208454\n\n"+9*"-"+">  \n")
 
     dados_questao = tutor.requestQuestao(codigo_questao)
     result = serializaRequest(dados_questao)

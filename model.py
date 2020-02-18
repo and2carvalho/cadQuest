@@ -1,4 +1,5 @@
 # coding=utf-8
+
 from sqlalchemy import Column, String, Integer, Date, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
@@ -42,6 +43,10 @@ class Questao(Base):
     cryp_aprovar = Column(String(250))
     cryp_rejeitar = Column(String(250))
     cryp_publicar = Column(String(250))
+    
+    def __repr__(self):
+        return "Id da Questao: {}\nUsuario de Cadastro: {}\n\
+        Situcao: {}\n".format(self.idQuestao,self.dsUsuario, self.dsSituacao)
 
 class Ocorrencia(Base):
     __tablename__ = 'ocorrencia'

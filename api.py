@@ -1,8 +1,10 @@
+# coding=utf-8
+
 def loginApp(Usuario):
     try:
         Usuario.loginIntranet()
     except Exception as e:
-        print("Não foi possível fazer login no sistema\nVerificar dados de usuario e senha.")
+        print("NÃ£o foi possÃ­vel fazer login no sistema\nVerificar dados de usuario e senha.")
         print("\ne")
 
 def serializaRequest(payload):
@@ -22,9 +24,9 @@ def printLog(browser_response):
 
 
 def _cadastraUSUARIO():
-    '''O SISTEMA DE GESTAO DE BANCO DE QUESTOES NÃO FAZ CADASTRO DE USUARIO NEM FAZ QUALQUER TIPO
+    '''O SISTEMA DE GESTAO DE BANCO DE QUESTOES NÃƒO FAZ CADASTRO DE USUARIO NEM FAZ QUALQUER TIPO
     DE CONTROLE DE PERMISSAO AO ACESSO DAS INFORMACOES DO SISTEMA DA UNICESUMAR. A UNICA FUNCAO
-    DESEMPENHADA É O ACESSO À API DE CADASTRO DE QUESTOES PARA ENVIAR AS INFORMACOES AO SISTEMA
+    DESEMPENHADA Ã‰ O ACESSO Ã€ API DE CADASTRO DE QUESTOES PARA ENVIAR AS INFORMACOES AO SISTEMA
     DE FORMA MAIS EFICIENTE'''
     pass
 
@@ -33,30 +35,48 @@ def addQuestao(request_args):
     do requesta de consulta de questao '''
     from model import Questao, Session
     import json
-    #TODO Colocar condição para nao adicionar caso o idQuestao já exista 
     consulta = json.loads(request_args)
-    atributos = dict(consulta[0])
-    #TODO Colocar loop para consultas de mais de uma questao
-    result = Questao(**atributos)
-    print("\n")
-    session = Session()
-    session.add(result)
-    session.commit()
-    return result
+    for i in range(len(consulta)):
+        atributos = dict(consulta[i]) 
+        session = Session()
+        questao = Questao(**atributos)
+        query = session.query(Questao).filter(Questao.idQuestao == questao.idQuestao)
+        result = query.one_or_none()
+        if result:   # verifica se já exite o cadastro da questao
+            print("\nQuestao {} ja cadastrada".format(questao.idQuestao))
+            try:
+                session.merge(result)
+                session.commit()
+                print("Questao {} atualizada com sucesso\n".format(questao.idQuestao))
+            except Exception as e:
+                print(e)
+        else:
+            try:
+                session.add(questao)
+                session.commit()
+                print("\nQuestao {} adicionado ao banco de dados".format(questao.idQuestao))
+            except Exception as e:
+                print(e)
 
 def viewQuestao(id=None):
     from model import Questao, Session
     session = Session()
     if not id:
-        query = session.query(Questao).all()
-        for result in query:
-            print(result)
+        try:
+            query = session.query(Questao)
+            result = query.all()
+            for questao in result:
+                print(questao)
+        except Exception as e:
+            print(e)
     else:
-        query = session.query(Questao).filter(Questao.codigo)
-        for result in query:
+        try:
+            query = session.query(Questao).filter(Questao.idQuestao == id )
+            result = query.one()
             print(result)
+        except Exception as e:
+            print(e)
+            
 def addOcorrencia():
     #TODO Pegar os dados de tutor, id questao e horario para registro
     pass
-
-
