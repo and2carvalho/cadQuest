@@ -7,7 +7,7 @@ from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker
   
     
-db = create_engine('sqlite:///db_questoes.db')
+db = create_engine('mysql+pymysql://rocknguns:masterkey@db4free.net:3306/so1teste')#'sqlite:///db_questoes.db')
 Session = sessionmaker(bind=db)
 
 Base = declarative_base()
@@ -47,7 +47,7 @@ class Questao(Base):
     def __repr__(self):
         return "Id da Questao: {}\nUsuario de Cadastro: {}\n\
         Situcao: {}\n".format(self.idQuestao,self.dsUsuario, self.dsSituacao)
-
+'''
 class Ocorrencia(Base):
     __tablename__ = 'ocorrencia'
 
@@ -59,7 +59,7 @@ class Ocorrencia(Base):
     tutorCodigo = Column(ForeignKey('tutor.codigo'))
     tutor = relationship(Tutor)
     atividade = Column(String(100))
-
+'''
 
 #TODO if not db_questoes.db in __name__ directory: 
 #cria_banco(db)

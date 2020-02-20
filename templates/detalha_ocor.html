@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+	<div>
+		<h4>Detalhes da Ocorrencia</h4>
+		<div>
+			<ul class="row">
+				<li class="col-sm-6">Questão ID: {{ det_ocor.idQuestao }}</li>
+				<li class="col-sm-6">Nome Usuario: {{ det_ocor.dsUsuario }}</li>
+				<li class="col-sm-6">Tema: {{ det_ocor.tema }}</li>
+				<li class="col-sm-6">Data Criação: {{ det_ocor.dtCriacao }}</li>
+				<li class="col-sm-6">Situação: {{ det_ocor.dsSituacao }}</li>
+				<li class="col-sm-6">Codigo Banco: {{ det_ocor.codigo }}</li>
+				<li class="col-sm-6">Origem: {{ (det_ocor.dsOrigem) }} </li>
+				<li class="col-sm-6">Complexidade: {{ (det_ocor.dsComplexidade) }} </li>
+			</ul>
+		</div>
+		<div>
+			<span class="chart" id="statusMemo">
+
+			</span>
+		</div>
+	</div>
+	<div>
+	
+	</div>
+{% endblock %}
