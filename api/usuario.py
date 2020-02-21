@@ -2,6 +2,7 @@
 
 import mechanize
 from http.cookiejar import LWPCookieJar
+from api.util import printLog
 
 
 class Usuario():
@@ -9,19 +10,21 @@ class Usuario():
     # TODO isso vai para o banco de dados e devera ser
     # feita uma api para o servidor para cuidar do cadastro de 
     # questoes e usuarios
-    usuario = "luciana.tavone"#str(input("Insira seu login do sistema: "))#
+    #usuario = #str(input("Insira seu login do sistema: "))#
     #from getpass import getpass
-    senha = "31415*Pi"#getpass()#
-    matricula = " "
+    #senha = getpass()
+    #matricula = " "
     
-    def __init__(self):
+    def __init__(self,usuario,senha):
 
+        self.usuario = usuario
+        self.senha = senha
         self.br = mechanize.Browser()
         cookiejar = LWPCookieJar()
         self.br.set_cookiejar(cookiejar)
         ##### Browser options #######
-        self.br.set_handle_equiv( False ) 
-        self.br.set_handle_gzip( False ) 
+        self.br.set_handle_equiv( False )
+        self.br.set_handle_gzip( False )
         self.br.set_handle_redirect( True ) 
         self.br.set_handle_referer( False ) 
         self.br.set_handle_robots( False )
@@ -57,6 +60,9 @@ class Usuario():
             print(e)
 
     def requestQuestao(self, id_questao):
+            
+        ''' Recebe dados da API apartir de uma número de id de questão.'''
+
         url_api = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php"
         payload = {
             "action" : "filtrar",
@@ -78,3 +84,34 @@ class Usuario():
 
     def estruturaQuestao(self):
         pass
+
+    def requestAlternativa(self, idQuestao):
+        
+        ''' Envia cadastro de alternativas para API. As estruturas a serem
+        enviadas são definidas tendo como base a dificuldade e o tipo de questão. '''
+        from urllib import parse
+        import json
+        from db.model import Questao, Session
+        session = Session()
+        query = session.query(Questao).filter(Questao.idQuestao == idQuestao)
+        result = query.one_or_none()
+        if (result.dsComplexidade == "Fácil") & (result.dsTipoQuestao == "Objetiva de falso e verdadeiro"):
+            url_api = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php"
+            payload = {
+                "action" : "inserir",
+                "idQuestao" :	idQuestao,
+                "dsAlternativa" : "F, F, V"
+            }
+            data = parse.urlencode(payload)
+            request_insereAlternativa = mechanize.Request(url_api,data)
+            self.br.open(request_insereAlternativa)
+            #salva estrutura da questão
+            #cryp_editar = "oPhrLoVmBUE60MzmA80hZw==" #result.cryp_editar
+            #self.br.open(url_api+"?"+cryp_editar)
+            
+            # TODO já vincular o cadastro das informações no banco de dados interno
+            # seguindo o link de edição de questao que vem como resposta do request
+            return "{Status : OK}"
+        else:
+            #TODO
+            pass

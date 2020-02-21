@@ -4,36 +4,39 @@ def loginApp(Usuario):
     try:
         Usuario.loginIntranet()
     except Exception as e:
-        print("NÃ£o foi possÃ­vel fazer login no sistema\nVerificar dados de usuario e senha.")
-        print("\ne")
+        print("Nao foi possivel fazer login no sistema\nVerificar dados de usuario e senha.\n")
+        print(e)
 
 def serializaRequest(payload):
     # TODO colocar filtro de variaveis reservadas, para usuario nao ter acesso 
     import json
-    dados_questao = json.loads(payload)
-    dados_questao = json.dumps(dados_questao.get("data"))
-    return dados_questao
+    try:
+        dados_questao = json.loads(payload)
+        dados_questao = json.dumps(dados_questao.get("data"))
+        return dados_questao
+    except Exception as e:
+        print(e)
 
 def printLog(browser_response):
     from bs4 import BeautifulSoup
-    ''' gera arq com respelho da resposta html'''
+    ''' Gera arq com respelho da resposta html.
+    ex. printLog( BROWSER.response() ) '''
     from bs4 import BeautifulSoup
     bs = BeautifulSoup(browser_response.read(),'lxml')
     with open('log.html','w') as f:
         f.writelines(bs.prettify())
 
-
 def _cadastraUSUARIO():
     '''O SISTEMA DE GESTAO DE BANCO DE QUESTOES NÃƒO FAZ CADASTRO DE USUARIO NEM FAZ QUALQUER TIPO
     DE CONTROLE DE PERMISSAO AO ACESSO DAS INFORMACOES DO SISTEMA DA UNICESUMAR. A UNICA FUNCAO
-    DESEMPENHADA Ã‰ O ACESSO Ã€ API DE CADASTRO DE QUESTOES PARA ENVIAR AS INFORMACOES AO SISTEMA
+    DESEMPENHADA E O ACESSO A API DE CADASTRO DE QUESTOES PARA ENVIAR AS INFORMACOES AO SISTEMA
     DE FORMA MAIS EFICIENTE'''
     pass
 
 def addQuestao(request_args):
     ''' os argumentos precisam vir como dicionario ou lista de dicionaro
     do requesta de consulta de questao '''
-    from model import Questao, Session
+    from db.model import Questao, Session
     import json
     consulta = json.loads(request_args)
     for i in range(len(consulta)):
@@ -59,7 +62,7 @@ def addQuestao(request_args):
                 print(e)
 
 def viewQuestao(id=None):
-    from model import Questao, Session
+    from db.model import Questao, Session
     session = Session()
     if not id:
         try:
