@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from flask import Flask, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
