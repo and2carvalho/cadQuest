@@ -92,7 +92,7 @@ class Login ( wx.Frame ):
 class PyFeed ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Estrutura Banco de Questoes", pos = wx.DefaultPosition, size = wx.Size( 298,350 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"PyFeed - Unicesumar EAD", pos = wx.DefaultPosition, size = wx.Size( 298,350 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.Size( 298,350 ), wx.Size( 298,350 ) )
 		self.SetExtraStyle( wx.FRAME_EX_METAL )
@@ -178,4 +178,52 @@ class PyFeed ( wx.Frame ):
 	def estrutura_questao( self, event ):
 		event.Skip()
 
+
+###########################################################################
+## Class AlternativaCorreta
+###########################################################################
+
+class AlternativaCorreta ( wx.Dialog ):
+
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Finaliza Estrutura Banco de Questoes", pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.OK | wx.ICON_INFORMATION )
+
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+		self.SetBackgroundColour( wx.Colour( 255, 255, 255 ) )
+
+		bSizer5 = wx.BoxSizer( wx.VERTICAL )
+
+		bSizer5.SetMinSize( wx.Size( 290,250 ) )
+		self.lb_alt_correta = wx.StaticText( self, wx.ID_ANY, u"Selecione a alternativa correta", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_alt_correta.Wrap( -1 )
+
+		self.lb_alt_correta.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_MODERN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
+
+		bSizer5.Add( self.lb_alt_correta, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.TOP, 12 )
+
+		m_radioBox1Choices = [ u"Alternativa   I   :   F, F, V, V, F", u"Alternativa  II   :   V, F, V, F, V", u"Alternativa III   :   F, F, V, F, F", u"Alternativa IV   :   V, V, V, F, V", u"Alternativa  V   :   F, V, F, F, V" ]
+		self.m_radioBox1 = wx.RadioBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, m_radioBox1Choices, 1, wx.RA_SPECIFY_COLS )
+		self.m_radioBox1.SetSelection( 0 )
+		bSizer5.Add( self.m_radioBox1, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 12 )
+
+		self.bt_alt_correta = wx.Button( self, wx.ID_ANY, u"Selecionar e cadastrar estrutura", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer5.Add( self.bt_alt_correta, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 12 )
+
+
+		self.SetSizer( bSizer5 )
+		self.Layout()
+		bSizer5.Fit( self )
+
+		self.Centre( wx.BOTH )
+
+		# Connect Events
+		self.bt_alt_correta.Bind( wx.EVT_BUTTON, self.setAlternativaCorreta )
+
+	def __del__( self ):
+		pass
+
+
+	# Virtual event handlers, overide them in your derived class
+	def setAlternativaCorreta( self, event ):
+		event.Skip()
 

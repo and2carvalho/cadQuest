@@ -6,6 +6,14 @@ import wx
 import gui
 
 
+class AlternativaCorreta(gui.AlternativaCorreta):
+
+    def __init__(self, parent):
+        gui.AlternativaCorreta.__init__(self, parent)
+    
+    def setAlternativaCorreta(self, event):
+        self.Destroy()
+
 class PyFeed(gui.PyFeed):
 
     def __init__(self, parent):
@@ -14,13 +22,23 @@ class PyFeed(gui.PyFeed):
         self.login_frame.Show()
 
         self.login_frame.btn_login.Bind( wx.EVT_BUTTON, self.acessar_intranet )
+    
+    def info(self, parent, message, caption = 'INFORMAÇÃO!'):
+        dlg = wx.MessageDialog(parent, message, caption, wx.OK | wx.ICON_INFORMATION)
+        dlg.ShowModal()
+        dlg.Destroy()
+
+    def warn(self, parent, message, caption = 'ATENÇÃO!'):
+        dlg = wx.MessageDialog(parent, message, caption, wx.OK | wx.ICON_WARNING)
+        dlg.ShowModal()
+        dlg.Destroy()
 
     def acessar_intranet(self, event):
 
         self.tutor = Usuario(self.login_frame.txt_login.GetValue(), self.login_frame.txt_senha.GetValue())
         loginApp(self.tutor)
         if (self.tutor.br.response().geturl() == "http://intranet.unicesumar.edu.br/?erro_login"):
-            print("\nATENÇÃO! Não foi possivel realizar o acesso com os dados digitados")
+            self.warn(self, "Não foi possivel realizar o acesso com os dados digitados")
             self.login_frame.txt_login.Clear()
             self.login_frame.txt_senha.Clear()
         else:
@@ -50,21 +68,25 @@ class PyFeed(gui.PyFeed):
                 if (q_estruturaCompleta["tipoQuestao"].get("dsTipoQuestao") == "Objetiva de falso e verdadeiro"):
                     if (q_estruturaCompleta.get("alternativaList") == []):
                         # aplica estruturação de questão
-                        self.tutor.requestAlternativa(codigo_questao)
+                        self.alternativa_panel = AlternativaCorreta(self)
+                        self.alternativa_panel.ShowModal()
+                        op_correta = self.alternativa_panel.m_radioBox1.GetSelection()
+                        status_alternativa = self.tutor.requestAlternativa(codigo_questao, op_correta)
+                        self.info(self,status_alternativa)
                         self.txt_idQuestao.Clear()
-                        return print("\nEstruturação de alternativas realizada com sucesso!")
+                        return self.info(self,"Estruturação de alternativas realizada com sucesso!")
                     else:
                         self.txt_idQuestao.Clear()
-                        return print("\nAtenção! Essa questão já tem estrutura de alternativas cadastradas.\n\
+                        return self.warn(self, "Atenção! Essa questão já tem estrutura de alternativas cadastradas.\n\
                             Não foi possível realizar o processo.")
                 self.txt_idQuestao.Clear()
-                return print("\nEstruturação ainda não suportada para esse tipo de questão: {}".format(str(q_estruturaCompleta["tipoQuestao"].get("dsTipoQuestao"))))
+                return self.info(self, "Estruturação ainda não suportada para esse tipo de questão: {}".format(str(q_estruturaCompleta["tipoQuestao"].get("dsTipoQuestao"))))
             else:
                 self.txt_idQuestao.Clear()
-                return print("\nOps, algo deu errado!\nOu essa questão não foi cadastrada pelo seu usuario ou você não tem permissão para acessar essa funcionalidade.")
+                return self.warn(self, "Ops, algo deu errado!\nOu essa questão não foi cadastrada pelo seu usuario ou você não tem permissão para acessar essa funcionalidade.")
         else:
             self.txt_idQuestao.Clear()
-            return print("\nFavor preencher código da questao para realizar a estruturação")
+            return self.warn(self, "Favor preencher código da questão para prosseguir")
 
 if __name__ == "__main__":
     
