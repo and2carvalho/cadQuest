@@ -83,3 +83,201 @@ def viewQuestao(id=None):
 def addOcorrencia():
     #TODO Pegar os dados de tutor, id questao e horario para registro
     pass
+
+dic_alternativas = {
+  "Objetiva de resposta múltipla": {
+    "Fácil": {
+      "payload_1": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I, apenas.",
+        "correta": 0
+      },
+      "payload_2": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "III, apenas.",
+        "correta": 0
+      },
+      "payload_3": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I e II, apenas.",
+        "correta": 0
+      },
+      "payload_4": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "II e III, apenas.",
+        "correta": 0
+      },
+      "payload_5": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I, II e III.",
+        "correta": 0
+      }
+    },
+    "Médio": {
+      " payload_1": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I, apenas.",
+        "correta": 0
+      },
+      "payload_2": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "II e IV, apenas.",
+        "correta": 0
+      },
+      "payload_3": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "III e IV, apenas.",
+        "correta": 0
+      },
+      "payload_4": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I, II e III, apenas.",
+        "correta": 0
+      },
+      "payload_5": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I, II, III e IV.",
+        "correta": 0
+      }
+    },
+    "Difícil": {
+      "payload_1": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "II e III.",
+        "correta": 0
+      },
+      "payload_2": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I e IV.",
+        "correta": 0
+      },
+      "payload_3": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "II e III.",
+        "correta": 0
+      },
+      "payload_4": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I, II e IV.",
+        "correta": 0
+      },
+      "payload_5": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "II, III e IV.",
+        "correta": 0
+      }
+    }
+  },
+  "Objetiva de resposta única": {
+    "Fácil": {
+      "payload_1": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I, apenas.",
+        "correta": 0
+      },
+      "payload_2": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "III, apenas.",
+        "correta": 0
+      },
+      "payload_3": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I e II, apenas.",
+        "correta": 0
+      },
+      "payload_4": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "II e III, apenas.",
+        "correta": 0
+      },
+      "payload_5": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I, II e III.",
+        "correta": 0
+      }
+    },
+    "Médio": {
+      "payload_1": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I, apenas.",
+        "correta": 0
+      },
+      "payload_2": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "III, apenas.",
+        "correta": 0
+      },
+      "payload_3": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I e II, apenas.",
+        "correta": 0
+      },
+      "payload_4": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "II e III, apenas.",
+        "correta": 0
+      },
+      "payload_5": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I, II e III.",
+        "correta": 0
+      }
+    },
+    "Difícil": {
+      "payload_1": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I, apenas.",
+        "correta": 0
+      },
+      "payload_2": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "III, apenas.",
+        "correta": 0
+      },
+      "payload_3": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I e II, apenas.",
+        "correta": 0
+      },
+      "payload_4": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "II e III, apenas.",
+        "correta": 0
+      },
+      "payload_5": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I, II e III.",
+        "correta": 0
+      }
+    }
+}}

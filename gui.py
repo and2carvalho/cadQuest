@@ -185,7 +185,7 @@ class PyFeed ( wx.Frame ):
 
 class AlternativaCorreta ( wx.Dialog ):
 
-	def __init__( self, parent ):
+	def __init__( self, parent, alternativas ):
 		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Finaliza Estrutura Banco de Questoes", pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.OK | wx.ICON_INFORMATION )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
@@ -201,9 +201,9 @@ class AlternativaCorreta ( wx.Dialog ):
 
 		bSizer5.Add( self.lb_alt_correta, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.TOP, 12 )
 
-		m_radioBox1Choices = [ u"Alternativa   I   :   F, F, V, V, F", u"Alternativa  II   :   V, F, V, F, V", u"Alternativa III   :   F, F, V, F, F", u"Alternativa IV   :   V, V, V, F, V", u"Alternativa  V   :   F, V, F, F, V" ]
+		m_radioBox1Choices = alternativas
 		self.m_radioBox1 = wx.RadioBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, m_radioBox1Choices, 1, wx.RA_SPECIFY_COLS )
-		self.m_radioBox1.SetSelection( 0 )
+		#self.m_radioBox1.SetSelection()
 		bSizer5.Add( self.m_radioBox1, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 12 )
 
 		self.bt_alt_correta = wx.Button( self, wx.ID_ANY, u"Selecionar e cadastrar estrutura", wx.DefaultPosition, wx.DefaultSize, 0 )
