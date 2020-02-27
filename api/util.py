@@ -281,3 +281,140 @@ dic_alternativas = {
       }
     }
 }}
+
+dic_tags = {
+    "idNodeMacro34" : {
+        "SIM" : "131",
+        "NÃO" : "132"
+    },
+    "idNodeMacro8" : {
+        "ATIVIDADE 1" : "52",
+        "ATIVIDADE 2" : "53",
+        "ATIVIDADE 3" : "54",
+        "MAPA" : "58",
+        "ATIVIDADE INTEGRADA" : "62",
+        "FÓRUM" : "63",
+        "ATIVIDADE 4" : "70",
+        "ATIVIDADE 5" : "90",
+        "ATIVIDADE 6" : "139",
+        "ATIVIDADE 7" : "140",
+        "QUIZ" : "146",
+        "EAD GIRO" : "147",
+        "PROVA" : "161",
+        "MAPA SUB" : "163",
+    },
+    "idNodeMacro30" : {
+        "TEO" : "91",
+        "TEOL" : "92",
+        "AGRO" : "93",
+        "CCONT" : "94",
+        "GPUB" : "95",
+        "ENG. PROD." : "96",
+        "ENG. SOFT." : "97",
+        "EDU" : "98",
+        "GRH" : "99",
+        "ADS" : "100",
+        "SI" : "101",
+        "DM" : "102",
+        "DI" : "103",
+        "ADM" : "104",
+        "PGER" : "105",
+        "MKT" : "106",
+        "MAT" : "107",
+        "HIST" : "108",
+        "SEG. TRAB." : "109",
+        "PED" : "110",
+        "GAMB" : "111",
+        "GEO" : "112",
+        "T.I" : "113",
+        "GPV" : "114",
+        "GFIN" : "115",
+        "GASTRO" : "116",
+        "GCOM" : "117",
+        "GIMOB" : "118",
+        "LET" : "119",
+        "LOG" : "120",
+        "SEC" : "121",
+        "GH" : "122",
+        "DP" : "123",
+        "SSOC" : "124",
+        "GC" : "125",
+        "GQ" : "126",
+        "GTS" : "127",
+        "ECON" : "128",
+        "CURSO DE ORIGEM" : "129",
+        "EMP" : "130",
+        "BEDU" : "133",
+        "ECIV" : "134",
+        "EELE" : "135",
+        "EMEC" : "136",
+        "EMCA" : "137",
+        "HEPROD" : "138",
+        "HÍBRIDO" : "143",
+        "FSCE" : "144",
+        "PROJETO DE ENSINO" : "145",
+        "SPRIV" : "148",
+        "ARTV" : "149",
+        "CBIO" : "150",
+        "PSICO" : "151",
+        "PCERV" : "152",
+        "SALI" : "153",
+        "FIL" : "154",
+        "SOCIO" : "155",
+        "ECOS" : "156",
+        "POD" : "157",
+        "TINT" : "158"
+    },
+    "idMacroNode1" : {
+        "MÓDULO 51" : "1",
+        "MÓDULO 52" : "2",
+        "MÓDULO 53" : "3",
+        "MÓDULO 54" : "4"
+    },
+    "idMacroNode2" : {
+        "UNIDADE 1" : "10",
+        "UNIDADE 2" : "11",
+        "UNIDADE 3" : "12",
+        "UNIDADE 4" : "13",
+        "UNIDADE 5" : "14",
+        "UNIDADE 6" : "32",
+        "UNIDADE 7" : "33",
+        "UNIDADE 8" : "141",
+        "UNIDADE 9" : "142"
+    }
+}
+'''request 
+Inserir TAGS
+
+action: inserir
+idQuestao: 194208
+idNodeMacro: 34
+idTagList[]: 131
+idNodeMacro: 8
+idTagList[]: 161
+idNodeMacro: 30
+idTagList[]: 96
+idNodeMacro: 1
+idTagList[]: 1
+idTagList[]: 2
+idNodeMacro: 2
+idTagList[]: 13
+idTagList[]: 14'''
+
+'''NOVO CADASTRO
+action: inserir
+idQuestao: 
+idTipoQuestao: 1
+idOrigem: 10
+idComplexidade: 1
+idNodeRaiz: 1
+idNodeRaiz: 1
+idDestinoList[]: 1
+tema: Teste
+enunciado: Teste
+tamanhoResposta: 
+fileImgGabaritoBase64: 
+fileImgGabaritoNomeOriginal: 
+idImgGabarito: 
+feedback: Teste
+ativo: 1'''

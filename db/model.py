@@ -41,6 +41,10 @@ class Questao(Base):
     cryp_aprovar = Column(String(250))
     cryp_rejeitar = Column(String(250))
     cryp_publicar = Column(String(250))
+    tag_cursoOrigem = Column(Integer)
+    tag_modulo = Column(Integer)
+    tag_unidadeLivro = Column(Integer)
+    tag_disciplina = Column(Integer)
     
     def __repr__(self):
         return "Id da Questao: {}\nUsuario de Cadastro: {}\n\

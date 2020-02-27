@@ -10,7 +10,7 @@ import time
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://pyFeed:masterkey@localhost:3306/so1teste'#'mysql+pymysql://pyFeed:masterkey@localhost:3306/pyFeed'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db_questoes.db'#'mysql+pymysql://pyFeed:masterkey@localhost:3306/pyFeed'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 session = Session()

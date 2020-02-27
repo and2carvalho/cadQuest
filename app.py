@@ -68,6 +68,7 @@ class PyFeed(gui.PyFeed):
                 url_questaoCompleta = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/"+result.urlVisualizar
                 dados_completosQuestao = self.tutor.br.open(url_questaoCompleta).get_data().decode("latin1")
                 q_estruturaCompleta = json.loads(dados_completosQuestao)["data"]
+                print(q_estruturaCompleta)
                 if result.dsTipoQuestao in tipo_questao_suportado:
                     # verifica se há alternativas já cadastadas
                     if (q_estruturaCompleta.get("alternativaList") == []):
