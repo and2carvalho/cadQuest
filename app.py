@@ -1,14 +1,14 @@
 # coding=utf-8
 
 from api.usuario import Usuario
-from api.util import loginApp, serializaRequest, dbQuestao, dic_alternativas
+from api.util import loginApp, serializaRequest, dbQuestao, dic_alternativas, dic_tags
 import wx
 import gui
 
 class AddQuestao(gui.AddQuestao):
 
-    def __init__(self, parent):
-        gui.AddQuestao.__init__(self, parent)
+    def __init__(self, parent, tipo_questao_suportado):
+        gui.AddQuestao.__init__(self, parent, tipo_questao_suportado)
 
 class AlternativaCorreta(gui.AlternativaCorreta):
 
@@ -24,6 +24,9 @@ class PyFeed(gui.PyFeed):
         gui.PyFeed.__init__(self, parent)
         self.login_frame = gui.Login(self)
         self.login_frame.Show()
+        # lista de tipo de questoes suportados pelo programa; necessário adicionar um dicionario de alternativas
+        # em 'api.util.dic_alternativas' para novos tipos de questões.
+        self.tipo_questao_suportado = ["Objetiva de resposta única", "Objetiva de resposta múltipla"]
 
         self.login_frame.bt_login.Bind( wx.EVT_BUTTON, self.acessar_intranet )
     
@@ -54,6 +57,7 @@ class PyFeed(gui.PyFeed):
             self.tutor.acessaFrmQuestao()
 
     def addQuestao(self, event):
+        idQuestao = None # necessário para permitir múltiplos cadastros na mesma sessão
         enunciado = self.add_questao_frame.tx_enunciado.GetValue()
         feedback= self.add_questao_frame.tx_feedback.GetValue()
         complexidade = self.add_questao_frame.ch_complexidade.GetStringSelection()
@@ -63,14 +67,18 @@ class PyFeed(gui.PyFeed):
             idComplexidade = 2
         else:
             idComplexidade = 3
-        idOrigem = 10
-        idTipoQuestao = 1
+        origem = self.add_questao_frame.ch_origem.GetStringSelection()
+        idOrigem = dic_tags["idMacroOrigem"].get(origem)
+        tipoQuestao = self.add_questao_frame.cb_tipoQuestao.GetStringSelection()
+        idTipoQuestao = dic_tags["idMacroTipoQuestao"].get(tipoQuestao)
+        curso = self.add_questao_frame.cb_curso.GetStringSelection()
+        idCurso = dic_tags["idNodeMacro30"].get(curso)
         idQuestao = self.tutor.requestPostQuestao(enunciado, feedback, idComplexidade, idOrigem, idTipoQuestao)
         self.txt_idQuestao.SetValue(idQuestao)
         self.add_questao_frame.Destroy()
 
     def form_novaQuestao( self, event ):
-        self.add_questao_frame = gui.AddQuestao(self)
+        self.add_questao_frame = gui.AddQuestao(self, self.tipo_questao_suportado)
         self.add_questao_frame.Show()
         self.add_questao_frame.bt_salvarQuestao.Bind( wx.EVT_BUTTON, self.addQuestao )
 
@@ -85,7 +93,6 @@ class PyFeed(gui.PyFeed):
 
         codigo_questao = self.txt_idQuestao.GetValue()
         # lista de tipo de questões suportadas pelo progama para interação
-        tipo_questao_suportado = ["Objetiva de resposta única", "Objetiva de resposta múltipla"]
         alternativas = [] # será adicionada as alternativas conforme cada tipo de questão
         # busca questão pelo id informado
         if (codigo_questao != ""):
@@ -100,7 +107,7 @@ class PyFeed(gui.PyFeed):
                 url_questaoCompleta = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/"+result.urlVisualizar
                 dados_completosQuestao = self.tutor.br.open(url_questaoCompleta).get_data().decode("latin1")
                 q_estruturaCompleta = json.loads(dados_completosQuestao)["data"]
-                if result.dsTipoQuestao in tipo_questao_suportado:
+                if result.dsTipoQuestao in self.tipo_questao_suportado:
                     # verifica se há alternativas já cadastadas
                     if (q_estruturaCompleta.get("alternativaList") == []):
                         # aplica estruturação de questão

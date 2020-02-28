@@ -91,10 +91,12 @@ class Login ( wx.Frame ):
 
 class AddQuestao ( wx.Frame ):
 
-	def __init__( self, parent ):
+	def __init__( self, parent, tipo_questao_suportado ):
 		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"PyFeed - Unicesumar EAD", pos = wx.DefaultPosition, size = wx.Size( 700,715 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+		self.SetExtraStyle( wx.FRAME_EX_METAL )
+		self.SetBackgroundColour( wx.Colour( 255, 255, 255 ) )
 
 		bSizer6 = wx.BoxSizer( wx.VERTICAL )
 
@@ -122,7 +124,13 @@ class AddQuestao ( wx.Frame ):
 
 		bSizer8.Add( self.lb_curso, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
-		cb_cursoChoices = []
+		cb_cursoChoices = [
+			"TEO","TEOL","AGRO","CCONT","GPUB","ENG. PROD.","ENG. SOFT.","EDU","GRH","ADS","SI","DM",
+			"DI","ADM","PGER","MKT","MAT","HIST","SEG. TRAB.","PED","GAMB","GEO","T.I","GPV","GFIN",
+			"GASTRO","GCOM","GIMOB","LET","LOG","SEC","GH","DP","SSOC","GC","GQ","GTS","ECON","CURSO DE ORIGEM",
+			"EMP","BEDU","ECIV","EELE","EMEC","EMCA","HEPROD","HÍBRIDO","FSCE","PROJETO DE ENSINO","SPRIV","ARTV",
+			"CBIO","PSICO","PCERV","SALI","FIL","SOCIO","ECOS","POD","TINT"
+		]
 		self.cb_curso = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, cb_cursoChoices, 0 )
 		bSizer8.Add( self.cb_curso, 0, wx.ALL, 5 )
 
@@ -171,7 +179,7 @@ class AddQuestao ( wx.Frame ):
 
 		bSizer10.Add( self.lb_tipoQuestao, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
-		cb_tipoQuestaoChoices = []
+		cb_tipoQuestaoChoices = tipo_questao_suportado
 		self.cb_tipoQuestao = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, cb_tipoQuestaoChoices, 0 )
 		bSizer10.Add( self.cb_tipoQuestao, 1, wx.ALL, 5 )
 
@@ -190,7 +198,7 @@ class AddQuestao ( wx.Frame ):
 
 		bSizer10.Add( self.m_staticText15, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
-		ch_origemChoices = [ u"Prova" ]
+		ch_origemChoices = [ u"LIVRO NÚCLEO ESPECÍFICO" ]
 		self.ch_origem = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, ch_origemChoices, 0 )
 		self.ch_origem.SetSelection( 0 )
 		bSizer10.Add( self.ch_origem, 0, wx.ALL, 5 )

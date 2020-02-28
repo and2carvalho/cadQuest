@@ -381,6 +381,28 @@ dic_tags = {
         "UNIDADE 7" : "33",
         "UNIDADE 8" : "141",
         "UNIDADE 9" : "142"
+    },
+    "idMacroOrigem" : {
+        "LIVRO NÚCLEO COMUM" : "1",
+        "AULA AO VIVO - NÚCLEO ESPECÍFICO" : "3",
+        "AULA CONCEITUAL - NÚCLEO ESPECÍFICO" : "4",
+        "MATERIAL EXTRA - NÚCLEO ESPECÍFICO" : "5",
+        "ESTUDO DE CASO - NÚCLEO ESPECÍFICO" : "6",
+        "COLETÂNEA - NÚCLEO ESPECÍFICO" : "7",
+        "APOSTILA - NÚCLEO ESPECÍFICO" : "8",
+        "AULA PRESENCIAL" : "9",
+        "LIVRO NÚCLEO ESPECÍFICO" : "10",
+        "DESAFIO PRESENCIAL" : "12"
+    },
+    "idMacroTipoQuestao" : {
+        "Objetiva de resposta única" : "1",
+        "Objetiva de resposta única com afirmação incompleta" : "2",
+        "Objetiva de resposta múltipla" : "3",
+        "Objetiva de falso ou verdadeiro" : "4",
+        "Objetiva de completar lacuna" : "5",
+        "Objetiva de associação" : "6",
+        "Objetiva de interpretação" : "7",
+        "Objetiva de asserção e razão" : "8"
     }
 }
 '''request 
