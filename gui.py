@@ -58,8 +58,8 @@ class Login ( wx.Frame ):
 		gSizer2 = wx.GridSizer( 1, 1, 0, 0 )
 
 		gSizer2.SetMinSize( wx.Size( -1,50 ) )
-		self.btn_login = wx.Button( self, wx.ID_ANY, u"ACESSAR INTRANET", wx.DefaultPosition, wx.DefaultSize, 0 )
-		gSizer2.Add( self.btn_login, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL|wx.ALIGN_CENTER_VERTICAL|wx.EXPAND, 5 )
+		self.bt_login = wx.Button( self, wx.ID_ANY, u"ACESSAR INTRANET", wx.DefaultPosition, wx.DefaultSize, 0 )
+		gSizer2.Add( self.bt_login, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL|wx.ALIGN_CENTER_VERTICAL|wx.EXPAND, 5 )
 
 
 		bSizerMain.Add( gSizer2, 0, wx.EXPAND, 5 )
@@ -74,7 +74,7 @@ class Login ( wx.Frame ):
 		self.Centre( wx.BOTH )
 
 		# Connect Events
-		self.btn_login.Bind( wx.EVT_BUTTON, self.acessar_intranet )
+		self.bt_login.Bind( wx.EVT_BUTTON, self.acessar_intranet )
 
 	def __del__( self ):
 		pass
@@ -82,6 +82,169 @@ class Login ( wx.Frame ):
 
 	# Virtual event handlers, overide them in your derived class
 	def acessar_intranet( self, event ):
+		event.Skip()
+
+
+###########################################################################
+## Class AddQuestao
+###########################################################################
+
+class AddQuestao ( wx.Frame ):
+
+	def __init__( self, parent ):
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"PyFeed - Unicesumar EAD", pos = wx.DefaultPosition, size = wx.Size( 700,715 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+
+		bSizer6 = wx.BoxSizer( wx.VERTICAL )
+
+		bSizer8 = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.lb_modulo = wx.StaticText( self, wx.ID_ANY, u"Módulo", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_modulo.Wrap( -1 )
+
+		bSizer8.Add( self.lb_modulo, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+		self.cb_mod51 = wx.CheckBox( self, wx.ID_ANY, u"51", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer8.Add( self.cb_mod51, 0, wx.ALL, 5 )
+
+		self.cb_mod52 = wx.CheckBox( self, wx.ID_ANY, u"52", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer8.Add( self.cb_mod52, 0, wx.ALL, 5 )
+
+		self.cb_mod53 = wx.CheckBox( self, wx.ID_ANY, u"53", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer8.Add( self.cb_mod53, 0, wx.ALL, 5 )
+
+		self.cb_mod54 = wx.CheckBox( self, wx.ID_ANY, u"54", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer8.Add( self.cb_mod54, 0, wx.ALL, 5 )
+
+		self.lb_curso = wx.StaticText( self, wx.ID_ANY, u"Curso", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_curso.Wrap( -1 )
+
+		bSizer8.Add( self.lb_curso, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+		cb_cursoChoices = []
+		self.cb_curso = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, cb_cursoChoices, 0 )
+		bSizer8.Add( self.cb_curso, 0, wx.ALL, 5 )
+
+		self.lb_origem = wx.StaticText( self, wx.ID_ANY, u"Origem", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_origem.Wrap( -1 )
+
+		bSizer8.Add( self.lb_origem, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+		m_choice3Choices = []
+		self.m_choice3 = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice3Choices, 0 )
+		self.m_choice3.SetSelection( 0 )
+		bSizer8.Add( self.m_choice3, 1, wx.ALL, 5 )
+
+
+		bSizer6.Add( bSizer8, 0, wx.EXPAND, 5 )
+
+		bSizer9 = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.lb_disciplina = wx.StaticText( self, wx.ID_ANY, u"Disciplina", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_disciplina.Wrap( -1 )
+
+		bSizer9.Add( self.lb_disciplina, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+		m_choice2Choices = []
+		self.m_choice2 = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice2Choices, 0 )
+		self.m_choice2.SetSelection( 0 )
+		bSizer9.Add( self.m_choice2, 1, wx.ALL, 5 )
+
+		self.lb_diretorioRaiz = wx.StaticText( self, wx.ID_ANY, u"Diretório Raiz", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_diretorioRaiz.Wrap( -1 )
+
+		bSizer9.Add( self.lb_diretorioRaiz, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+		m_choice5Choices = [ u"Unicesumar-EAD-GRAD" ]
+		self.m_choice5 = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice5Choices, 0 )
+		self.m_choice5.SetSelection( 0 )
+		bSizer9.Add( self.m_choice5, 0, wx.ALL, 5 )
+
+
+		bSizer6.Add( bSizer9, 0, wx.EXPAND, 5 )
+
+		bSizer10 = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.lb_tipoQuestao = wx.StaticText( self, wx.ID_ANY, u"Tipo de Questão", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_tipoQuestao.Wrap( -1 )
+
+		bSizer10.Add( self.lb_tipoQuestao, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+		cb_tipoQuestaoChoices = []
+		self.cb_tipoQuestao = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, cb_tipoQuestaoChoices, 0 )
+		bSizer10.Add( self.cb_tipoQuestao, 1, wx.ALL, 5 )
+
+		self.lb_complexidade = wx.StaticText( self, wx.ID_ANY, u"Complexidade", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_complexidade.Wrap( -1 )
+
+		bSizer10.Add( self.lb_complexidade, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+		ch_complexidadeChoices = [ u"Fácil", u"Médio", u"Difícil" ]
+		self.ch_complexidade = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, ch_complexidadeChoices, 0 )
+		self.ch_complexidade.SetSelection( 0 )
+		bSizer10.Add( self.ch_complexidade, 0, wx.ALL, 5 )
+
+		self.m_staticText15 = wx.StaticText( self, wx.ID_ANY, u"Destino", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText15.Wrap( -1 )
+
+		bSizer10.Add( self.m_staticText15, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+		ch_origemChoices = [ u"Prova" ]
+		self.ch_origem = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, ch_origemChoices, 0 )
+		self.ch_origem.SetSelection( 0 )
+		bSizer10.Add( self.ch_origem, 0, wx.ALL, 5 )
+
+
+		bSizer6.Add( bSizer10, 0, wx.EXPAND, 5 )
+
+		bSizer101 = wx.BoxSizer( wx.VERTICAL )
+
+		self.lb_enunciado = wx.StaticText( self, wx.ID_ANY, u"Texto Base / Enunciado", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_enunciado.Wrap( -1 )
+
+		bSizer101.Add( self.lb_enunciado, 0, wx.ALL, 5 )
+
+		self.tx_enunciado = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 500,250 ), wx.TE_MULTILINE )
+		bSizer101.Add( self.tx_enunciado, 1, wx.ALL|wx.EXPAND, 5 )
+
+		self.lb_resposta = wx.StaticText( self, wx.ID_ANY, u"Resposta Esperada", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_resposta.Wrap( -1 )
+
+		bSizer101.Add( self.lb_resposta, 0, wx.ALL, 5 )
+
+		self.tx_feedback = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 500,100 ), wx.TE_MULTILINE )
+		bSizer101.Add( self.tx_feedback, 0, wx.ALL|wx.EXPAND, 5 )
+
+		self.lb_unLivro = wx.StaticText( self, wx.ID_ANY, u"Unidade do Livro", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_unLivro.Wrap( -1 )
+
+		bSizer101.Add( self.lb_unLivro, 0, wx.ALL, 5 )
+
+		self.tx_unLivro = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer101.Add( self.tx_unLivro, 0, wx.ALL, 5 )
+
+
+		bSizer6.Add( bSizer101, 0, wx.EXPAND, 5 )
+
+		self.bt_salvarQuestao = wx.Button( self, wx.ID_ANY, u"Salvar Nova Questão", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer6.Add( self.bt_salvarQuestao, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 11 )
+
+
+		self.SetSizer( bSizer6 )
+		self.Layout()
+
+		self.Centre( wx.BOTH )
+
+		# Connect Events
+		self.bt_salvarQuestao.Bind( wx.EVT_BUTTON, self.addQuestao )
+
+	def __del__( self ):
+		pass
+
+
+	# Virtual event handlers, overide them in your derived class
+	def addQuestao( self, event ):
 		event.Skip()
 
 
@@ -127,7 +290,7 @@ class PyFeed ( wx.Frame ):
 
 		gSizer2 = wx.GridSizer( 1, 1, 0, 0 )
 
-		self.b_estruturar = wx.Button( self, wx.ID_ANY, u"Estruturar Qustão", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.b_estruturar = wx.Button( self, wx.ID_ANY, u"Estruturar Questão", wx.DefaultPosition, wx.DefaultSize, 0 )
 		gSizer2.Add( self.b_estruturar, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL|wx.EXPAND, 5 )
 
 
@@ -135,10 +298,10 @@ class PyFeed ( wx.Frame ):
 
 		gSizer7 = wx.GridSizer( 1, 4, 0, 0 )
 
-		self.btn_novaEstrutura = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 60,50 ), wx.BU_AUTODRAW|0 )
+		self.btn_novaQuestao = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 60,50 ), wx.BU_AUTODRAW|0 )
 
-		self.btn_novaEstrutura.SetBitmap( wx.Bitmap( u"static/icon-estrut.png", wx.BITMAP_TYPE_ANY ) )
-		gSizer7.Add( self.btn_novaEstrutura, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 8 )
+		self.btn_novaQuestao.SetBitmap( wx.Bitmap( u"static/icon-estrut.png", wx.BITMAP_TYPE_ANY ) )
+		gSizer7.Add( self.btn_novaQuestao, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 8 )
 
 		self.btn_configEstrutura = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 60,40 ), wx.BU_AUTODRAW|0 )
 
@@ -169,6 +332,7 @@ class PyFeed ( wx.Frame ):
 
 		# Connect Events
 		self.b_estruturar.Bind( wx.EVT_BUTTON, self.estrutura_questao )
+		self.btn_novaQuestao.Bind( wx.EVT_BUTTON, self.form_novaQuestao )
 
 	def __del__( self ):
 		pass
@@ -176,6 +340,9 @@ class PyFeed ( wx.Frame ):
 
 	# Virtual event handlers, overide them in your derived class
 	def estrutura_questao( self, event ):
+		event.Skip()
+
+	def form_novaQuestao( self, event ):
 		event.Skip()
 
 
@@ -186,7 +353,7 @@ class PyFeed ( wx.Frame ):
 class AlternativaCorreta ( wx.Dialog ):
 
 	def __init__( self, parent, alternativas ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Finaliza Estrutura Banco de Questoes", pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.OK | wx.ICON_INFORMATION )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Finaliza Estrutura Banco de Questoes", pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.DEFAULT_DIALOG_STYLE )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.Colour( 255, 255, 255 ) )
@@ -203,7 +370,6 @@ class AlternativaCorreta ( wx.Dialog ):
 
 		m_radioBox1Choices = alternativas
 		self.m_radioBox1 = wx.RadioBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, m_radioBox1Choices, 1, wx.RA_SPECIFY_COLS )
-		#self.m_radioBox1.SetSelection()
 		bSizer5.Add( self.m_radioBox1, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 12 )
 
 		self.bt_alt_correta = wx.Button( self, wx.ID_ANY, u"Selecionar e cadastrar estrutura", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -226,4 +392,5 @@ class AlternativaCorreta ( wx.Dialog ):
 	# Virtual event handlers, overide them in your derived class
 	def setAlternativaCorreta( self, event ):
 		event.Skip()
+
 

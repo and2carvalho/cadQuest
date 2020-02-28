@@ -50,9 +50,8 @@ class Usuario():
         except Exception as e:
             print(e)
             
-    def requestQuestao(self, id_questao):
+    def requestGetQuestao(self, id_questao):
 
-        #TODO ajustar tela dialog para trazer informações dinâmicas
         ''' Recebe dados da API apartir de uma número de id de questão.'''
 
         url_api = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php"
@@ -69,9 +68,35 @@ class Usuario():
         request_form_questao = mechanize.Request(url_api,data)
         response = self.br.open(request_form_questao)
         dados_questao = response.get_data().decode("latin1")
-        # TODO já vincular o cadastro das informações no banco de dados interno
-        # seguindo o link de edição de questao que vem como resposta do request
         return dados_questao
+
+    def requestPostQuestao(self, enunciado, feedback, idComplexidade, idOrigem, idTipoQuestao):
+
+        ''' Realiza primeiro cadastro da questão na API apartir do form do programa. '''
+
+        url_api = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php"
+        payload = {
+            "action" : "inserir",
+            "ativo" : 1,
+            "enunciado" : enunciado,
+            "feedback" : feedback,
+            "fileImgGabaritoBase64": None,
+            "fileImgGabaritoNomeOriginal": None,
+            "idComplexidade": idComplexidade,
+            "idImgGabarito": None,
+            "idNodeRaiz": 1,
+            "idNodeRaiz": 1,
+            "idOrigem":idOrigem,
+            "idTipoQuestao":idTipoQuestao
+        }
+        from urllib import parse
+        data = parse.urlencode(payload)
+        request_form_questao = mechanize.Request(url_api,data)
+        response = self.br.open(request_form_questao)
+        from bs4 import BeautifulSoup
+        soup = BeautifulSoup(response.read(), "lxml")
+        idQuestao = soup.find("input", {"id":"idQuestao"}).get("value")
+        return idQuestao
 
     def requestAlternativa(self, idQuestao, op_correta, dic_alternativas):
         

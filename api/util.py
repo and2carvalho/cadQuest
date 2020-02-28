@@ -33,7 +33,7 @@ def _cadastraUSUARIO():
     DE FORMA MAIS EFICIENTE'''
     pass
 
-def addQuestao(request_args):
+def dbQuestao(request_args):
     ''' os argumentos precisam vir como dicionario ou lista de dicionaro
     do requesta de consulta de questao '''
     from db.model import Questao, Session
@@ -400,21 +400,3 @@ idTagList[]: 2
 idNodeMacro: 2
 idTagList[]: 13
 idTagList[]: 14'''
-
-'''NOVO CADASTRO
-action: inserir
-idQuestao: 
-idTipoQuestao: 1
-idOrigem: 10
-idComplexidade: 1
-idNodeRaiz: 1
-idNodeRaiz: 1
-idDestinoList[]: 1
-tema: Teste
-enunciado: Teste
-tamanhoResposta: 
-fileImgGabaritoBase64: 
-fileImgGabaritoNomeOriginal: 
-idImgGabarito: 
-feedback: Teste
-ativo: 1'''

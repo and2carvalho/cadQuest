@@ -1,10 +1,14 @@
 # coding=utf-8
 
 from api.usuario import Usuario
-from api.util import loginApp, serializaRequest, addQuestao, dic_alternativas
+from api.util import loginApp, serializaRequest, dbQuestao, dic_alternativas
 import wx
 import gui
 
+class AddQuestao(gui.AddQuestao):
+
+    def __init__(self, parent):
+        gui.AddQuestao.__init__(self, parent)
 
 class AlternativaCorreta(gui.AlternativaCorreta):
 
@@ -21,7 +25,7 @@ class PyFeed(gui.PyFeed):
         self.login_frame = gui.Login(self)
         self.login_frame.Show()
 
-        self.login_frame.btn_login.Bind( wx.EVT_BUTTON, self.acessar_intranet )
+        self.login_frame.bt_login.Bind( wx.EVT_BUTTON, self.acessar_intranet )
     
     def info(self, parent, message, caption = 'INFORMAÇÃO!'):
         dlg = wx.MessageDialog(parent, message, caption, wx.OK | wx.ICON_INFORMATION)
@@ -35,6 +39,9 @@ class PyFeed(gui.PyFeed):
 
     def acessar_intranet(self, event):
 
+        ''' Realiza login na intranet unicesumar e acessa o Formulário
+        de busca das questões. '''
+
         self.tutor = Usuario("luciana.tavone","31415*Pi")#self.login_frame.txt_login.GetValue(), self.login_frame.txt_senha.GetValue())
         loginApp(self.tutor)
         if (self.tutor.br.response().geturl() == "http://intranet.unicesumar.edu.br/?erro_login"):
@@ -46,7 +53,32 @@ class PyFeed(gui.PyFeed):
             self.Show()
             self.tutor.acessaFrmQuestao()
 
+    def addQuestao(self, event):
+        enunciado = self.add_questao_frame.tx_enunciado.GetValue()
+        feedback= self.add_questao_frame.tx_feedback.GetValue()
+        complexidade = self.add_questao_frame.ch_complexidade.GetStringSelection()
+        if complexidade == "Fácil":
+            idComplexidade = 1
+        elif complexidade == "Médio":
+            idComplexidade = 2
+        else:
+            idComplexidade = 3
+        idOrigem = 10
+        idTipoQuestao = 1
+        idQuestao = self.tutor.requestPostQuestao(enunciado, feedback, idComplexidade, idOrigem, idTipoQuestao)
+        self.txt_idQuestao.SetValue(idQuestao)
+        self.add_questao_frame.Destroy()
+
+    def form_novaQuestao( self, event ):
+        self.add_questao_frame = gui.AddQuestao(self)
+        self.add_questao_frame.Show()
+        self.add_questao_frame.bt_salvarQuestao.Bind( wx.EVT_BUTTON, self.addQuestao )
+
     def estrutura_questao(self, event):
+
+        ''' Realiza busca na base de dados da intranet pelo número da questão.
+        Adiciona/atualiza informações no db interno e cadastra estrutura de alternativas
+        e tags via requisição api '''
 
         import json
         from db.model import Session, Questao
@@ -57,18 +89,17 @@ class PyFeed(gui.PyFeed):
         alternativas = [] # será adicionada as alternativas conforme cada tipo de questão
         # busca questão pelo id informado
         if (codigo_questao != ""):
-            dados_questao = self.tutor.requestQuestao(codigo_questao)
+            dados_questao = self.tutor.requestGetQuestao(codigo_questao)
             result_questao = serializaRequest(dados_questao)
             if result_questao != '[]':
                 # salva/atualiza dados da questão no banco de dados interno
-                addQuestao(result_questao)
+                dbQuestao(result_questao)
                 session = Session()
                 query = session.query(Questao).filter(Questao.idQuestao == codigo_questao)
                 result = query.one_or_none()
                 url_questaoCompleta = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/"+result.urlVisualizar
                 dados_completosQuestao = self.tutor.br.open(url_questaoCompleta).get_data().decode("latin1")
                 q_estruturaCompleta = json.loads(dados_completosQuestao)["data"]
-                print(q_estruturaCompleta)
                 if result.dsTipoQuestao in tipo_questao_suportado:
                     # verifica se há alternativas já cadastadas
                     if (q_estruturaCompleta.get("alternativaList") == []):
