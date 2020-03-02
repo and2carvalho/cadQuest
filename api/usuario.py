@@ -126,3 +126,31 @@ class Usuario():
             return "{ Status : Success}"
         except Exception as e:
             return "Erro de conexao com o servidor Intranet\n{}".format(e)
+
+    def requestTags(self, idQuestao):#, dic_temp):
+        dic_temp = {
+            "34":"131",
+            "8" : "161",
+            "30" : "96",
+            "1" : "1",
+            "2" : "13"
+            }
+        url_api = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php"
+        from urllib import parse
+        payload = {
+            "action": "inserir",
+            "idNodeMacro": "34",
+            "idNodeMacro": "8",
+            "idNodeMacro": "30",
+            "idNodeMacro": "1",
+            "idNodeMacro": "2",
+            "idQuestao": idQuestao,
+            "idTagList[]": "131",
+            "idTagList[]": "161",
+            "idTagList[]": "96",
+            "idTagList[]": "1",
+            "idTagList[]": "10"
+        }
+        data = parse.urlencode(payload)
+        request_form_questao = mechanize.Request(url_api,data)
+        response = self.br.open(request_form_questao)

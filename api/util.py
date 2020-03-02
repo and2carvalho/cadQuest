@@ -372,15 +372,15 @@ dic_tags = {
         "MÓDULO 54" : "4"
     },
     "idMacroNode2" : {
-        "UNIDADE 1" : "10",
-        "UNIDADE 2" : "11",
-        "UNIDADE 3" : "12",
-        "UNIDADE 4" : "13",
-        "UNIDADE 5" : "14",
-        "UNIDADE 6" : "32",
-        "UNIDADE 7" : "33",
-        "UNIDADE 8" : "141",
-        "UNIDADE 9" : "142"
+        "UNIDADE I" : "10",
+        "UNIDADE II" : "11",
+        "UNIDADE III" : "12",
+        "UNIDADE IV" : "13",
+        "UNIDADE V" : "14",
+        "UNIDADE VI" : "32",
+        "UNIDADE VII" : "33",
+        "UNIDADE VIII" : "141",
+        "UNIDADE IX" : "142"
     },
     "idMacroOrigem" : {
         "LIVRO NÚCLEO COMUM" : "1",

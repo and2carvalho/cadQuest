@@ -92,10 +92,9 @@ class Login ( wx.Frame ):
 class AddQuestao ( wx.Frame ):
 
 	def __init__( self, parent, tipo_questao_suportado ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"PyFeed - Unicesumar EAD", pos = wx.DefaultPosition, size = wx.Size( 700,715 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"PyFeed - Unicesumar EAD", pos = wx.DefaultPosition, size = wx.Size( 700,756 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
-		self.SetExtraStyle( wx.FRAME_EX_METAL )
 		self.SetBackgroundColour( wx.Colour( 255, 255, 255 ) )
 
 		bSizer6 = wx.BoxSizer( wx.VERTICAL )
@@ -124,13 +123,7 @@ class AddQuestao ( wx.Frame ):
 
 		bSizer8.Add( self.lb_curso, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
-		cb_cursoChoices = [
-			"TEO","TEOL","AGRO","CCONT","GPUB","ENG. PROD.","ENG. SOFT.","EDU","GRH","ADS","SI","DM",
-			"DI","ADM","PGER","MKT","MAT","HIST","SEG. TRAB.","PED","GAMB","GEO","T.I","GPV","GFIN",
-			"GASTRO","GCOM","GIMOB","LET","LOG","SEC","GH","DP","SSOC","GC","GQ","GTS","ECON","CURSO DE ORIGEM",
-			"EMP","BEDU","ECIV","EELE","EMEC","EMCA","HEPROD","HÍBRIDO","FSCE","PROJETO DE ENSINO","SPRIV","ARTV",
-			"CBIO","PSICO","PCERV","SALI","FIL","SOCIO","ECOS","POD","TINT"
-		]
+		cb_cursoChoices = [ u"TEO", u"TEOL", u"AGRO", u"CCONT", u"GPUB", u"ENG. PROD.", u"ENG. SOFT.", u"EDU", u"GRH", u"ADS", u"SI", u"DM", u"DI", u"ADM", u"PGER", u"MKT", u"MAT", u"HIST", u"SEG. TRAB.", u"PED", u"GAMB", u"GEO", u"T.I", u"GPV", u"GFIN", u"GASTRO", u"GCOM", u"GIMOB", u"LET", u"LOG", u"SEC", u"GH", u"DP", u"SSOC", u"GC", u"GQ", u"GTS", u"ECON", u"CURSO DE ORIGEM", u"EMP", u"BEDU", u"ECIV", u"EELE", u"EMEC", u"EMCA", u"HEPROD", u"HÍBRIDO", u"FSCE", u"PROJETO DE ENSINO", u"SPRIV", u"ARTV", u"CBIO", u"PSICO", u"PCERV", u"SALI", u"FIL", u"SOCIO", u"ECOS", u"POD", u"TINT" ]
 		self.cb_curso = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, cb_cursoChoices, 0 )
 		bSizer8.Add( self.cb_curso, 0, wx.ALL, 5 )
 
@@ -190,7 +183,7 @@ class AddQuestao ( wx.Frame ):
 
 		ch_complexidadeChoices = [ u"Fácil", u"Médio", u"Difícil" ]
 		self.ch_complexidade = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, ch_complexidadeChoices, 0 )
-		self.ch_complexidade.SetSelection( 0 )
+		self.ch_complexidade.SetSelection( -1 )
 		bSizer10.Add( self.ch_complexidade, 0, wx.ALL, 5 )
 
 		self.m_staticText15 = wx.StaticText( self, wx.ID_ANY, u"Destino", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -206,34 +199,36 @@ class AddQuestao ( wx.Frame ):
 
 		bSizer6.Add( bSizer10, 0, wx.EXPAND, 5 )
 
-		bSizer101 = wx.BoxSizer( wx.VERTICAL )
+		bSizer11 = wx.BoxSizer( wx.HORIZONTAL )
+
+		cb_unLivroChoices = [ u"Capitulo I", u"Capitulo II", u"Capitulo III", u"Capitulo I", u"Capitulo IV", u"Capitulo V", u"Capitulo VI", u"Capitulo VII", u"Capitulo VIII", u"Capitulo IX" ]
+		self.cb_unLivro = wx.RadioBox( self, wx.ID_ANY, u"Unidade do Livro", wx.DefaultPosition, wx.DefaultSize, cb_unLivroChoices, 7, wx.RA_SPECIFY_COLS )
+		self.cb_unLivro.SetSelection( 0 )
+		bSizer11.Add( self.cb_unLivro, 1, wx.ALL, 5 )
+
+
+		bSizer6.Add( bSizer11, 0, wx.EXPAND, 5 )
+
+		bSizer12 = wx.BoxSizer( wx.VERTICAL )
 
 		self.lb_enunciado = wx.StaticText( self, wx.ID_ANY, u"Texto Base / Enunciado", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.lb_enunciado.Wrap( -1 )
 
-		bSizer101.Add( self.lb_enunciado, 0, wx.ALL, 5 )
+		bSizer12.Add( self.lb_enunciado, 0, wx.ALL, 5 )
 
 		self.tx_enunciado = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 500,250 ), wx.TE_MULTILINE )
-		bSizer101.Add( self.tx_enunciado, 1, wx.ALL|wx.EXPAND, 5 )
+		bSizer12.Add( self.tx_enunciado, 0, wx.ALL|wx.EXPAND, 5 )
 
 		self.lb_resposta = wx.StaticText( self, wx.ID_ANY, u"Resposta Esperada", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.lb_resposta.Wrap( -1 )
 
-		bSizer101.Add( self.lb_resposta, 0, wx.ALL, 5 )
+		bSizer12.Add( self.lb_resposta, 0, wx.ALL, 5 )
 
-		self.tx_feedback = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 500,100 ), wx.TE_MULTILINE )
-		bSizer101.Add( self.tx_feedback, 0, wx.ALL|wx.EXPAND, 5 )
-
-		self.lb_unLivro = wx.StaticText( self, wx.ID_ANY, u"Unidade do Livro", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.lb_unLivro.Wrap( -1 )
-
-		bSizer101.Add( self.lb_unLivro, 0, wx.ALL, 5 )
-
-		self.tx_unLivro = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer101.Add( self.tx_unLivro, 0, wx.ALL, 5 )
+		self.tx_resposta = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 500,100 ), wx.TE_MULTILINE )
+		bSizer12.Add( self.tx_resposta, 0, wx.ALL|wx.EXPAND, 5 )
 
 
-		bSizer6.Add( bSizer101, 0, wx.EXPAND, 5 )
+		bSizer6.Add( bSizer12, 1, wx.EXPAND, 5 )
 
 		self.bt_salvarQuestao = wx.Button( self, wx.ID_ANY, u"Salvar Nova Questão", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer6.Add( self.bt_salvarQuestao, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 11 )
@@ -378,6 +373,7 @@ class AlternativaCorreta ( wx.Dialog ):
 
 		m_radioBox1Choices = alternativas
 		self.m_radioBox1 = wx.RadioBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, m_radioBox1Choices, 1, wx.RA_SPECIFY_COLS )
+		self.m_radioBox1.SetSelection( 0 )
 		bSizer5.Add( self.m_radioBox1, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 12 )
 
 		self.bt_alt_correta = wx.Button( self, wx.ID_ANY, u"Selecionar e cadastrar estrutura", wx.DefaultPosition, wx.DefaultSize, 0 )

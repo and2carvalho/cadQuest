@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from sqlalchemy import Column, String, Integer, Date, ForeignKey
+from sqlalchemy import Column, String, Integer, Date, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -41,10 +41,6 @@ class Questao(Base):
     cryp_aprovar = Column(String(250))
     cryp_rejeitar = Column(String(250))
     cryp_publicar = Column(String(250))
-    tag_cursoOrigem = Column(Integer)
-    tag_modulo = Column(Integer)
-    tag_unidadeLivro = Column(Integer)
-    tag_disciplina = Column(Integer)
     
     def __repr__(self):
         return "Id da Questao: {}\nUsuario de Cadastro: {}\n\
