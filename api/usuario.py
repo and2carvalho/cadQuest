@@ -127,30 +127,49 @@ class Usuario():
         except Exception as e:
             return "Erro de conexao com o servidor Intranet\n{}".format(e)
 
-    def requestTags(self, idQuestao):#, dic_temp):
+    def requestTags(self, idQuestao, dic_temp):
         dic_temp = {
-            "34":"131",
-            "8" : "161",
-            "30" : "96",
-            "1" : "1",
-            "2" : "13"
+            "34": "131",
+            "atv1": "161",
+            "atv2": "53",
+            "curso": "96",
+            "mod1": "1",
+            "mod2": "2",
+            "mod3": "3",
+            "mod4": "4",
+            "unLivro": "13"
             }
         url_api = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php"
-        from urllib import parse
-        payload = {
-            "action": "inserir",
-            "idNodeMacro": "34",
-            "idNodeMacro": "8",
-            "idNodeMacro": "30",
-            "idNodeMacro": "1",
-            "idNodeMacro": "2",
-            "idQuestao": idQuestao,
-            "idTagList[]": "131",
-            "idTagList[]": "161",
-            "idTagList[]": "96",
-            "idTagList[]": "1",
-            "idTagList[]": "10"
-        }
-        data = parse.urlencode(payload)
-        request_form_questao = mechanize.Request(url_api,data)
-        response = self.br.open(request_form_questao)
+        #data = "action=inserir&idNodeMacro=34&idNodeMacro=8&idNodeMacro=30&idNodeMacro=1&idNodeMacro=2&idQuestao=282497&idTagList%5B%5D="+dic_temp.get("34")+"&idTagList%5B%5D="+dic_temp.get("8")+"&idTagList%5B%5D="+dic_temp.get("30")+"&idTagList%5B%5D="+dic_temp.get("mod1")+"&idTagList%5B%5D="+dic_temp.get("mod2")+"&idTagList%5B%5D="+dic_temp.get("mod3")+"&idTagList%5B%5D="+dic_temp.get("mod4")+"&idTagList%5B%5D="+dic_temp.get("2")
+        #request_form_questao = mechanize.Request(url_api,data)
+        #response = self.br.open(request_form_questao)
+        #TODO buscar forma de realizar request via payload tal como os outros.
+        from urllib3._collections import HTTPHeaderDict
+        payload = HTTPHeaderDict()
+        try:
+            payload.add("action", "inserir")
+            payload.add("idNodeMacro","34")
+            payload.add("idNodeMacro", "8")
+            payload.add("idNodeMacro","30")
+            payload.add("idNodeMacro", "1")
+            payload.add("idNodeMacro", "2")
+            payload.add("idQuestao", idQuestao)
+            payload.add("idTagList[]", dic_temp.get("34"))
+            payload.add("idTagList[]", dic_temp.get("atv1"))
+            if dic_temp["atv2"]:
+                payload.add("idTagList[]", dic_temp.get("atv2"))
+            payload.add("idTagList[]", dic_temp.get("curso"))
+            payload.add("idTagList[]", dic_temp.get("mod1"))
+            if dic_temp["mod2"]:
+                payload.add("idTagList[]", dic_temp.get("mod2"))
+            if dic_temp["mod3"]:
+                payload.add("idTagList[]", dic_temp.get("mod3"))
+            if dic_temp["mod4"]:
+                payload.add("idTagList[]", dic_temp.get("mod4"))
+            payload.add("idTagList[]", dic_temp.get("unLivro"))
+            from urllib import parse
+            data = parse.urlencode(payload)
+            request_form_questao = mechanize.Request(url_api,data)
+            self.br.open(request_form_questao)
+        except Exception as e:
+            print(e)

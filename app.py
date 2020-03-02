@@ -57,7 +57,8 @@ class PyFeed(gui.PyFeed):
             self.tutor.acessaFrmQuestao()
 
     def addQuestao(self, event):
-        idQuestao = None # necessário para permitir múltiplos cadastros na mesma sessão
+        idQuestao = None # necessário para permitir múltiplos cadastros na mesma sessão do app (caso contrario o valor do id da segunda questão seria mantido e geraria erro no novo cadastro.
+        dic_temp = {}
         enunciado = self.add_questao_frame.tx_enunciado.GetValue()
         resposta = self.add_questao_frame.tx_resposta.GetValue()
         complexidade = self.add_questao_frame.ch_complexidade.GetStringSelection()
@@ -70,26 +71,25 @@ class PyFeed(gui.PyFeed):
         origem = self.add_questao_frame.ch_origem.GetStringSelection()
         tipoQuestao = self.add_questao_frame.cb_tipoQuestao.GetStringSelection()
         curso = self.add_questao_frame.cb_curso.GetStringSelection()
-        unLivro = self.add_questao_frame.cb_unLivro.GetStringSelection()       
-        # dados necessários para criar tags
-        self.tutor.dic_temp = {}
-        idModulo = []
-        if self.add_questao_frame.cb_mod51:
-            idModulo.append("1")
-        elif self.add_questao_frame.cb_mod52:
-            idModulo.append("2")
-        elif self.add_questao_frame.cb_mod53:
-            idModulo.append("3")
-        elif self.add_questao_frame.cb_mod54:
-            idModulo.append("4")
-        idCurso = dic_tags["idNodeMacro30"].get(curso)
-        idUnLivro = dic_tags["idMacroNode2"].get(unLivro)
-        self.tutor.dic_temp["idModulo"] = idModulo
-        self.tutor.dic_temp["idCurso"] = idCurso
-        self.tutor.dic_temp["idUnLivro"] = idUnLivro
-        # request cadastro nova questao
+        unLivro = self.add_questao_frame.cb_unLivro.GetStringSelection()
         idTipoQuestao = dic_tags["idMacroTipoQuestao"].get(tipoQuestao)
         idOrigem = dic_tags["idMacroOrigem"].get(origem)
+        # dados necessários para criar tags
+       dic_temp = {
+            "34": "131",
+            "curso": dic_tags["curso"].get(curso),
+            "unLivro": dic_tags["unLivro"].get(unLivro),
+            #TODO ajustar componente grafico do destino e pegar valor da seleção do usuario
+            "atv": dic_tags["idNodeMacro8"].get("Prova")
+        }
+        if self.add_questao_frame.cb_mod51:
+            self.tutor.dic_temp["mod1"] = "1"
+        elif self.add_questao_frame.cb_mod52:
+            self.tutor.dic_temp["mod2"] = "2"
+        elif self.add_questao_frame.cb_mod53:
+            self.tutor.dic_temp["mod3"] = "3"
+        elif self.add_questao_frame.cb_mod54:
+            self.tutor.dic_temp["mod4"] = "4"
         idQuestao = self.tutor.requestPostQuestao(enunciado, resposta, idComplexidade, idOrigem, idTipoQuestao)
         self.txt_idQuestao.SetValue(idQuestao)
         self.add_questao_frame.Destroy()
@@ -135,7 +135,7 @@ class PyFeed(gui.PyFeed):
                         self.alternativa_panel.ShowModal()
                         op_correta = self.alternativa_panel.m_radioBox1.GetSelection()
                         self.tutor.requestAlternativa(codigo_questao, op_correta, dicionario)
-                        self.tutor.requestTags(codigo_questao)
+                        self.tutor.requestTags(codigo_questao,self.tutor.dic_temp)
                         self.txt_idQuestao.Clear()
                         return self.info(self,"Estruturação de alternativas realizada com sucesso!")
                     else:
