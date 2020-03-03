@@ -92,7 +92,7 @@ class Login ( wx.Frame ):
 class AddQuestao ( wx.Frame ):
 
 	def __init__( self, parent, tipo_questao_suportado ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"PyFeed - Unicesumar EAD", pos = wx.DefaultPosition, size = wx.Size( 700,756 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"PyFeed - Unicesumar EAD", pos = wx.DefaultPosition, size = wx.Size( 771,731 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.Colour( 255, 255, 255 ) )
@@ -132,10 +132,10 @@ class AddQuestao ( wx.Frame ):
 
 		bSizer8.Add( self.lb_origem, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
-		m_choice3Choices = []
-		self.m_choice3 = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice3Choices, 0 )
-		self.m_choice3.SetSelection( 0 )
-		bSizer8.Add( self.m_choice3, 1, wx.ALL, 5 )
+		ch_origemChoices = [ u"LIVRO NÚCLEO ESPECÍFICO" ]
+		self.ch_origem = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, ch_origemChoices, 0 )
+		self.ch_origem.SetSelection( 0 )
+		bSizer8.Add( self.ch_origem, 0, wx.ALL, 5 )
 
 
 		bSizer6.Add( bSizer8, 0, wx.EXPAND, 5 )
@@ -186,15 +186,16 @@ class AddQuestao ( wx.Frame ):
 		self.ch_complexidade.SetSelection( -1 )
 		bSizer10.Add( self.ch_complexidade, 0, wx.ALL, 5 )
 
-		self.m_staticText15 = wx.StaticText( self, wx.ID_ANY, u"Destino", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText15.Wrap( -1 )
+		self.lb_atividade = wx.StaticText( self, wx.ID_ANY, u"Atividade", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_atividade.Wrap( -1 )
 
-		bSizer10.Add( self.m_staticText15, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		bSizer10.Add( self.lb_atividade, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
-		ch_origemChoices = [ u"LIVRO NÚCLEO ESPECÍFICO" ]
-		self.ch_origem = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, ch_origemChoices, 0 )
-		self.ch_origem.SetSelection( 0 )
-		bSizer10.Add( self.ch_origem, 0, wx.ALL, 5 )
+		self.cb_prova = wx.CheckBox( self, wx.ID_ANY, u"Prova", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer10.Add( self.cb_prova, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+		self.cb_mapa = wx.CheckBox( self, wx.ID_ANY, u"Mapa", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer10.Add( self.cb_mapa, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 
 		bSizer6.Add( bSizer10, 0, wx.EXPAND, 5 )
@@ -204,7 +205,7 @@ class AddQuestao ( wx.Frame ):
 		cb_unLivroChoices = [ u"Capitulo I", u"Capitulo II", u"Capitulo III", u"Capitulo I", u"Capitulo IV", u"Capitulo V", u"Capitulo VI", u"Capitulo VII", u"Capitulo VIII", u"Capitulo IX" ]
 		self.cb_unLivro = wx.RadioBox( self, wx.ID_ANY, u"Unidade do Livro", wx.DefaultPosition, wx.DefaultSize, cb_unLivroChoices, 7, wx.RA_SPECIFY_COLS )
 		self.cb_unLivro.SetSelection( 0 )
-		bSizer11.Add( self.cb_unLivro, 1, wx.ALL, 5 )
+		bSizer11.Add( self.cb_unLivro, 1, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer6.Add( bSizer11, 0, wx.EXPAND, 5 )
@@ -228,7 +229,7 @@ class AddQuestao ( wx.Frame ):
 		bSizer12.Add( self.tx_resposta, 0, wx.ALL|wx.EXPAND, 5 )
 
 
-		bSizer6.Add( bSizer12, 1, wx.EXPAND, 5 )
+		bSizer6.Add( bSizer12, 0, wx.EXPAND, 5 )
 
 		self.bt_salvarQuestao = wx.Button( self, wx.ID_ANY, u"Salvar Nova Questão", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer6.Add( self.bt_salvarQuestao, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 11 )

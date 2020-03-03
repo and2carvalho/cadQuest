@@ -26,7 +26,9 @@ class Usuario():
         #self.br.set_debug_responses(True)
         ########----------###########
         self.br.addheaders = [ ( 'User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1' ) ]
-    
+        #TODO buscar forma melhor de fazer o processo de cadastro das tags
+        self.dic_temp = {} # necessario para guardar informações para cadastro de tags
+
     def loginIntranet(self):
         
         tela_main = 'http://intranet.unicesumar.edu.br/'
@@ -85,7 +87,6 @@ class Usuario():
             "idComplexidade": idComplexidade,
             "idImgGabarito": None,
             "idNodeRaiz": 1,
-            "idNodeRaiz": 1,
             "idOrigem":idOrigem,
             "idTipoQuestao":idTipoQuestao
         }
@@ -103,73 +104,62 @@ class Usuario():
         ''' Envia cadastro de alternativas para API. As estruturas a serem
         enviadas são definidas tendo como base a dificuldade e o tipo de questão. '''
         from urllib import parse
-        try:
-            url_api = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php"
-            # insere o id da questao no dicionario de alternativas
-            for payload in dic_alternativas.items():
-                payload[1]["idQuestao"] = idQuestao
-            # seleciona alternativa correta
-            if op_correta == 0:
-                dic_alternativas["payload_1"]["correta"] = 1
-            elif op_correta == 1:
-                dic_alternativas["payload_2"]["correta"] = 1
-            elif op_correta == 2:
-                dic_alternativas["payload_3"]["correta"] = 1
-            elif op_correta == 3:
-                dic_alternativas["payload_4"]["correta"] = 1
-            else:
-                dic_alternativas["payload_5"]["correta"] = 1
-            for payload in dic_alternativas.items():
-                data = parse.urlencode(payload[1])
-                request_insereAlternativa = mechanize.Request(url_api, data)
-                self.br.open(request_insereAlternativa)
-            return "{ Status : Success}"
-        except Exception as e:
-            return "Erro de conexao com o servidor Intranet\n{}".format(e)
+        #try:
+        url_api = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php"
+        # insere o id da questao no dicionario de alternativas
+        for payload in dic_alternativas.items():
+            payload[1]["idQuestao"] = idQuestao
+        # seleciona alternativa correta
+        if op_correta == 0:
+            dic_alternativas["payload_1"]["correta"] = 1
+        elif op_correta == 1:
+            dic_alternativas["payload_2"]["correta"] = 1
+        elif op_correta == 2:
+            dic_alternativas["payload_3"]["correta"] = 1
+        elif op_correta == 3:
+            dic_alternativas["payload_4"]["correta"] = 1
+        else:
+            dic_alternativas["payload_5"]["correta"] = 1
+        for payload in dic_alternativas.items():
+            data = parse.urlencode(payload[1])
+            request_insereAlternativa = mechanize.Request(url_api, data)
+            self.br.open(request_insereAlternativa)
+        return "{ Status : Success}"
+        #except Exception as e:
+        #    return "Erro de conexao com o servidor Intranet\n{}".format(e)
 
-    def requestTags(self, idQuestao, dic_temp):
-        dic_temp = {
-            "34": "131",
-            "atv1": "161",
-            "atv2": "53",
-            "curso": "96",
-            "mod1": "1",
-            "mod2": "2",
-            "mod3": "3",
-            "mod4": "4",
-            "unLivro": "13"
-            }
-        url_api = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php"
-        #data = "action=inserir&idNodeMacro=34&idNodeMacro=8&idNodeMacro=30&idNodeMacro=1&idNodeMacro=2&idQuestao=282497&idTagList%5B%5D="+dic_temp.get("34")+"&idTagList%5B%5D="+dic_temp.get("8")+"&idTagList%5B%5D="+dic_temp.get("30")+"&idTagList%5B%5D="+dic_temp.get("mod1")+"&idTagList%5B%5D="+dic_temp.get("mod2")+"&idTagList%5B%5D="+dic_temp.get("mod3")+"&idTagList%5B%5D="+dic_temp.get("mod4")+"&idTagList%5B%5D="+dic_temp.get("2")
-        #request_form_questao = mechanize.Request(url_api,data)
-        #response = self.br.open(request_form_questao)
+    def requestTags(self, idQuestao):
         #TODO buscar forma de realizar request via payload tal como os outros.
+        #request_data = "action=inserir&idNodeMacro=34&idNodeMacro=8&idNodeMacro=30&idNodeMacro=1&idNodeMacro=2&idQuestao=282497&idTagList%5B%5D="+dic_temp.get("34")+"&idTagList%5B%5D="+dic_temp.get("8")+"&idTagList%5B%5D="+dic_temp.get("30")+"&idTagList%5B%5D="+dic_temp.get("mod1")+"&idTagList%5B%5D="+dic_temp.get("mod2")+"&idTagList%5B%5D="+dic_temp.get("mod3")+"&idTagList%5B%5D="+dic_temp.get("mod4")+"&idTagList%5B%5D="+dic_temp.get("2")
+        url_api = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php"
         from urllib3._collections import HTTPHeaderDict
         payload = HTTPHeaderDict()
-        try:
-            payload.add("action", "inserir")
-            payload.add("idNodeMacro","34")
-            payload.add("idNodeMacro", "8")
-            payload.add("idNodeMacro","30")
-            payload.add("idNodeMacro", "1")
-            payload.add("idNodeMacro", "2")
-            payload.add("idQuestao", idQuestao)
-            payload.add("idTagList[]", dic_temp.get("34"))
-            payload.add("idTagList[]", dic_temp.get("atv1"))
-            if dic_temp["atv2"]:
-                payload.add("idTagList[]", dic_temp.get("atv2"))
-            payload.add("idTagList[]", dic_temp.get("curso"))
-            payload.add("idTagList[]", dic_temp.get("mod1"))
-            if dic_temp["mod2"]:
-                payload.add("idTagList[]", dic_temp.get("mod2"))
-            if dic_temp["mod3"]:
-                payload.add("idTagList[]", dic_temp.get("mod3"))
-            if dic_temp["mod4"]:
-                payload.add("idTagList[]", dic_temp.get("mod4"))
-            payload.add("idTagList[]", dic_temp.get("unLivro"))
-            from urllib import parse
-            data = parse.urlencode(payload)
-            request_form_questao = mechanize.Request(url_api,data)
-            self.br.open(request_form_questao)
-        except Exception as e:
-            print(e)
+        payload.add("action", "inserir")
+        payload.add("idNodeMacro","34")
+        payload.add("idNodeMacro", "8")
+        payload.add("idNodeMacro","30")
+        payload.add("idNodeMacro", "1")
+        payload.add("idNodeMacro", "2")
+        payload.add("idQuestao", idQuestao)
+        payload.add("idTagList[]", self.dic_temp.get("34"))
+        payload.add("idTagList[]", self.dic_temp.get("atv1"))
+        if self.dic_temp["atv2"]:
+            payload.add("idTagList[]", self.dic_temp.get("atv2"))
+        else:
+            pass
+        payload.add("idTagList[]", self.dic_temp.get("curso"))
+        if self.dic_temp["mod1"]:
+            payload.add("idTagList[]", self.dic_temp.get("mod1"))
+        if self.dic_temp["mod2"]:
+            payload.add("idTagList[]", self.dic_temp.get("mod2"))
+        elif self.dic_temp["mod3"]:
+            payload.add("idTagList[]", self.dic_temp.get("mod3"))
+        elif self.dic_temp["mod4"]:
+            payload.add("idTagList[]", self.dic_temp.get("mod4"))
+        else:
+            pass
+        payload.add("idTagList[]", self.dic_temp.get("unLivro"))
+        from urllib import parse
+        data = parse.urlencode(payload)
+        request_form_questao = mechanize.Request(url_api,data)
+        self.br.open(request_form_questao)

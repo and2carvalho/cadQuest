@@ -119,7 +119,7 @@ dic_alternativas = {
       }
     },
     "Médio": {
-      " payload_1": {
+      "payload_1": {
         "action": "inserir",
         "idQuestao": None,
         "dsAlternativa": "I, apenas.",
@@ -372,15 +372,15 @@ dic_tags = {
         "MÓDULO 54" : "4"
     },
     "idMacroNode2" : {
-        "UNIDADE I" : "10",
-        "UNIDADE II" : "11",
-        "UNIDADE III" : "12",
-        "UNIDADE IV" : "13",
-        "UNIDADE V" : "14",
-        "UNIDADE VI" : "32",
-        "UNIDADE VII" : "33",
-        "UNIDADE VIII" : "141",
-        "UNIDADE IX" : "142"
+        "Capitulo I" : "10",
+        "Capitulo II" : "11",
+        "Capitulo III" : "12",
+        "Capitulo IV" : "13",
+        "Capitulo V" : "14",
+        "Capitulo VI" : "32",
+        "Capitulo VII" : "33",
+        "Capitulo VIII" : "141",
+        "Capitulo IX" : "142"
     },
     "idMacroOrigem" : {
         "LIVRO NÚCLEO COMUM" : "1",
@@ -405,20 +405,3 @@ dic_tags = {
         "Objetiva de asserção e razão" : "8"
     }
 }
-'''request 
-Inserir TAGS
-
-action: inserir
-idQuestao: 194208
-idNodeMacro: 34
-idTagList[]: 131
-idNodeMacro: 8
-idTagList[]: 161
-idNodeMacro: 30
-idTagList[]: 96
-idNodeMacro: 1
-idTagList[]: 1
-idTagList[]: 2
-idNodeMacro: 2
-idTagList[]: 13
-idTagList[]: 14'''
