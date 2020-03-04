@@ -82,37 +82,7 @@ class PyFeed(gui.PyFeed):
         idTipoQuestao = dic_tags["idMacroTipoQuestao"].get(tipoQuestao)
         curso = self.add_questao_frame.cb_curso.GetStringSelection()
         unLivro = self.add_questao_frame.cb_unLivro.GetStringSelection()
-        # dados necessários para criar tags
-        self.tutor.dic_temp = {
-            "34": "131",
-            "curso": dic_tags["idNodeMacro30"].get(curso),
-            "unLivro": dic_tags["idMacroNode2"].get(unLivro),
-            #TODO ajustar componente grafico do destino e pegar valor da seleção do usuario
-        }
-        if self.add_questao_frame.cb_mod51.GetValue():
-            self.tutor.dic_temp["mod1"] = "1"
-        else:
-            self.tutor.dic_temp["mod1"] = None
-        if self.add_questao_frame.cb_mod52.GetValue():
-            self.tutor.dic_temp["mod2"] = "2"
-        else:
-            self.tutor.dic_temp["mod2"] = None
-        if self.add_questao_frame.cb_mod53.GetValue():
-            self.tutor.dic_temp["mod3"] = "3"
-        else:
-            self.tutor.dic_temp["mod3"] = None
-        if self.add_questao_frame.cb_mod54.GetValue():
-            self.tutor.dic_temp["mod4"] = "4"
-        else:
-            self.tutor.dic_temp["mod4"] = None
-        if self.add_questao_frame.cb_prova.GetValue():
-            self.tutor.dic_temp["atv1"] = "161" # valor de ref consta no dic_tags["idNodeMacro8"] no util.py
-        else:
-            self.tutor.dic_temp["atv1"] = None
-        if self.add_questao_frame.cb_mapa.GetValue():
-            self.tutor.dic_temp["atv2"] = "58" # valor de ref consta no dic_tags["idNodeMacro8"] no util.py
-        else:
-            self.tutor.dic_temp["atv2"] = None
+        self.tutor.compoeTempDict(curso, unLivro, self.add_questao_frame)
         idQuestao = self.tutor.requestPostQuestao(enunciado, resposta, idComplexidade, idOrigem, idTipoQuestao)
         self.txt_idQuestao.SetValue(idQuestao)
         self.add_questao_frame.Destroy()
@@ -171,46 +141,7 @@ class PyFeed(gui.PyFeed):
                         self.tutor.requestAlternativa(codigo_questao, op_correta, dicionario)
                         curso = self.alternativa_panel.cb_curso.GetStringSelection()
                         unLivro = self.alternativa_panel.cb_unLivro.GetStringSelection()
-                        # dados necessários para criar tags
-                        self.tutor.dic_temp = {
-                            "34": "131",
-                            "curso": dic_tags["idNodeMacro30"].get(curso),
-                            "unLivro": dic_tags["idMacroNode2"].get(unLivro),
-                            #TODO ajustar componente grafico do destino e pegar valor da seleção do usuario
-                        }
-                        if self.alternativa_panel.cb_mod51.GetValue():
-                            self.tutor.dic_temp["mod1"] = "1"
-                        else:
-                            self.tutor.dic_temp["mod1"] = None
-                        if self.alternativa_panel.cb_mod52.GetValue():
-                            self.tutor.dic_temp["mod2"] = "2"
-                        else:
-                            self.tutor.dic_temp["mod2"] = None
-                        if self.alternativa_panel.cb_mod53.GetValue():
-                            self.tutor.dic_temp["mod3"] = "3"
-                        else:
-                            self.tutor.dic_temp["mod3"] = None
-                        if self.alternativa_panel.cb_mod54.GetValue():
-                            self.tutor.dic_temp["mod4"] = "4"
-                        else:
-                            self.tutor.dic_temp["mod4"] = None
-                        if self.alternativa_panel.cb_prova.GetValue():
-                            self.tutor.dic_temp["atv1"] = "161" # valor de ref consta no dic_tags["idNodeMacro8"] no util.py
-                        else:
-                            self.tutor.dic_temp["atv1"] = "161"
-                        if self.alternativa_panel.cb_atv1.GetValue():
-                            self.tutor.dic_temp["atv2"] = "52" # valor de ref consta no dic_tags["idNodeMacro8"] no util.py
-                        else:
-                            self.tutor.dic_temp["atv2"] = None
-                        if self.alternativa_panel.cb_atv2.GetValue():
-                            self.tutor.dic_temp["atv2"] = "53" # valor de ref consta no dic_tags["idNodeMacro8"] no util.py
-                        else:
-                            self.tutor.dic_temp["atv2"] = None
-                        if self.alternativa_panel.cb_atv3.GetValue():
-                            self.tutor.dic_temp["atv2"] = "54" # valor de ref consta no dic_tags["idNodeMacro8"] no util.py
-                        else:
-                            self.tutor.dic_temp["atv2"] = None
-                        #TODO abrir nova tela AlternativaTag
+                        self.tutor.compoeTempDict(curso, unLivro, self.alternativa_panel)
                         self.tutor.requestTags(self.txt_idQuestao.GetValue())
                         self.tutor.dic_temp.clear() # reinicializar dic_temp para permitir novo cadastro na msm sessao
                         self.txt_idQuestao.Clear()
