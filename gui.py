@@ -202,7 +202,7 @@ class AddQuestao ( wx.Frame ):
 
 		bSizer11 = wx.BoxSizer( wx.HORIZONTAL )
 
-		cb_unLivroChoices = [ u"Capitulo I", u"Capitulo II", u"Capitulo III", u"Capitulo I", u"Capitulo IV", u"Capitulo V", u"Capitulo VI", u"Capitulo VII", u"Capitulo VIII", u"Capitulo IX" ]
+		cb_unLivroChoices = [ u"Cap. I", u"Cap. II", u"Cap. III", u"Cap. IV", u"Cap. V", u"Cap. VI", u"Cap. VII" ]
 		self.cb_unLivro = wx.RadioBox( self, wx.ID_ANY, u"Unidade do Livro", wx.DefaultPosition, wx.DefaultSize, cb_unLivroChoices, 7, wx.RA_SPECIFY_COLS )
 		self.cb_unLivro.SetSelection( 0 )
 		bSizer11.Add( self.cb_unLivro, 1, wx.ALL|wx.EXPAND, 5 )
@@ -357,6 +357,59 @@ class PyFeed ( wx.Frame ):
 class AlternativaCorreta ( wx.Dialog ):
 
 	def __init__( self, parent, alternativas ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Finaliza Estrutura Banco de Questoes", pos = wx.DefaultPosition, size = wx.Size( 269,290 ), style = wx.DEFAULT_DIALOG_STYLE )
+
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+		self.SetBackgroundColour( wx.Colour( 255, 255, 255 ) )
+
+		bSizer5 = wx.BoxSizer( wx.VERTICAL )
+
+		bSizer5.SetMinSize( wx.Size( 290,250 ) )
+		self.lb_alt_correta = wx.StaticText( self, wx.ID_ANY, u"Selecione a alternativa correta", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_alt_correta.Wrap( -1 )
+
+		self.lb_alt_correta.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_MODERN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
+
+		bSizer5.Add( self.lb_alt_correta, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.TOP, 12 )
+
+		rb_alt_corretaChoices = alternativas
+		self.rb_alt_correta = wx.RadioBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, rb_alt_corretaChoices, 1, wx.RA_SPECIFY_COLS )
+		self.rb_alt_correta.SetSelection( 0 )
+		bSizer5.Add( self.rb_alt_correta, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 12 )
+
+		bSizer16 = wx.BoxSizer( wx.VERTICAL )
+
+		self.bt_alt_correta = wx.Button( self, wx.ID_ANY, u"Selecionar e cadastrar estrutura", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer16.Add( self.bt_alt_correta, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 12 )
+
+
+		bSizer5.Add( bSizer16, 0, wx.EXPAND, 5 )
+
+
+		self.SetSizer( bSizer5 )
+		self.Layout()
+
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.bt_alt_correta.Bind( wx.EVT_BUTTON, self.setAlternativaCorreta )
+
+	def __del__( self ):
+		pass
+
+
+	# Virtual event handlers, overide them in your derived class
+	def setAlternativaCorreta( self, event ):
+		event.Skip()
+
+
+###########################################################################
+## Class AlternativaTag
+###########################################################################
+
+class AlternativaTag ( wx.Dialog ):
+
+	def __init__( self, parent, alternativas ):
 		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Finaliza Estrutura Banco de Questoes", pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.DEFAULT_DIALOG_STYLE )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
@@ -372,13 +425,108 @@ class AlternativaCorreta ( wx.Dialog ):
 
 		bSizer5.Add( self.lb_alt_correta, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.TOP, 12 )
 
-		m_radioBox1Choices = alternativas
-		self.m_radioBox1 = wx.RadioBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, m_radioBox1Choices, 1, wx.RA_SPECIFY_COLS )
-		self.m_radioBox1.SetSelection( 0 )
-		bSizer5.Add( self.m_radioBox1, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 12 )
+		rb_alt_corretaChoices = alternativas
+		self.rb_alt_correta = wx.RadioBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, rb_alt_corretaChoices, 1, wx.RA_SPECIFY_COLS )
+		self.rb_alt_correta.SetSelection( 0 )
+		bSizer5.Add( self.rb_alt_correta, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 12 )
 
-		self.bt_alt_correta = wx.Button( self, wx.ID_ANY, u"Selecionar e cadastrar estrutura", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer5.Add( self.bt_alt_correta, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 12 )
+		bSizer15 = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.lb_modulo = wx.StaticText( self, wx.ID_ANY, u"Módulo", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_modulo.Wrap( -1 )
+
+		bSizer15.Add( self.lb_modulo, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+		self.cb_mod51 = wx.CheckBox( self, wx.ID_ANY, u"51", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer15.Add( self.cb_mod51, 0, wx.ALL, 5 )
+
+		self.cb_mod52 = wx.CheckBox( self, wx.ID_ANY, u"52", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer15.Add( self.cb_mod52, 0, wx.ALL, 5 )
+
+		self.cb_mod53 = wx.CheckBox( self, wx.ID_ANY, u"53", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer15.Add( self.cb_mod53, 0, wx.ALL, 5 )
+
+		self.cb_mod54 = wx.CheckBox( self, wx.ID_ANY, u"54", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer15.Add( self.cb_mod54, 0, wx.ALL, 5 )
+
+
+		bSizer5.Add( bSizer15, 0, wx.EXPAND, 5 )
+
+		bSizer17 = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.m_staticText21 = wx.StaticText( self, wx.ID_ANY, u"Curso", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText21.Wrap( -1 )
+
+		bSizer17.Add( self.m_staticText21, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+
+		cb_cursoChoices = ["TEO", "TEOL", "AGRO", "CCONT", "GPUB", "ENG. PROD.", "ENG. SOFT.", "EDU", "GRH", "ADS", "SI", "DM", "DI", "ADM", "PGER", "MKT", "MAT", "HIST", "SEG. TRAB.", "PED", "GAMB", "GEO", "T.I", "GPV", "GFIN", "GASTRO", "GCOM", "GIMOB", "LET", "LOG", "SEC", "GH", "DP", "SSOC", "GC", "GQ", "GTS", "ECON", "CURSO DE ORIGEM", "EMP", "BEDU", "ECIV", "EELE", "EMEC", "EMCA", "HEPROD", "HÍBRIDO", "FSCE", "PROJETO DE ENSINO", "SPRIV", "ARTV", "CBIO", "PSICO", "PCERV", "SALI", "FIL", "SOCIO", "ECOS", "POD", "TINT"]
+		self.cb_curso = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, cb_cursoChoices, 0 )
+		bSizer17.Add( self.cb_curso, 1, wx.ALL, 5 )
+
+
+		bSizer5.Add( bSizer17, 0, wx.EXPAND, 5 )
+
+		bSizer20 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText23 = wx.StaticText( self, wx.ID_ANY, u"Atividade", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText23.Wrap( -1 )
+
+		bSizer20.Add( self.m_staticText23, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+		bSizer21 = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.cb_prova = wx.CheckBox( self, wx.ID_ANY, u"Prova", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer21.Add( self.cb_prova, 0, wx.ALL, 5 )
+
+		self.cb_atv1 = wx.CheckBox( self, wx.ID_ANY, u"Atv1", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer21.Add( self.cb_atv1, 0, wx.ALL, 5 )
+
+		self.cb_atv2 = wx.CheckBox( self, wx.ID_ANY, u"Atv2", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer21.Add( self.cb_atv2, 0, wx.ALL, 5 )
+
+		self.cb_atv3 = wx.CheckBox( self, wx.ID_ANY, u"Atv3", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer21.Add( self.cb_atv3, 0, wx.ALL, 5 )
+
+
+		bSizer20.Add( bSizer21, 1, wx.EXPAND, 5 )
+
+		bSizer22 = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.cb_atv4 = wx.CheckBox( self, wx.ID_ANY, u"Atv4", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer22.Add( self.cb_atv4, 0, wx.ALL, 5 )
+
+		self.cb_atv5 = wx.CheckBox( self, wx.ID_ANY, u"Atv5", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer22.Add( self.cb_atv5, 0, wx.ALL, 5 )
+
+		self.cb_atv6 = wx.CheckBox( self, wx.ID_ANY, u"Atv6", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer22.Add( self.cb_atv6, 0, wx.ALL, 5 )
+
+		self.cb_atv7 = wx.CheckBox( self, wx.ID_ANY, u"Atv7", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer22.Add( self.cb_atv7, 0, wx.ALL, 5 )
+
+
+		bSizer20.Add( bSizer22, 1, wx.EXPAND, 5 )
+
+
+		bSizer5.Add( bSizer20, 0, wx.EXPAND, 5 )
+
+		bSizer23 = wx.BoxSizer( wx.HORIZONTAL )
+
+		cb_unLivroChoices = [ u"Cap. I", u"Cap. II", u"Cap. III", u"Cap. IV", u"Cap. V", u"Cap. VI", u"Cap. VII", u"Cap. VIII", u"Cap. IX" ]
+		self.cb_unLivro = wx.RadioBox( self, wx.ID_ANY, u"Und. Livro", wx.DefaultPosition, wx.DefaultSize, cb_unLivroChoices, 3, wx.RA_SPECIFY_ROWS )
+		self.cb_unLivro.SetSelection( 0 )
+		bSizer23.Add( self.cb_unLivro, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL|wx.EXPAND, 5 )
+
+
+		bSizer5.Add( bSizer23, 1, wx.EXPAND, 5 )
+
+		bSizer16 = wx.BoxSizer( wx.VERTICAL )
+
+		self.bt_alt_tag = wx.Button( self, wx.ID_ANY, u"Selecionar e cadastrar estrutura", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer16.Add( self.bt_alt_tag, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 12 )
+
+
+		bSizer5.Add( bSizer16, 0, wx.EXPAND, 5 )
 
 
 		self.SetSizer( bSizer5 )
@@ -388,7 +536,7 @@ class AlternativaCorreta ( wx.Dialog ):
 		self.Centre( wx.BOTH )
 
 		# Connect Events
-		self.bt_alt_correta.Bind( wx.EVT_BUTTON, self.setAlternativaCorreta )
+		self.bt_alt_tag.Bind( wx.EVT_BUTTON, self.setAlternativaTag )
 
 	def __del__( self ):
 		pass

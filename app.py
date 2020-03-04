@@ -18,6 +18,15 @@ class AlternativaCorreta(gui.AlternativaCorreta):
     def setAlternativaCorreta(self, event):
         self.Destroy()
 
+class AlternativaTag(gui.AlternativaTag):
+
+    def __init__(self, parent, alternativas):
+        gui.AlternativaTag.__init__(self, parent, alternativas)
+    
+    def setAlternativaTag(self, event):
+        self.Destroy()
+
+
 class PyFeed(gui.PyFeed):
 
     def __init__(self, parent):
@@ -123,7 +132,6 @@ class PyFeed(gui.PyFeed):
         from db.model import Session, Questao
 
         codigo_questao = self.txt_idQuestao.GetValue()
-        # lista de tipo de questões suportadas pelo progama para interação
         alternativas = [] # será adicionada as alternativas conforme cada tipo de questão
         # busca questão pelo id informado
         if (codigo_questao != ""):
@@ -140,19 +148,75 @@ class PyFeed(gui.PyFeed):
                 q_estruturaCompleta = json.loads(dados_completosQuestao)["data"]
                 if result.dsTipoQuestao in self.tipo_questao_suportado:
                     # verifica se há alternativas já cadastadas
-                    if (q_estruturaCompleta.get("alternativaList") == []):
+                    if (q_estruturaCompleta.get("alternativaList") == []) and (len(self.tutor.dic_temp.items()) >= 4):
                         # aplica estruturação de questão
                         dicionario = dic_alternativas[result.dsTipoQuestao][result.dsComplexidade]
                         for payload in dicionario.items():
                             alternativas.append(payload[1].get("dsAlternativa"))
                         self.alternativa_panel = AlternativaCorreta(self, alternativas)
                         self.alternativa_panel.ShowModal()
-                        op_correta = self.alternativa_panel.m_radioBox1.GetSelection()
+                        op_correta = self.alternativa_panel.rb_alt_correta.GetSelection()
                         self.tutor.requestAlternativa(codigo_questao, op_correta, dicionario)
                         self.tutor.requestTags(codigo_questao)
+                        self.tutor.dic_temp.clear() # reinicializar dic_temp para permitir novo cadastro na msm sessao
+                        self.txt_idQuestao.Clear()
+                        return self.info(self,"Estruturação de alternativas realizada com sucesso!")
+                    elif (q_estruturaCompleta.get("alternativaList") == []) and (len(self.tutor.dic_temp.items()) < 4):
+                        dicionario = dic_alternativas[result.dsTipoQuestao][result.dsComplexidade]
+                        for payload in dicionario.items():
+                            alternativas.append(payload[1].get("dsAlternativa"))
+                        self.alternativa_panel = AlternativaTag(self, alternativas)
+                        self.alternativa_panel.ShowModal()
+                        op_correta = self.alternativa_panel.rb_alt_correta.GetSelection()
+                        self.tutor.requestAlternativa(codigo_questao, op_correta, dicionario)
+                        curso = self.alternativa_panel.cb_curso.GetStringSelection()
+                        unLivro = self.alternativa_panel.cb_unLivro.GetStringSelection()
+                        # dados necessários para criar tags
+                        self.tutor.dic_temp = {
+                            "34": "131",
+                            "curso": dic_tags["idNodeMacro30"].get(curso),
+                            "unLivro": dic_tags["idMacroNode2"].get(unLivro),
+                            #TODO ajustar componente grafico do destino e pegar valor da seleção do usuario
+                        }
+                        if self.alternativa_panel.cb_mod51.GetValue():
+                            self.tutor.dic_temp["mod1"] = "1"
+                        else:
+                            self.tutor.dic_temp["mod1"] = None
+                        if self.alternativa_panel.cb_mod52.GetValue():
+                            self.tutor.dic_temp["mod2"] = "2"
+                        else:
+                            self.tutor.dic_temp["mod2"] = None
+                        if self.alternativa_panel.cb_mod53.GetValue():
+                            self.tutor.dic_temp["mod3"] = "3"
+                        else:
+                            self.tutor.dic_temp["mod3"] = None
+                        if self.alternativa_panel.cb_mod54.GetValue():
+                            self.tutor.dic_temp["mod4"] = "4"
+                        else:
+                            self.tutor.dic_temp["mod4"] = None
+                        if self.alternativa_panel.cb_prova.GetValue():
+                            self.tutor.dic_temp["atv1"] = "161" # valor de ref consta no dic_tags["idNodeMacro8"] no util.py
+                        else:
+                            self.tutor.dic_temp["atv1"] = "161"
+                        if self.alternativa_panel.cb_atv1.GetValue():
+                            self.tutor.dic_temp["atv2"] = "52" # valor de ref consta no dic_tags["idNodeMacro8"] no util.py
+                        else:
+                            self.tutor.dic_temp["atv2"] = None
+                        if self.alternativa_panel.cb_atv2.GetValue():
+                            self.tutor.dic_temp["atv2"] = "53" # valor de ref consta no dic_tags["idNodeMacro8"] no util.py
+                        else:
+                            self.tutor.dic_temp["atv2"] = None
+                        if self.alternativa_panel.cb_atv3.GetValue():
+                            self.tutor.dic_temp["atv2"] = "54" # valor de ref consta no dic_tags["idNodeMacro8"] no util.py
+                        else:
+                            self.tutor.dic_temp["atv2"] = None
+                        #TODO abrir nova tela AlternativaTag
+                        self.tutor.requestTags(self.txt_idQuestao.GetValue())
+                        self.tutor.dic_temp.clear() # reinicializar dic_temp para permitir novo cadastro na msm sessao
                         self.txt_idQuestao.Clear()
                         return self.info(self,"Estruturação de alternativas realizada com sucesso!")
                     else:
+                        self.tutor.dic_temp.clear() # reinicializar dic_temp para permitir novo cadastro na msm sessao
                         self.txt_idQuestao.Clear()
                         return self.warn(self, "Atenção! Essa questão já tem estrutura de alternativas cadastradas.\n\
                             Não foi possível realizar o processo.")
