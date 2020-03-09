@@ -14,6 +14,16 @@ class AlternativaCorreta(gui.AlternativaCorreta):
 
     def __init__(self, parent, alternativas):
         gui.AlternativaCorreta.__init__(self, parent, alternativas)
+
+    def fechaTela(self, event):
+        dialog = wx.MessageDialog(self, message = "Tem certeza que deseja sair?", caption = "Caption", style = wx.YES_NO, pos = wx.DefaultPosition)
+        response = dialog.ShowModal()
+
+        if (response == wx.ID_YES):
+            self.rb_alt_correta.Destroy()
+            self.Destroy()
+        else:
+            event.StopPropagation()
     
     def setAlternativaCorreta(self, event):
         self.Destroy()
@@ -22,7 +32,17 @@ class AlternativaTag(gui.AlternativaTag):
 
     def __init__(self, parent, alternativas):
         gui.AlternativaTag.__init__(self, parent, alternativas)
-    
+
+    def fechaTela(self, event):
+        dialog = wx.MessageDialog(self, message = "Tem certeza que deseja sair?", caption = "Caption", style = wx.YES_NO, pos = wx.DefaultPosition)
+        response = dialog.ShowModal()
+
+        if (response == wx.ID_YES):
+            self.rb_alt_correta.Destroy()
+            self.Destroy()
+        else:
+            event.StopPropagation()
+
     def setAlternativaTag(self, event):
         self.Destroy()
 
@@ -38,6 +58,15 @@ class PyFeed(gui.PyFeed):
         self.tipo_questao_suportado = ["Objetiva de resposta única", "Objetiva de resposta múltipla"]
 
         self.login_frame.bt_login.Bind( wx.EVT_BUTTON, self.acessar_intranet )
+
+    def fechaTela(self, event):
+        dialog = wx.MessageDialog(self, message = "Tem certeza que deseja sair?", caption = "Caption", style = wx.YES_NO, pos = wx.DefaultPosition)
+        response = dialog.ShowModal()
+
+        if (response == wx.ID_YES):
+            self.Destroy()
+        else:
+            event.StopPropagation()
     
     def info(self, parent, message, caption = 'INFORMAÇÃO!'):
         dlg = wx.MessageDialog(parent, message, caption, wx.OK | wx.ICON_INFORMATION)
@@ -61,31 +90,40 @@ class PyFeed(gui.PyFeed):
             self.login_frame.txt_login.Clear()
             self.login_frame.txt_senha.Clear()
         else:
+            self.tutor.acessaFrmQuestao()
+            wx.SafeYield() # espera a próxima ação ser executada
             self.login_frame.Hide()
             self.Show()
-            self.tutor.acessaFrmQuestao()
+
+
+
+
 
     def addQuestao(self, event):
         idQuestao = None # necessário para permitir múltiplos cadastros na mesma sessão do app (caso contrario o valor do id da segunda questão seria mantido e geraria erro no novo cadastro.
-        enunciado = self.add_questao_frame.tx_enunciado.GetValue()
-        resposta = self.add_questao_frame.tx_resposta.GetValue()
-        complexidade = self.add_questao_frame.ch_complexidade.GetStringSelection()
-        if complexidade == "Fácil":
-            idComplexidade = 1
-        elif complexidade == "Médio":
-            idComplexidade = 2
+        if (self.add_questao_frame.tx_enunciado.GetValue() != "") & (self.add_questao_frame.tx_resposta.GetValue() != "")\
+                & (self.add_questao_frame.ch_complexidade.GetStringSelection() != "") & (self.add_questao_frame.cb_tipoQuestao.GetStringSelection() != ""):
+            enunciado = self.add_questao_frame.tx_enunciado.GetValue()
+            resposta = self.add_questao_frame.tx_resposta.GetValue()
+            complexidade = self.add_questao_frame.ch_complexidade.GetStringSelection()
+            if complexidade == "Fácil":
+                idComplexidade = 1
+            elif complexidade == "Médio":
+                idComplexidade = 2
+            else:
+                idComplexidade = 3
+            origem = self.add_questao_frame.ch_origem.GetStringSelection()
+            idOrigem = dic_tags["idMacroOrigem"].get(origem)
+            tipoQuestao = self.add_questao_frame.cb_tipoQuestao.GetStringSelection()
+            idTipoQuestao = dic_tags["idMacroTipoQuestao"].get(tipoQuestao)
+            curso = self.add_questao_frame.cb_curso.GetStringSelection()
+            unLivro = self.add_questao_frame.cb_unLivro.GetStringSelection()
+            self.tutor.compoeTempDict(curso, unLivro, self.add_questao_frame)
+            idQuestao = self.tutor.requestPostQuestao(enunciado, resposta, idComplexidade, idOrigem, idTipoQuestao)
+            self.txt_idQuestao.SetValue(idQuestao)
+            self.add_questao_frame.Destroy()
         else:
-            idComplexidade = 3
-        origem = self.add_questao_frame.ch_origem.GetStringSelection()
-        idOrigem = dic_tags["idMacroOrigem"].get(origem)
-        tipoQuestao = self.add_questao_frame.cb_tipoQuestao.GetStringSelection()
-        idTipoQuestao = dic_tags["idMacroTipoQuestao"].get(tipoQuestao)
-        curso = self.add_questao_frame.cb_curso.GetStringSelection()
-        unLivro = self.add_questao_frame.cb_unLivro.GetStringSelection()
-        self.tutor.compoeTempDict(curso, unLivro, self.add_questao_frame)
-        idQuestao = self.tutor.requestPostQuestao(enunciado, resposta, idComplexidade, idOrigem, idTipoQuestao)
-        self.txt_idQuestao.SetValue(idQuestao)
-        self.add_questao_frame.Destroy()
+            return self.warn(self,"Os campos Enunciado, Resposta, Complexidade e Nível da Questão são obrigatórios!")
 
     def form_novaQuestao( self, event ):
         self.add_questao_frame = gui.AddQuestao(self, self.tipo_questao_suportado)

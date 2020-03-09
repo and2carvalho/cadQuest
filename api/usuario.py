@@ -212,13 +212,5 @@ class Usuario():
             self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv2")
         elif frame.cb_atv3.GetValue():
             self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv3")
-        elif frame.cb_atv4.GetValue():
-            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv4")
-        elif frame.cb_atv5.GetValue():
-            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv5")
-        elif frame.cb_atv6.GetValue():
-            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv6")
-        elif frame.cb_atv7.GetValue():
-            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv7")
         else:
             self.dic_temp["atv2"] = None

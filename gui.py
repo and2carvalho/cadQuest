@@ -112,15 +112,19 @@ class AddQuestao(wx.Frame):
 
         self.cb_mod51 = wx.CheckBox(self, wx.ID_ANY, u"51", wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer8.Add(self.cb_mod51, 0, wx.ALL, 5)
+        self.cb_mod51.SetForegroundColour(wx.Colour(255, 255, 255))
 
         self.cb_mod52 = wx.CheckBox(self, wx.ID_ANY, u"52", wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer8.Add(self.cb_mod52, 0, wx.ALL, 5)
+        self.cb_mod52.SetForegroundColour(wx.Colour(255, 255, 255))
 
         self.cb_mod53 = wx.CheckBox(self, wx.ID_ANY, u"53", wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer8.Add(self.cb_mod53, 0, wx.ALL, 5)
+        self.cb_mod53.SetForegroundColour(wx.Colour(255, 255, 255))
 
         self.cb_mod54 = wx.CheckBox(self, wx.ID_ANY, u"54", wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer8.Add(self.cb_mod54, 0, wx.ALL, 5)
+        self.cb_mod54.SetForegroundColour(wx.Colour(255, 255, 255))
 
         self.lb_curso = wx.StaticText(self, wx.ID_ANY, u"Curso", wx.DefaultPosition, wx.DefaultSize, 0)
         self.lb_curso.Wrap(-1)
@@ -210,15 +214,19 @@ class AddQuestao(wx.Frame):
 
         self.cb_prova = wx.CheckBox(self, wx.ID_ANY, u"Prova", wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer10.Add(self.cb_prova, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+        self.cb_prova.SetForegroundColour(wx.Colour(255, 255, 255))
 
         self.cb_atv1 = wx.CheckBox(self, wx.ID_ANY, u"Atv1", wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer10.Add(self.cb_atv1, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+        self.cb_atv1.SetForegroundColour(wx.Colour(255, 255, 255))
 
         self.cb_atv2 = wx.CheckBox(self, wx.ID_ANY, u"Atv2", wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer10.Add(self.cb_atv2, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+        self.cb_atv2.SetForegroundColour(wx.Colour(255, 255, 255))
 
         self.cb_atv3 = wx.CheckBox(self, wx.ID_ANY, u"Atv3", wx.DefaultPosition, wx.DefaultSize, 0)
         bSizer10.Add(self.cb_atv3, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+        self.cb_atv3.SetForegroundColour(wx.Colour(255, 255, 255))
 
         bSizer6.Add(bSizer10, 0, wx.EXPAND, 5)
 
@@ -229,6 +237,7 @@ class AddQuestao(wx.Frame):
                                       cb_unLivroChoices, 7, wx.RA_SPECIFY_COLS)
         self.cb_unLivro.SetSelection(0)
         bSizer11.Add(self.cb_unLivro, 1, wx.ALL | wx.EXPAND, 5)
+        self.cb_unLivro.SetForegroundColour(wx.Colour(255, 255, 255))
 
         bSizer6.Add(bSizer11, 0, wx.EXPAND, 5)
 
@@ -366,6 +375,7 @@ class PyFeed(wx.Frame):
         # Connect Events
         self.b_estruturar.Bind(wx.EVT_BUTTON, self.estrutura_questao)
         self.btn_novaQuestao.Bind(wx.EVT_BUTTON, self.form_novaQuestao)
+        self.Bind(wx.EVT_CLOSE, self.fechaTela)
 
     def __del__(self):
         pass
@@ -377,6 +387,8 @@ class PyFeed(wx.Frame):
     def form_novaQuestao(self, event):
         event.Skip()
 
+    def fechaTela(self,event):
+        event.Skip()
 
 ###########################################################################
 ## Class AlternativaCorreta
@@ -426,6 +438,7 @@ class AlternativaCorreta(wx.Dialog):
 
         # Connect Events
         self.bt_alt_correta.Bind(wx.EVT_BUTTON, self.setAlternativaCorreta)
+        self.Bind(wx.EVT_CLOSE, self.fechaTela)
 
     def __del__(self):
         pass
@@ -434,6 +447,8 @@ class AlternativaCorreta(wx.Dialog):
     def setAlternativaCorreta(self, event):
         event.Skip()
 
+    def fechaTela(self, event):
+        event.Skip()
 
 ###########################################################################
 ## Class AlternativaTag
@@ -576,10 +591,14 @@ class AlternativaTag(wx.Dialog):
 
         # Connect Events
         self.bt_alt_tag.Bind(wx.EVT_BUTTON, self.setAlternativaTag)
+        self.Bind(wx.EVT_CLOSE, self.fechaTela)
 
     def __del__(self):
         pass
 
     # Virtual event handlers, overide them in your derived class
     def setAlternativaCorreta(self, event):
+        event.Skip()
+
+    def fechaTela(self, event):
         event.Skip()
