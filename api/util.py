@@ -293,7 +293,7 @@ dic_tags = {
         "Atv1" : "52",
         "Atv2" : "53",
         "Atv3" : "54",
-        "MAPA" : "58",
+        "Mapa" : "58",
         "ATIVIDADE INTEGRADA" : "62",
         "FÓRUM" : "63",
         "Atv4" : "70",

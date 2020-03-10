@@ -207,10 +207,10 @@ class Usuario():
         # atividade prova é enviada como valor padrão para todos os cadastros
         self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("PROVA")
         if frame.cb_atv1.GetValue():
-            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv1")
+            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get(frame.cb_atv1.GetValue())
         elif frame.cb_atv2.GetValue():
-            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv2")
+            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get(frame.cb_atv2.GetValue())
         elif frame.cb_atv3.GetValue():
-            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv3")
+            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get(frame.cb_atv3.GetValue())
         else:
             self.dic_temp["atv2"] = None

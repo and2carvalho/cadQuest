@@ -95,10 +95,6 @@ class PyFeed(gui.PyFeed):
             self.login_frame.Hide()
             self.Show()
 
-
-
-
-
     def addQuestao(self, event):
         idQuestao = None # necessário para permitir múltiplos cadastros na mesma sessão do app (caso contrario o valor do id da segunda questão seria mantido e geraria erro no novo cadastro.
         if (self.add_questao_frame.tx_enunciado.GetValue() != "") & (self.add_questao_frame.tx_resposta.GetValue() != "")\
