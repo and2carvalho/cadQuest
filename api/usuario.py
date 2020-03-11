@@ -74,24 +74,28 @@ class Usuario():
         except Exception as e:
             print(e)
 
-    def requestPostQuestao(self, enunciado, feedback, idComplexidade, idOrigem, idTipoQuestao):
+    def requestPostQuestao(self, enunciado, feedback, idComplexidade, destino_prova, destino_atv, idOrigem, idTipoQuestao):
 
         ''' Realiza primeiro cadastro da questão na API apartir do form do programa. '''
 
         url_api = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php"
-        payload = {
-            "action" : "inserir",
-            "ativo" : 1,
-            "enunciado" : enunciado,
-            "feedback" : feedback,
-            "fileImgGabaritoBase64": None,
-            "fileImgGabaritoNomeOriginal": None,
-            "idComplexidade": idComplexidade,
-            "idImgGabarito": None,
-            "idNodeRaiz": 1,
-            "idOrigem":idOrigem,
-            "idTipoQuestao":idTipoQuestao
-        }
+        from urllib3._collections import HTTPHeaderDict
+        payload = HTTPHeaderDict()
+        payload.add("action" , "inserir")
+        payload.add("ativo", 1)
+        payload.add("enunciado" , enunciado)
+        payload.add("feedback", feedback)
+        payload.add("fileImgGabaritoBase64", None)
+        payload.add("fileImgGabaritoNomeOriginal", None)
+        payload.add("idComplexidade", idComplexidade)
+        payload.add("idImgGabarito", None)
+        payload.add("idNodeRaiz", 1)
+        payload.add("idOrigem",idOrigem)
+        payload.add("idTipoQuestao",idTipoQuestao)
+        if destino_prova != None:
+            payload.add("idDestinoList[]",1)
+        if destino_atv != None:
+            payload.add("idDestinoList[]",4)
         try:
             data = parse.urlencode(payload)
             request_form_questao = mechanize.Request(url_api,data)
@@ -181,7 +185,7 @@ class Usuario():
 
     def compoeTempDict(self, curso, unLivro, frame):
         # dicionario necessário para criar tags
-        from api.util import dic_tags
+        from api.utils import dic_tags
         self.dic_temp = {
             "34": "131",
             "curso": dic_tags["idNodeMacro30"].get(curso),

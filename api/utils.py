@@ -374,15 +374,15 @@ dic_tags = {
         "MÓDULO 54" : "4"
     },
     "idMacroNode2" : {
-        "Capitulo I" : "10",
-        "Capitulo II" : "11",
-        "Capitulo III" : "12",
-        "Capitulo IV" : "13",
-        "Capitulo V" : "14",
-        "Capitulo VI" : "32",
-        "Capitulo VII" : "33",
-        "Capitulo VIII" : "141",
-        "Capitulo IX" : "142"
+        "Unidade I" : "10",
+        "Unidade II" : "11",
+        "Unidade III" : "12",
+        "Unidade IV" : "13",
+        "Unidade V" : "14",
+        "Unidade VI" : "32",
+        "Unidade VII" : "33",
+        "Unidade VIII" : "141",
+        "Unidade IX" : "142"
     },
     "idMacroOrigem" : {
         "LIVRO NÚCLEO COMUM" : "1",

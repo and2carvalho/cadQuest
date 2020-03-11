@@ -1,7 +1,7 @@
 # coding=utf-8
 
 from api.usuario import Usuario
-from api.util import loginApp, serializaRequest, dbQuestao, dic_alternativas, dic_tags
+from api.utils import loginApp, serializaRequest, dbQuestao, dic_alternativas, dic_tags
 import wx
 import gui
 
@@ -42,13 +42,26 @@ class AlternativaTag(gui.AlternativaTag):
         else:
             event.StopPropagation()
 
-    def validaCampos(self, frame):
-        #TODO validar campos antes de concluir o processo
-        pass
+    def validaCampos(self):
+        if (self.cb_mod51.GetValue() == "") | (self.cb_mod52.GetValue() == "") | \
+                (self.cb_mod53.GetValue() == "") | (self.cb_mod54.GetValue() == "") | \
+                (self.cb_curso.GetValue() == "") | (self.cb_unLivro.GetValue() == ""):
+            return False
+        else:
+            return True
 
     def setAlternativaTag(self, event):
-        self.Destroy()
+        if not self.validaCampos():
+            self.warn(self,"Todos os campos devem ser preenchidos")
+            event.StopPropagation()
+        else:
+            self.Destroy()
 
+    # msg de aviso disponível no frame
+    def warn(self, parent, message, caption = 'ATENÇÃO!'):
+        dlg = wx.MessageDialog(parent, message, caption, wx.OK | wx.ICON_WARNING)
+        dlg.ShowModal()
+        dlg.Destroy()
 
 class PyFeed(gui.PyFeed):
 
@@ -69,12 +82,11 @@ class PyFeed(gui.PyFeed):
     def fechaTela(self, event):
         dialog = wx.MessageDialog(self, message = "Tem certeza que deseja sair?", caption = "Caption", style = wx.YES_NO, pos = wx.DefaultPosition)
         response = dialog.ShowModal()
-
         if (response == wx.ID_YES):
             self.Destroy()
         else:
             event.StopPropagation()
-    
+    # modal de msg disponíveis no frame
     def info(self, parent, message, caption = 'INFORMAÇÃO!'):
         dlg = wx.MessageDialog(parent, message, caption, wx.OK | wx.ICON_INFORMATION)
         dlg.ShowModal()
@@ -104,10 +116,17 @@ class PyFeed(gui.PyFeed):
 
     def addQuestao(self, event):
         idQuestao = None # necessário para permitir múltiplos cadastros na mesma sessão do app (caso contrario o valor do id da segunda questão seria mantido e geraria erro no novo cadastro.
-        if (self.add_questao_frame.tx_enunciado.GetValue() != "") & (self.add_questao_frame.tx_resposta.GetValue() != "")\
-                & (self.add_questao_frame.ch_complexidade.GetStringSelection() != "") & (self.add_questao_frame.cb_tipoQuestao.GetStringSelection() != ""):
+        # cria condição para fazer necessário o preenchimento de um dos 2 checkbox do campo 'destino'
+        destino = False
+        if (self.add_questao_frame.cb_destinoProva.GetValue() is False) & (self.add_questao_frame.cb_destinoAtv.GetValue() is False):
+            pass
+        else:
+            destino = True
+        if (self.add_questao_frame.tx_enunciado.GetValue() != "") & (self.add_questao_frame.tx_resposta.GetValue() != "") \
+                & (self.add_questao_frame.ch_complexidade.GetStringSelection() != "") & (self.add_questao_frame.cb_tipoQuestao.GetStringSelection() != "")\
+                & (destino == True):
             enunciado = self.add_questao_frame.tx_enunciado.GetValue()
-            resposta = self.add_questao_frame.tx_resposta.GetValue()
+            feedback = self.add_questao_frame.tx_resposta.GetValue()
             complexidade = self.add_questao_frame.ch_complexidade.GetStringSelection()
             if complexidade == "Fácil":
                 idComplexidade = 1
@@ -115,18 +134,23 @@ class PyFeed(gui.PyFeed):
                 idComplexidade = 2
             else:
                 idComplexidade = 3
+            if self.add_questao_frame.cb_destinoProva.GetValue() == True:
+                destino_prova = 1
+            else:
+                destino_prova = None
+            if self.add_questao_frame.cb_destinoAtv.GetValue() == True:
+                destino_atv = 4
+            else:
+                destino_atv = None
             origem = self.add_questao_frame.ch_origem.GetStringSelection()
             idOrigem = dic_tags["idMacroOrigem"].get(origem)
             tipoQuestao = self.add_questao_frame.cb_tipoQuestao.GetStringSelection()
             idTipoQuestao = dic_tags["idMacroTipoQuestao"].get(tipoQuestao)
-            curso = self.add_questao_frame.cb_curso.GetStringSelection()
-            unLivro = self.add_questao_frame.cb_unLivro.GetStringSelection()
-            self.tutor.compoeTempDict(curso, unLivro, self.add_questao_frame)
-            idQuestao = self.tutor.requestPostQuestao(enunciado, resposta, idComplexidade, idOrigem, idTipoQuestao)
+            idQuestao = self.tutor.requestPostQuestao(enunciado, feedback, idComplexidade, destino_prova, destino_atv, idOrigem, idTipoQuestao)
             self.txt_idQuestao.SetValue(idQuestao)
             self.add_questao_frame.Destroy()
         else:
-            return self.warn(self,"Os campos Enunciado, Resposta, Complexidade e Nível da Questão são obrigatórios!")
+            return self.warn(self,"É necessário o preenchimento de todos os campos!")
 
     def form_novaQuestao( self, event ):
         self.add_questao_frame = gui.AddQuestao(self, self.tipo_questao_suportado)
@@ -159,20 +183,8 @@ class PyFeed(gui.PyFeed):
                 q_estruturaCompleta = json.loads(dados_completosQuestao)["data"]
                 if result.dsTipoQuestao in self.tipo_questao_suportado:
                     # verifica se há alternativas já cadastadas
-                    if (q_estruturaCompleta.get("alternativaList") == []) and (len(self.tutor.dic_temp.items()) >= 4):
+                    if (q_estruturaCompleta.get("alternativaList") == []):
                         # aplica estruturação de questão
-                        dicionario = dic_alternativas[result.dsTipoQuestao][result.dsComplexidade]
-                        for payload in dicionario.items():
-                            alternativas.append(payload[1].get("dsAlternativa"))
-                        self.alternativa_panel = AlternativaCorreta(self, alternativas)
-                        self.alternativa_panel.ShowModal()
-                        op_correta = self.alternativa_panel.rb_alt_correta.GetSelection()
-                        self.tutor.requestAlternativa(codigo_questao, op_correta, dicionario)
-                        self.tutor.requestTags(codigo_questao)
-                        self.tutor.dic_temp.clear() # reinicializar dic_temp para permitir novo cadastro na msm sessao
-                        self.txt_idQuestao.Clear()
-                        return self.info(self,"Estruturação de alternativas realizada com sucesso!")
-                    elif (q_estruturaCompleta.get("alternativaList") == []) and (len(self.tutor.dic_temp.items()) < 4):
                         dicionario = dic_alternativas[result.dsTipoQuestao][result.dsComplexidade]
                         for payload in dicionario.items():
                             alternativas.append(payload[1].get("dsAlternativa"))
