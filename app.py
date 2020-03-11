@@ -36,12 +36,15 @@ class AlternativaTag(gui.AlternativaTag):
     def fechaTela(self, event):
         dialog = wx.MessageDialog(self, message = "Tem certeza que deseja sair?", caption = "Caption", style = wx.YES_NO, pos = wx.DefaultPosition)
         response = dialog.ShowModal()
-
         if (response == wx.ID_YES):
             self.rb_alt_correta.Destroy()
             self.Destroy()
         else:
             event.StopPropagation()
+
+    def validaCampos(self, frame):
+        #TODO validar campos antes de concluir o processo
+        pass
 
     def setAlternativaTag(self, event):
         self.Destroy()
@@ -56,6 +59,10 @@ class PyFeed(gui.PyFeed):
         # lista de tipo de questoes suportados pelo programa; necessário adicionar um dicionario de alternativas
         # em 'api.util.dic_alternativas' para novos tipos de questões.
         self.tipo_questao_suportado = ["Objetiva de resposta única", "Objetiva de resposta múltipla"]
+        self.btn_novaQuestao.ToolTip = wx.ToolTip("Cria Nova Questão")
+        self.btn_configEstrutura.ToolTip = wx.ToolTip("Configura Estrutura de Alternativas")
+        self.btn_confereQuestao.ToolTip = wx.ToolTip("Revisa Questão")
+        self.btn_configApp.ToolTip = wx.ToolTip("Configurações")
 
         self.login_frame.bt_login.Bind( wx.EVT_BUTTON, self.acessar_intranet )
 

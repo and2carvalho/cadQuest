@@ -243,12 +243,19 @@ class AddQuestao ( wx.Frame ):
 
 		bSizer11 = wx.BoxSizer( wx.HORIZONTAL )
 
-		cb_unLivroChoices = [ u"Cap. I", u"Cap. II", u"Cap. III", u"Cap. IV", u"Cap. V", u"Cap. VI", u"Cap. VII" ]
-		self.cb_unLivro = wx.RadioBox( self, wx.ID_ANY, u"Unidade do Livro", wx.DefaultPosition, wx.DefaultSize, cb_unLivroChoices, 7, wx.RA_SPECIFY_COLS )
-		self.cb_unLivro.SetSelection( 0 )
-		self.cb_unLivro.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
+		self.m_staticText24 = wx.StaticText( self, wx.ID_ANY, u"Un. Livro", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText24.Wrap( -1 )
 
-		bSizer11.Add( self.cb_unLivro, 1, wx.ALL|wx.EXPAND, 5 )
+		self.m_staticText24.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
+
+		bSizer11.Add(self.m_staticText24, 0, wx.ALL|wx.EXPAND, 5)
+
+		cb_unLivroChoices = [ u"Capitulo I", u"Capitulo II", u"Capitulo III", u"Capitulo IV", u"Capitulo V", u"Capitulo VI", u"Capitulo VII" ]
+		self.cb_unLivro = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, cb_unLivroChoices, 0 )
+		self.cb_unLivro.SetSelection( 0 )
+
+		bSizer11.Add( self.cb_unLivro, 1, wx.EXPAND, 5 )
+
 
 		self.lb_destino = wx.StaticText( self, wx.ID_ANY, u"Destino", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.lb_destino.Wrap( -1 )
@@ -620,11 +627,16 @@ class AlternativaTag ( wx.Dialog ):
 
 		bSizer23 = wx.BoxSizer( wx.HORIZONTAL )
 
-		cb_unLivroChoices = [ u"Cap. I", u"Cap. II", u"Cap. III", u"Cap. IV", u"Cap. V", u"Cap. VI", u"Cap. VII" ]
-		self.cb_unLivro = wx.RadioBox( self, wx.ID_ANY, u"Und. Livro", wx.DefaultPosition, wx.DefaultSize, cb_unLivroChoices, 2, wx.RA_SPECIFY_ROWS )
-		self.cb_unLivro.SetSelection( 0 )
-		self.cb_unLivro.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+		self.m_staticText24 = wx.StaticText( self, wx.ID_ANY, u"Un. Livro", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText24.Wrap( -1 )
 
+		self.m_staticText24.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
+
+		cb_unLivroChoices = [ u"Capitulo I", u"Capitulo II", u"Capitulo III", u"Capitulo IV", u"Capitulo V", u"Capitulo VI", u"Capitulo VII" ]
+		self.cb_unLivro = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, cb_unLivroChoices, 0 )
+		self.cb_unLivro.SetSelection( 0 )
+
+		bSizer23.Add( self.m_staticText24, 0, wx.ALL, 5)
 		bSizer23.Add( self.cb_unLivro, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL|wx.EXPAND, 5 )
 
 
