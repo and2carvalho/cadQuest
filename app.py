@@ -10,6 +10,18 @@ class AddQuestao(gui.AddQuestao):
     def __init__(self, parent, tipo_questao_suportado):
         gui.AddQuestao.__init__(self, parent, tipo_questao_suportado)
 
+    def corrigeTxt( self, event):
+        self.Destroy()
+        #from symspellpy import SymSpell
+
+        #sym_spell = SymSpell()
+        #sym_spell.load_dictionary("static/frequency_dictionary_en_82_765.txt", 0, 1)
+        #sym_spell.load_bigram_dictionary("static/frequency_bigramdictionary_en_243_342.txt", term_index=0, count_index=2)
+
+        #input_term = self.tx_enunciado.GetValue()
+        #suggestions = sym_spell.lookup_compound(input_term, max_edit_distance=2)
+        #self.tx_enunciado.SetValue(suggestions)
+
 class AlternativaCorreta(gui.AlternativaCorreta):
 
     def __init__(self, parent, alternativas):

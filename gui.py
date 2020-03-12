@@ -104,7 +104,7 @@ class AddQuestao ( wx.Frame ):
 		bSizer9 = wx.BoxSizer( wx.HORIZONTAL )
 
 		self.lb_disciplina = wx.StaticText( self, wx.ID_ANY, u"Disciplina", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.lb_disciplina.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Hack" ) )
+		self.lb_disciplina.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
 		self.lb_disciplina.Wrap( -1 )
 
 		self.lb_disciplina.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
@@ -118,7 +118,7 @@ class AddQuestao ( wx.Frame ):
 		bSizer9.Add( self.m_choice2, 1, wx.ALL, 5 )
 
 		self.lb_diretorioRaiz = wx.StaticText( self, wx.ID_ANY, u"Diretório Raiz", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.lb_diretorioRaiz.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Hack" ) )
+		self.lb_diretorioRaiz.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
 		self.lb_diretorioRaiz.Wrap( -1 )
 
 		self.lb_diretorioRaiz.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
@@ -131,7 +131,7 @@ class AddQuestao ( wx.Frame ):
 		bSizer9.Add( self.m_choice5, 1, wx.ALL, 5 )
 
 		self.lb_origem = wx.StaticText( self, wx.ID_ANY, u"Origem", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.lb_origem.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Hack" ) )
+		self.lb_origem.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
 		self.lb_origem.Wrap( -1 )
 
 		self.lb_origem.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
@@ -149,7 +149,7 @@ class AddQuestao ( wx.Frame ):
 		bSizer10 = wx.BoxSizer( wx.HORIZONTAL )
 
 		self.lb_tipoQuestao = wx.StaticText( self, wx.ID_ANY, u"Tipo de Questão", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.lb_tipoQuestao.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Hack" ) )
+		self.lb_tipoQuestao.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
 		self.lb_tipoQuestao.Wrap( -1 )
 
 		self.lb_tipoQuestao.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
@@ -161,7 +161,7 @@ class AddQuestao ( wx.Frame ):
 		bSizer10.Add( self.cb_tipoQuestao, 1, wx.ALL, 5 )
 
 		self.lb_complexidade = wx.StaticText( self, wx.ID_ANY, u"Complexidade", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.lb_complexidade.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Hack" ) )
+		self.lb_complexidade.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
 		self.lb_complexidade.Wrap( -1 )
 
 		self.lb_complexidade.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
@@ -174,7 +174,7 @@ class AddQuestao ( wx.Frame ):
 		bSizer10.Add( self.ch_complexidade, 0, wx.ALL, 5 )
 
 		self.lb_destino = wx.StaticText( self, wx.ID_ANY, u"Destino", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.lb_destino.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Hack" ) )
+		self.lb_destino.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
 		self.lb_destino.Wrap( -1 )
 
 		self.lb_destino.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
@@ -197,7 +197,7 @@ class AddQuestao ( wx.Frame ):
 		bSizer12 = wx.BoxSizer( wx.VERTICAL )
 
 		self.lb_enunciado = wx.StaticText( self, wx.ID_ANY, u"Texto Base / Enunciado", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.lb_enunciado.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Hack" ) )
+		self.lb_enunciado.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
 		self.lb_enunciado.Wrap( -1 )
 
 		self.lb_enunciado.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
@@ -208,12 +208,15 @@ class AddQuestao ( wx.Frame ):
 		bSizer12.Add( self.tx_enunciado, 0, wx.ALL|wx.EXPAND, 5 )
 
 		self.lb_resposta = wx.StaticText( self, wx.ID_ANY, u"Resposta Esperada", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.lb_resposta.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Hack" ) )
+		self.lb_resposta.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
 		self.lb_resposta.Wrap( -1 )
 
 		self.lb_resposta.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
 
 		bSizer12.Add( self.lb_resposta, 0, wx.ALL, 5 )
+
+		self.bt_corretorOrt = wx.Button( self, wx.ID_ANY, u"Corretor Ortográfico", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer12.Add(self.bt_corretorOrt, 0, wx.ALL, 0)
 
 		self.tx_resposta = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 500,100 ), wx.TE_MULTILINE )
 		bSizer12.Add( self.tx_resposta, 0, wx.ALL|wx.EXPAND, 5 )
@@ -234,6 +237,7 @@ class AddQuestao ( wx.Frame ):
 
 		# Connect Events
 		self.bt_salvarQuestao.Bind( wx.EVT_BUTTON, self.addQuestao )
+		self.bt_corretorOrt.Bind( wx.EVT_BUTTON, self.corrigeTxt )
 
 	def __del__( self ):
 		pass
@@ -241,6 +245,9 @@ class AddQuestao ( wx.Frame ):
 
 	# Virtual event handlers, overide them in your derived class
 	def addQuestao( self, event ):
+		event.Skip()
+
+	def corrigeTxt( self, event ):
 		event.Skip()
 
 
@@ -421,12 +428,10 @@ class AlternativaTag ( wx.Dialog ):
 
 		bSizer5 = wx.BoxSizer( wx.VERTICAL )
 
-		bSizer5.SetMinSize( wx.Size( 290,250 ) )
 		self.lb_alt_correta = wx.StaticText( self, wx.ID_ANY, u"Selecione a alternativa correta", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.lb_alt_correta.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Hack" ) )
+		self.lb_alt_correta.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
 		self.lb_alt_correta.Wrap( -1 )
 
-		self.lb_alt_correta.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_MODERN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
 		self.lb_alt_correta.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
 
 		bSizer5.Add( self.lb_alt_correta, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.TOP, 12 )
@@ -434,46 +439,46 @@ class AlternativaTag ( wx.Dialog ):
 		rb_alt_corretaChoices = alternativas
 		self.rb_alt_correta = wx.RadioBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, rb_alt_corretaChoices, 1, wx.RA_SPECIFY_COLS )
 		self.rb_alt_correta.SetSelection( 0 )
-		bSizer5.Add( self.rb_alt_correta, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 12 )
+
+		bSizer5.Add( self.rb_alt_correta, 0, wx.ALL|wx.EXPAND, 15 )
 		self.rb_alt_correta.SetBackgroundColour( wx.Colour( 229, 229, 229 ) )
 
 		bSizer15 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.lb_modulo = wx.StaticText( self, wx.ID_ANY, u"Módulo", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.lb_modulo.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Hack" ) )
+		self.lb_modulo = wx.StaticText( self, wx.ID_ANY, u"Módulo ", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_modulo.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
 		self.lb_modulo.Wrap( -1 )
 
 		self.lb_modulo.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
-
-		bSizer15.Add( self.lb_modulo, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		bSizer5.Add( self.lb_modulo, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 		self.cb_mod51 = wx.CheckBox( self, wx.ID_ANY, u"51", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cb_mod51.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
 
-		bSizer15.Add( self.cb_mod51, 0, wx.ALL, 5 )
+		bSizer15.Add( self.cb_mod51, 1, wx.ALL, 5 )
 
 		self.cb_mod52 = wx.CheckBox( self, wx.ID_ANY, u"52", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cb_mod52.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
 
-		bSizer15.Add( self.cb_mod52, 0, wx.ALL, 5 )
+		bSizer15.Add( self.cb_mod52, 1, wx.ALL, 5 )
 
 		self.cb_mod53 = wx.CheckBox( self, wx.ID_ANY, u"53", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cb_mod53.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
 
-		bSizer15.Add( self.cb_mod53, 0, wx.ALL, 5 )
+		bSizer15.Add( self.cb_mod53, 1, wx.ALL, 5 )
 
 		self.cb_mod54 = wx.CheckBox( self, wx.ID_ANY, u"54", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cb_mod54.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
 
-		bSizer15.Add( self.cb_mod54, 0, wx.ALL, 5 )
+		bSizer15.Add( self.cb_mod54, 1, wx.ALL, 5 )
 
 
 		bSizer5.Add( bSizer15, 0, wx.EXPAND, 5 )
 
 		bSizer17 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.lb_curso = wx.StaticText(self, wx.ID_ANY, u"Curso", wx.DefaultPosition, wx.DefaultSize, 0)
-		self.lb_curso.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Hack" ) )
+		self.lb_curso = wx.StaticText(self, wx.ID_ANY, u"Curso ", wx.DefaultPosition, wx.DefaultSize, 0)
+		self.lb_curso.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
 		self.lb_curso.Wrap(-1)
 
 		self.lb_curso.SetForegroundColour(wx.Colour(229, 229, 229))
@@ -490,7 +495,7 @@ class AlternativaTag ( wx.Dialog ):
 		bSizer20 = wx.BoxSizer( wx.VERTICAL )
 
 		self.lb_atividade = wx.StaticText(self, wx.ID_ANY, u"Atividade", wx.DefaultPosition, wx.DefaultSize, 0)
-		self.lb_atividade.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Hack" ) )
+		self.lb_atividade.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
 		self.lb_atividade.Wrap(-1)
 
 		self.lb_atividade.SetForegroundColour(wx.Colour(229, 229, 229))
@@ -504,56 +509,36 @@ class AlternativaTag ( wx.Dialog ):
 
 		bSizer21.Add( self.cb_prova, 0, wx.ALL, 5 )
 
-		self.cb_atv1 = wx.CheckBox( self, wx.ID_ANY, u"Atv1", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.cb_atv1 = wx.CheckBox( self, wx.ID_ANY, u"Atv2", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cb_atv1.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
 
 		bSizer21.Add( self.cb_atv1, 0, wx.ALL, 5 )
 
-		self.cb_atv2 = wx.CheckBox( self, wx.ID_ANY, u"Atv2", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.cb_atv2 = wx.CheckBox( self, wx.ID_ANY, u"Atv3", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cb_atv2.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
 
 		bSizer21.Add( self.cb_atv2, 0, wx.ALL, 5 )
 
-		self.cb_atv3 = wx.CheckBox( self, wx.ID_ANY, u"Atv3", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.cb_atv3 = wx.CheckBox( self, wx.ID_ANY, u"Atv4", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cb_atv3.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
 
 		bSizer21.Add( self.cb_atv3, 0, wx.ALL, 5 )
-
 
 		bSizer20.Add( bSizer21, 1, wx.EXPAND, 5 )
 
 		bSizer22 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.cb_atv4 = wx.CheckBox( self, wx.ID_ANY, u"Atv4", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.cb_atv4 = wx.CheckBox( self, wx.ID_ANY, u"Atv1", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cb_atv4.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
 
-		bSizer22.Add( self.cb_atv4, 0, wx.ALL, 5 )
-
-		self.cb_atv5 = wx.CheckBox( self, wx.ID_ANY, u"Atv5", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.cb_atv5.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
-
-		bSizer22.Add( self.cb_atv5, 0, wx.ALL, 5 )
-
-		self.cb_atv6 = wx.CheckBox( self, wx.ID_ANY, u"Atv6", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.cb_atv6.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
-
-		bSizer22.Add( self.cb_atv6, 0, wx.ALL, 5 )
-
-		self.cb_atv7 = wx.CheckBox( self, wx.ID_ANY, u"Atv7", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.cb_atv7.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
-
-		bSizer22.Add( self.cb_atv7, 0, wx.ALL, 5 )
-
-
-		bSizer20.Add( bSizer22, 1, wx.EXPAND, 5 )
-
+		bSizer21.Add( self.cb_atv4, 0, wx.ALL, 5 )
 
 		bSizer5.Add( bSizer20, 0, wx.EXPAND, 5 )
 
 		bSizer23 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.lb_unLivro = wx.StaticText(self, wx.ID_ANY, u"Un. Livro", wx.DefaultPosition, wx.DefaultSize, 0)
-		self.lb_unLivro.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Hack" ) )
+		self.lb_unLivro = wx.StaticText(self, wx.ID_ANY, u"Un. Livro: ", wx.DefaultPosition, wx.DefaultSize, 0)
+		self.lb_unLivro.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
 		self.lb_unLivro.Wrap(-1)
 
 		self.lb_unLivro.SetForegroundColour(wx.Colour(229, 229, 229))
