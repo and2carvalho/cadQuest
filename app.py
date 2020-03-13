@@ -10,18 +10,6 @@ class AddQuestao(gui.AddQuestao):
     def __init__(self, parent, tipo_questao_suportado):
         gui.AddQuestao.__init__(self, parent, tipo_questao_suportado)
 
-    def corrigeTxt( self, event):
-        self.Destroy()
-        #from symspellpy import SymSpell
-
-        #sym_spell = SymSpell()
-        #sym_spell.load_dictionary("static/frequency_dictionary_en_82_765.txt", 0, 1)
-        #sym_spell.load_bigram_dictionary("static/frequency_bigramdictionary_en_243_342.txt", term_index=0, count_index=2)
-
-        #input_term = self.tx_enunciado.GetValue()
-        #suggestions = sym_spell.lookup_compound(input_term, max_edit_distance=2)
-        #self.tx_enunciado.SetValue(suggestions)
-
 class AlternativaCorreta(gui.AlternativaCorreta):
 
     def __init__(self, parent, alternativas):
@@ -126,6 +114,16 @@ class PyFeed(gui.PyFeed):
             self.login_frame.Hide()
             self.Show()
 
+    def corrigeTxt(self, event):
+        from symspellpy import SymSpell
+        import spell
+
+        sym_spell = SymSpell()
+        sym_spell.load_dictionary("static/frequency_dictionary_en_82_765.txt", 0, 1, separator="\t", encoding="latin-1")
+        input_term = self.add_questao_frame.tx_enunciado.GetValue()
+        suggestions = sym_spell.word_segmentation(input_term, max_edit_distance=2 )
+        self.add_questao_frame.tx_enunciado.SetValue(suggestions.corrected_string)
+
     def addQuestao(self, event):
         idQuestao = None # necessário para permitir múltiplos cadastros na mesma sessão do app (caso contrario o valor do id da segunda questão seria mantido e geraria erro no novo cadastro.
         # cria condição para fazer necessário o preenchimento de um dos 2 checkbox do campo 'destino'
@@ -167,6 +165,7 @@ class PyFeed(gui.PyFeed):
     def form_novaQuestao( self, event ):
         self.add_questao_frame = gui.AddQuestao(self, self.tipo_questao_suportado)
         self.add_questao_frame.Show()
+        self.add_questao_frame.bt_corretorOrt.Bind( wx.EVT_BUTTON, self.corrigeTxt )
         self.add_questao_frame.bt_salvarQuestao.Bind( wx.EVT_BUTTON, self.addQuestao )
 
     def estrutura_questao(self, event):

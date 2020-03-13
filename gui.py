@@ -215,14 +215,20 @@ class AddQuestao ( wx.Frame ):
 
 		bSizer12.Add( self.lb_resposta, 0, wx.ALL, 5 )
 
+		row1 = wx.StaticBoxSizer(wx.HORIZONTAL , self, 'Selecione um arquivo de imagem:')
+		self.fileCtrl = wx.FilePickerCtrl(self, message="Upload de imagem",style=wx.FLP_USE_TEXTCTRL,size=(390,25))
+		row1.Add(self.fileCtrl,0,wx.ALL|wx.ALIGN_CENTER,10)
+
 		self.bt_corretorOrt = wx.Button( self, wx.ID_ANY, u"Corretor Ortográfico", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer12.Add(self.bt_corretorOrt, 0, wx.ALL, 0)
+		bSizer12.Add(self.bt_corretorOrt, 0, wx.ALL|wx.ALIGN_CENTER, 8)
 
 		self.tx_resposta = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 500,100 ), wx.TE_MULTILINE )
 		bSizer12.Add( self.tx_resposta, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer6.Add( bSizer12, 0, wx.EXPAND, 5 )
+		bSizer6.Add( row1, 0, wx.EXPAND, 5 )
+
 
 		self.bt_salvarQuestao = wx.Button( self, wx.ID_ANY, u"Salvar Nova Questão", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer6.Add( self.bt_salvarQuestao, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 15 )
