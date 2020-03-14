@@ -93,7 +93,7 @@ class Login ( wx.Frame ):
 class AddQuestao ( wx.Frame ):
 
 	def __init__( self, parent, tipo_questao_suportado ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"PyFeed - Unicesumar EAD", pos = wx.DefaultPosition, size = wx.Size( 771,580 ), style = wx.DEFAULT_FRAME_STYLE|wx.STAY_ON_TOP|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"PyFeed - Unicesumar EAD", pos = wx.DefaultPosition, size = wx.Size( 771,715 ), style = wx.DEFAULT_FRAME_STYLE|wx.STAY_ON_TOP|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOWFRAME ) )
@@ -213,28 +213,41 @@ class AddQuestao ( wx.Frame ):
 
 		self.lb_resposta.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
 
+		self.lb_fileEnun = wx.StaticText( self, wx.ID_ANY, u"Selecione um arquivo de imagem para o Enunciado", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_fileEnun.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
+		self.lb_fileEnun.Wrap( -1 )
+		self.lb_fileEnun.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
+		row1 = wx.StaticBoxSizer(wx.HORIZONTAL , self, '')
+		row1.Add(self.lb_fileEnun, 0, wx.ALL, 10)
+		self.fileCtrlEnun = wx.FilePickerCtrl(self, message="Upload de imagem", wildcard="Imagem png (.png)|*.png|Imagem jpg (.jpg)|*.jpg", style=wx.FLP_USE_TEXTCTRL, size=(390, 25))
+		row1.Add(self.fileCtrlEnun, 0, wx.ALL, 8)
+		bSizer12.Add(row1, 1, wx.ALL|wx.EXPAND, 0)
 		bSizer12.Add( self.lb_resposta, 0, wx.ALL, 5 )
-
-		row1 = wx.StaticBoxSizer(wx.HORIZONTAL , self, 'Selecione um arquivo de imagem:')
-		self.fileCtrl = wx.FilePickerCtrl(self, message="Upload de imagem",style=wx.FLP_USE_TEXTCTRL,size=(390,25))
-		row1.Add(self.fileCtrl,0,wx.ALL|wx.ALIGN_CENTER,10)
-
-		self.bt_corretorOrt = wx.Button( self, wx.ID_ANY, u"Corretor Ortográfico", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer12.Add(self.bt_corretorOrt, 0, wx.ALL|wx.ALIGN_CENTER, 8)
 
 		self.tx_resposta = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 500,100 ), wx.TE_MULTILINE )
 		bSizer12.Add( self.tx_resposta, 0, wx.ALL|wx.EXPAND, 5 )
 
+		self.lb_fileFeedback = wx.StaticText( self, wx.ID_ANY, u"Selecione um arquivo de imagem para o FeedBack", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lb_fileFeedback.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
+		self.lb_fileFeedback.Wrap( -1 )
+		self.lb_fileFeedback.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
+		row2 = wx.StaticBoxSizer(wx.HORIZONTAL , self, '')
+		self.fileCtrlFeedback = wx.FilePickerCtrl(self, message="Upload de imagem", wildcard="Imagem png (.png)|*.png|Imagem jpg (.jpg)|*.jpg", style=wx.FLP_USE_TEXTCTRL, size=(390, 25))
+		row2.Add(self.lb_fileFeedback, 0, wx.ALL, 10)
+		row2.Add(self.fileCtrlFeedback, 0, wx.ALL, 8)
+		bSizer12.Add(row2, 1, wx.ALL|wx.EXPAND, 0)
 
 		bSizer6.Add( bSizer12, 0, wx.EXPAND, 5 )
-		bSizer6.Add( row1, 0, wx.EXPAND, 5 )
-
-
-		self.bt_salvarQuestao = wx.Button( self, wx.ID_ANY, u"Salvar Nova Questão", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer6.Add( self.bt_salvarQuestao, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 15 )
 
 		bSizer13 = wx.BoxSizer( wx.HORIZONTAL )
-		bSizer13.Add( self.bt_salvarQuestao, 0, wx.ALL, 5 )
+
+		self.bt_corretorOrt = wx.Button( self, wx.ID_ANY, u"Corretor Ortográfico", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.bt_salvarQuestao = wx.Button( self, wx.ID_ANY, u"Salvar Nova Questão", wx.DefaultPosition, wx.DefaultSize, 0 )
+
+		bSizer13.Add( self.bt_corretorOrt, 0, wx.ALL|wx.ALIGN_LEFT, 10 )
+		bSizer13.Add( self.bt_salvarQuestao, 0, wx.ALL|wx.ALIGN_RIGHT, 10 )
+
+		bSizer6.Add(bSizer13,0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL,15)
 
 		self.SetSizer( bSizer6 )
 		self.Layout()

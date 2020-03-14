@@ -116,10 +116,8 @@ class PyFeed(gui.PyFeed):
 
     def corrigeTxt(self, event):
         from symspellpy import SymSpell
-        import spell
-
         sym_spell = SymSpell()
-        sym_spell.load_dictionary("static/frequency_dictionary_en_82_765.txt", 0, 1, separator="\t", encoding="latin-1")
+        sym_spell.load_dictionary("static/frequency_dictionary_en_82_765.txt", 0, 1)# 1, 0, encoding="latin-1")
         input_term = self.add_questao_frame.tx_enunciado.GetValue()
         suggestions = sym_spell.word_segmentation(input_term, max_edit_distance=2 )
         self.add_questao_frame.tx_enunciado.SetValue(suggestions.corrected_string)
@@ -156,6 +154,26 @@ class PyFeed(gui.PyFeed):
             idOrigem = dic_tags["idMacroOrigem"].get(origem)
             tipoQuestao = self.add_questao_frame.cb_tipoQuestao.GetStringSelection()
             idTipoQuestao = dic_tags["idMacroTipoQuestao"].get(tipoQuestao)
+            imagemEnunciado = self.add_questao_frame.fileCtrlEnun.GetPath()
+            if imagemEnunciado != "":
+                import base64
+                with open(imagemEnunciado,"rb") as img:
+                    img_encoded = base64.b64encode(img.read())
+                    enunciado += '&lt;br /&gt;&lt;img alt="" border="0" hspace="0" src="data:image/jpeg;base64,'
+                    enunciado += str(img_encoded, 'utf-8') + '"'
+                    enunciado += 'style="border:0px solid black; height:946px; margin-bottom:0px; margin-left:0px; margin-right:0px; margin-top:0px; width:1024px" vspace="0" /&gt;&lt;br /&gt;'
+            else:
+                pass
+            imagemFeedback = self.add_questao_frame.fileCtrlEnun.GetPath()
+            if imagemFeedback != "":
+                import base64
+                with open(imagemFeedback,"rb") as img:
+                    img_encoded = base64.b64encode(img.read())
+                    feedback += '&lt;br /&gt;&lt;img alt="" border="0" hspace="0" src="data:image/jpeg;base64,'
+                    feedback += str(img_encoded, 'utf-8') + '"'
+                    feedback += 'style="border:0px solid black; height:946px; margin-bottom:0px; margin-left:0px; margin-right:0px; margin-top:0px; width:1024px" vspace="0" /&gt;&lt;br /&gt;'
+            else:
+                pass
             idQuestao = self.tutor.requestPostQuestao(enunciado, feedback, idComplexidade, destino_prova, destino_atv, idOrigem, idTipoQuestao)
             self.txt_idQuestao.SetValue(idQuestao)
             self.add_questao_frame.Destroy()
