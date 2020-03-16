@@ -10,24 +10,6 @@ class AddQuestao(gui.AddQuestao):
     def __init__(self, parent, tipo_questao_suportado):
         gui.AddQuestao.__init__(self, parent, tipo_questao_suportado)
 
-class AlternativaCorreta(gui.AlternativaCorreta):
-
-    def __init__(self, parent, alternativas):
-        gui.AlternativaCorreta.__init__(self, parent, alternativas)
-
-    def fechaTela(self, event):
-        dialog = wx.MessageDialog(self, message = "Tem certeza que deseja sair?", caption = "Caption", style = wx.YES_NO, pos = wx.DefaultPosition)
-        response = dialog.ShowModal()
-
-        if (response == wx.ID_YES):
-            self.rb_alt_correta.Destroy()
-            self.Destroy()
-        else:
-            event.StopPropagation()
-    
-    def setAlternativaCorreta(self, event):
-        self.Destroy()
-
 class AlternativaTag(gui.AlternativaTag):
 
     def __init__(self, parent, alternativas):
@@ -164,7 +146,7 @@ class PyFeed(gui.PyFeed):
                     enunciado += 'style="border:0px solid black; height:946px; margin-bottom:0px; margin-left:0px; margin-right:0px; margin-top:0px; width:1024px" vspace="0" /&gt;&lt;br /&gt;'
             else:
                 pass
-            imagemFeedback = self.add_questao_frame.fileCtrlEnun.GetPath()
+            imagemFeedback = self.add_questao_frame.fileCtrlFeedback.GetPath()
             if imagemFeedback != "":
                 import base64
                 with open(imagemFeedback,"rb") as img:

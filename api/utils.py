@@ -302,7 +302,7 @@ dic_tags = {
         "Atv7" : "140",
         "QUIZ" : "146",
         "EAD GIRO" : "147",
-        "PROVA" : "161",
+        "Prova" : "161",
         "MAPA SUB" : "163",
     },
     "idNodeMacro30" : {

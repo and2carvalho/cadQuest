@@ -374,64 +374,6 @@ class PyFeed ( wx.Frame ):
 		event.Skip()
 
 
-###########################################################################
-## Class AlternativaCorreta
-###########################################################################
-
-class AlternativaCorreta ( wx.Dialog ):
-
-	def __init__( self, parent, alternativas ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Finaliza Estrutura Banco de Questoes", pos = wx.DefaultPosition, size = wx.Size( 269,290 ), style = wx.DEFAULT_DIALOG_STYLE )
-
-		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
-		self.SetBackgroundColour( wx.Colour( 0, 93, 126 ) )
-
-		bSizer5 = wx.BoxSizer( wx.VERTICAL )
-
-		bSizer5.SetMinSize( wx.Size( 290,250 ) )
-		self.lb_alt_correta = wx.StaticText( self, wx.ID_ANY, u"Selecione a alternativa correta", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.lb_alt_correta.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Hack" ) )
-		self.lb_alt_correta.Wrap( -1 )
-
-		self.lb_alt_correta.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_MODERN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
-		self.lb_alt_correta.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
-
-		bSizer5.Add( self.lb_alt_correta, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.TOP, 12 )
-
-		rb_alt_corretaChoices = alternativas
-		self.rb_alt_correta = wx.RadioBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, rb_alt_corretaChoices, 1, wx.RA_SPECIFY_COLS )
-		self.rb_alt_correta.SetSelection( 0 )
-		bSizer5.Add( self.rb_alt_correta, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 12 )
-
-		bSizer16 = wx.BoxSizer( wx.VERTICAL )
-
-		self.bt_alt_correta = wx.Button( self, wx.ID_ANY, u"Selecionar e cadastrar estrutura", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer16.Add( self.bt_alt_correta, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 12 )
-
-
-		bSizer5.Add( bSizer16, 0, wx.EXPAND, 5 )
-
-
-		self.SetSizer( bSizer5 )
-		self.Layout()
-
-		self.Centre( wx.BOTH )
-
-		# Connect Events
-		self.Bind( wx.EVT_CLOSE, self.fechaTela )
-		self.bt_alt_correta.Bind( wx.EVT_BUTTON, self.setAlternativaCorreta )
-
-	def __del__( self ):
-		pass
-
-
-	# Virtual event handlers, overide them in your derived class
-	def fechaTela( self, event ):
-		event.Skip()
-
-	def setAlternativaCorreta( self, event ):
-		event.Skip()
-
 
 ###########################################################################
 ## Class AlternativaTag
