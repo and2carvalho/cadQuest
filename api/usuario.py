@@ -154,7 +154,7 @@ class Usuario():
             payload.add("idQuestao", idQuestao)
             payload.add("idTagList[]", self.dic_temp.get("34"))
             payload.add("idTagList[]", self.dic_temp.get("atv1"))
-            if self.dic_temp["atv2"]:
+            if "atv2" in self.dic_temp:
                 payload.add("idTagList[]", self.dic_temp.get("atv2"))
             else:
                 pass
@@ -187,7 +187,6 @@ class Usuario():
         # dicionario necessário para criar tags
         from api.utils import dic_tags
         self.dic_temp = {
-            "34": "131",
             "curso": dic_tags["idNodeMacro30"].get(curso),
             "unLivro": dic_tags["idMacroNode2"].get(unLivro),
             #TODO ajustar componente grafico do destino e pegar valor da seleção do usuario
@@ -211,28 +210,26 @@ class Usuario():
         # atividade prova é enviada como valor padrão para todos os cadastros
         if frame.cb_prova.GetValue():
             self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("Prova")
+            self.dic_temp["34"] = "131"
         else:
-            self.dic_temp["atv1"] = None
+            self.dic_temp["34"] = "132"
         if frame.cb_atv1.GetValue():
-            if self.dic_temp["atv1"] == None:
-                self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("Atv2")
-            else:
+            if "atv1" in self.dic_temp:
                 self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv2")
-
+            else:
+                self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("Atv2")
         if frame.cb_atv2.GetValue():
-            if self.dic_temp["atv1"] == None:
-                self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("Atv3")
-            else:
+            if "atv1" in self.dic_temp:
                 self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv3")
-
+            else:
+                self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("Atv3")
         if frame.cb_atv3.GetValue():
-            if self.dic_temp["atv1"] == None:
-                self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("Atv4")
-            else:
+            if "atv1" in self.dic_temp:
                 self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv4")
-
-        if frame.cb_atv4.GetValue():
-            if self.dic_temp["atv1"] == None:
-                self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("Atv1")
             else:
+                self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("Atv4")
+        if frame.cb_atv4.GetValue():
+            if "atv1" in self.dic_temp:
                 self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv1")
+            else:
+                self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("Atv1")

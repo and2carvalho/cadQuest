@@ -20,6 +20,7 @@ a.datas += [('icon-arvore.png', 'C:\\Docs Andre\\pyFeed\\static\\icon-arvore.png
 a.datas += [('icon-estrut.png', 'C:\\Docs Andre\\pyFeed\\static\\icon-estrut.png', 'DATA')]
 a.datas += [('icon-settings.png', 'C:\\Docs Andre\\pyFeed\\static\\icon-settings.png', 'DATA')]
 a.datas += [('icon-txtQuestao.png', 'C:\\Docs Andre\\pyFeed\\static\\icon-txtQuestao.png', 'DATA')]
+a.datas += [('frequency_dictionary_pt_82_765.txt', 'C:\\Docs Andre\\pyFeed\\static\\frequency_dictionary_pt_82_765.txt', 'DATA')]
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,

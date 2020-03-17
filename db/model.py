@@ -47,4 +47,4 @@ class Questao(Base):
         Situcao: {}\n".format(self.idQuestao,self.dsUsuario, self.dsSituacao)
 
 
-Base.metadata.create_all(db)
+#Base.metadata.create_all(db)
