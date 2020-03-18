@@ -118,8 +118,8 @@ class PyFeed(gui.PyFeed):
                 & (self.add_questao_frame.ch_complexidade.GetStringSelection() != "") & (self.add_questao_frame.cb_tipoQuestao.GetStringSelection() != "")\
                 & (destino == True):
             try:
-                enunciado = self.add_questao_frame.tx_enunciado.GetValue().replace("\n","<br>").encode("utf-8")
-                feedback = self.add_questao_frame.tx_resposta.GetValue().replace("\n","<br>").encode("utf-8")
+                enunciado = self.add_questao_frame.tx_enunciado.GetValue().replace("\n","<br>").encode("latin-1")
+                feedback = self.add_questao_frame.tx_resposta.GetValue().replace("\n","<br>").encode("latin-1")
                 complexidade = self.add_questao_frame.ch_complexidade.GetStringSelection()
                 if complexidade == "Fácil":
                     idComplexidade = 1
@@ -203,7 +203,7 @@ class PyFeed(gui.PyFeed):
                     query = session.query(Questao).filter(Questao.idQuestao == codigo_questao)
                     result = query.one_or_none()
                     url_questaoCompleta = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/"+result.urlVisualizar
-                    dados_completosQuestao = self.tutor.br.open(url_questaoCompleta).get_data().decode("utf-8")
+                    dados_completosQuestao = self.tutor.br.open(url_questaoCompleta).get_data().decode("latin-1")
                     q_estruturaCompleta = json.loads(dados_completosQuestao)["data"]
                     if result.dsTipoQuestao in self.tipo_questao_suportado:
                         # verifica se há alternativas já cadastadas
