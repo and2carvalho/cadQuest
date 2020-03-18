@@ -18,7 +18,6 @@ def serializaRequest(payload):
         print(e)
 
 def printLog(browser_response):
-    from bs4 import BeautifulSoup
     ''' Gera arq com respelho da resposta html.
     ex. printLog( BROWSER.response() ) '''
     from bs4 import BeautifulSoup
@@ -114,7 +113,7 @@ dic_alternativas = {
       "payload_5": {
         "action": "inserir",
         "idQuestao": None,
-        "dsAlternativa": "I, II e III.",
+        "dsAlternativa": "I, II e III, apenas",
         "correta": 0
       }
     },
@@ -146,7 +145,7 @@ dic_alternativas = {
       "payload_5": {
         "action": "inserir",
         "idQuestao": None,
-        "dsAlternativa": "I, II, III e IV.",
+        "dsAlternativa": "I, II, III e IV, apenas.",
         "correta": 0
       }
     },
@@ -154,31 +153,31 @@ dic_alternativas = {
       "payload_1": {
         "action": "inserir",
         "idQuestao": None,
-        "dsAlternativa": "II e III.",
+        "dsAlternativa": "II e III, apenas.",
         "correta": 0
       },
       "payload_2": {
         "action": "inserir",
         "idQuestao": None,
-        "dsAlternativa": "I e IV.",
+        "dsAlternativa": "I e IV, apenas.",
         "correta": 0
       },
       "payload_3": {
         "action": "inserir",
         "idQuestao": None,
-        "dsAlternativa": "II e III.",
+        "dsAlternativa": "II e III, apenas.",
         "correta": 0
       },
       "payload_4": {
         "action": "inserir",
         "idQuestao": None,
-        "dsAlternativa": "I, II e IV.",
+        "dsAlternativa": "I, II e IV, apenas.",
         "correta": 0
       },
       "payload_5": {
         "action": "inserir",
         "idQuestao": None,
-        "dsAlternativa": "II, III e IV.",
+        "dsAlternativa": "II, III e IV, apenas.",
         "correta": 0
       }
     }
@@ -212,7 +211,7 @@ dic_alternativas = {
       "payload_5": {
         "action": "inserir",
         "idQuestao": None,
-        "dsAlternativa": "I, II e III.",
+        "dsAlternativa": "I, II e III, apenas.",
         "correta": 0
       }
     },
@@ -244,7 +243,7 @@ dic_alternativas = {
       "payload_5": {
         "action": "inserir",
         "idQuestao": None,
-        "dsAlternativa": "I, II e III.",
+        "dsAlternativa": "I, II e III, apenas.",
         "correta": 0
       }
     },
@@ -276,7 +275,7 @@ dic_alternativas = {
       "payload_5": {
         "action": "inserir",
         "idQuestao": None,
-        "dsAlternativa": "I, II e III.",
+        "dsAlternativa": "I, II e III, apenas.",
         "correta": 0
       }
     }

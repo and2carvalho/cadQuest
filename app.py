@@ -84,7 +84,7 @@ class PyFeed(gui.PyFeed):
         ''' Realiza login na intranet unicesumar e acessa o Formulário
         de busca das questões. '''
 
-        self.tutor = Usuario("luciana.tavone","31415*Pi")#self.login_frame.txt_login.GetValue(), self.login_frame.txt_senha.GetValue()
+        self.tutor = Usuario(self.login_frame.txt_login.GetValue(), self.login_frame.txt_senha.GetValue())#
         loginApp(self.tutor)
         if (self.tutor.br.response().geturl() == "http://intranet.unicesumar.edu.br/?erro_login"):
             self.warn(self, "Não foi possivel realizar o acesso com os dados digitados")
@@ -99,7 +99,7 @@ class PyFeed(gui.PyFeed):
     def corrigeTxt(self, event):
         from symspellpy import SymSpell
         sym_spell = SymSpell()
-        sym_spell.load_dictionary("static/frequency_dictionary_pt_82_765.txt", 0, 1,encoding="latin-1")
+        sym_spell.load_dictionary("frequency_dictionary_pt_82_765.txt", 0, 1,encoding="latin-1")
         input_term = self.add_questao_frame.tx_enunciado.GetValue()
         suggestions = sym_spell.word_segmentation(input_term, max_edit_distance=2 )
         self.add_questao_frame.tx_enunciado.SetValue(suggestions.corrected_string)
@@ -115,8 +115,8 @@ class PyFeed(gui.PyFeed):
         if (self.add_questao_frame.tx_enunciado.GetValue() != "") & (self.add_questao_frame.tx_resposta.GetValue() != "") \
                 & (self.add_questao_frame.ch_complexidade.GetStringSelection() != "") & (self.add_questao_frame.cb_tipoQuestao.GetStringSelection() != "")\
                 & (destino == True):
-            enunciado = self.add_questao_frame.tx_enunciado.GetValue()
-            feedback = self.add_questao_frame.tx_resposta.GetValue()
+            enunciado = self.add_questao_frame.tx_enunciado.GetValue().replace("\n","<br>").encode("latin-1")
+            feedback = self.add_questao_frame.tx_resposta.GetValue().replace("\n","<br>").encode("latin-1")
             complexidade = self.add_questao_frame.ch_complexidade.GetStringSelection()
             if complexidade == "Fácil":
                 idComplexidade = 1

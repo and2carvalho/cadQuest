@@ -7,3 +7,4 @@ db_questoes.db
 *.iml
 build/
 dist/
+venv/

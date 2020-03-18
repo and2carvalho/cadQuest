@@ -9,7 +9,6 @@
 
 import wx
 import wx.xrc
-
 ###########################################################################
 ## Class Login
 ###########################################################################
@@ -41,7 +40,7 @@ class Login ( wx.Frame ):
 
 		sbSizerLogo = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.HORIZONTAL )
 
-		self.m = wx.StaticBitmap( sbSizerLogo.GetStaticBox(), wx.ID_ANY, wx.Bitmap( resource_path(u"static/logoCesumar.png"), wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+		self.m = wx.StaticBitmap( sbSizerLogo.GetStaticBox(), wx.ID_ANY, wx.Bitmap( resource_path(u"logoCesumar.png"), wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
 		self.m.SetBackgroundColour( wx.Colour( 255, 255, 255 ) )
 
 		sbSizerLogo.Add( self.m, 1, wx.EXPAND|wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 0 )
@@ -301,7 +300,7 @@ class PyFeed ( wx.Frame ):
 
 		sbSizerLogo = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.VERTICAL )
 
-		self.img_logo = wx.StaticBitmap( sbSizerLogo.GetStaticBox(), wx.ID_ANY, wx.Bitmap( resource_path(u"static/logoCesumar.png"), wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.img_logo = wx.StaticBitmap( sbSizerLogo.GetStaticBox(), wx.ID_ANY, wx.Bitmap( resource_path(u"logoCesumar.png"), wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
 		sbSizerLogo.Add( self.img_logo, 1, wx.EXPAND|wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 0 )
 
 
@@ -338,22 +337,22 @@ class PyFeed ( wx.Frame ):
 
 		self.btn_novaQuestao = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 60,50 ), 0 )
 
-		self.btn_novaQuestao.SetBitmap( wx.Bitmap( resource_path(u"static/icon-estrut.png"), wx.BITMAP_TYPE_ANY ) )
+		self.btn_novaQuestao.SetBitmap( wx.Bitmap( resource_path(u"icon-estrut.png"), wx.BITMAP_TYPE_ANY ) )
 		gSizer7.Add( self.btn_novaQuestao, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
 
 		self.btn_configEstrutura = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 60,50 ), 0 )
 
-		self.btn_configEstrutura.SetBitmap( wx.Bitmap( resource_path(u"static/icon-arvore.png"), wx.BITMAP_TYPE_ANY ) )
+		self.btn_configEstrutura.SetBitmap( wx.Bitmap( resource_path(u"icon-arvore.png"), wx.BITMAP_TYPE_ANY ) )
 		gSizer7.Add( self.btn_configEstrutura, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT, 5 )
 
 		self.btn_confereQuestao = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 60,50 ), 0 )
 
-		self.btn_confereQuestao.SetBitmap( wx.Bitmap( resource_path(u"static/icon-txtQuestao.png"), wx.BITMAP_TYPE_ANY ) )
+		self.btn_confereQuestao.SetBitmap( wx.Bitmap( resource_path(u"icon-txtQuestao.png"), wx.BITMAP_TYPE_ANY ) )
 		gSizer7.Add( self.btn_confereQuestao, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 		self.btn_configApp = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 60,50 ), 0 )
 
-		self.btn_configApp.SetBitmap( wx.Bitmap( resource_path(u"static/icon-settings.png"), wx.BITMAP_TYPE_ANY ) )
+		self.btn_configApp.SetBitmap( wx.Bitmap( resource_path(u"icon-settings.png"), wx.BITMAP_TYPE_ANY ) )
 		gSizer7.Add( self.btn_configApp, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT, 5 )
 
 
