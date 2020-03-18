@@ -2,6 +2,8 @@
 
 from api.usuario import Usuario
 from api.utils import loginApp, serializaRequest, dbQuestao, dic_alternativas, dic_tags
+from db.conn import dir_path
+from datetime import datetime
 import wx
 import gui
 
@@ -110,55 +112,65 @@ class PyFeed(gui.PyFeed):
         destino = False
         if (self.add_questao_frame.cb_destinoProva.GetValue() is False) & (self.add_questao_frame.cb_destinoAtv.GetValue() is False):
             pass
-        else:
+        else:             # condição para definir o preenchimento de pelo menos 1 dos campos como obrigatório.
             destino = True
         if (self.add_questao_frame.tx_enunciado.GetValue() != "") & (self.add_questao_frame.tx_resposta.GetValue() != "") \
                 & (self.add_questao_frame.ch_complexidade.GetStringSelection() != "") & (self.add_questao_frame.cb_tipoQuestao.GetStringSelection() != "")\
                 & (destino == True):
-            enunciado = self.add_questao_frame.tx_enunciado.GetValue().replace("\n","<br>").encode("latin-1")
-            feedback = self.add_questao_frame.tx_resposta.GetValue().replace("\n","<br>").encode("latin-1")
-            complexidade = self.add_questao_frame.ch_complexidade.GetStringSelection()
-            if complexidade == "Fácil":
-                idComplexidade = 1
-            elif complexidade == "Médio":
-                idComplexidade = 2
-            else:
-                idComplexidade = 3
-            if self.add_questao_frame.cb_destinoProva.GetValue() == True:
-                destino_prova = 1
-            else:
-                destino_prova = None
-            if self.add_questao_frame.cb_destinoAtv.GetValue() == True:
-                destino_atv = 4
-            else:
-                destino_atv = None
-            origem = self.add_questao_frame.ch_origem.GetStringSelection()
-            idOrigem = dic_tags["idMacroOrigem"].get(origem)
-            tipoQuestao = self.add_questao_frame.cb_tipoQuestao.GetStringSelection()
-            idTipoQuestao = dic_tags["idMacroTipoQuestao"].get(tipoQuestao)
-            imagemEnunciado = self.add_questao_frame.fileCtrlEnun.GetPath()
-            if imagemEnunciado != "":
-                import base64
-                with open(imagemEnunciado,"rb") as img:
-                    img_encoded = base64.b64encode(img.read())
-                    enunciado += '&lt;br /&gt;&lt;img alt="" border="0" hspace="0" src="data:image/jpeg;base64,'
-                    enunciado += str(img_encoded, 'utf-8') + '"'
-                    enunciado += 'style="border:0px solid black; height:946px; margin-bottom:0px; margin-left:0px; margin-right:0px; margin-top:0px; width:1024px" vspace="0" /&gt;&lt;br /&gt;'
-            else:
-                pass
-            imagemFeedback = self.add_questao_frame.fileCtrlFeedback.GetPath()
-            if imagemFeedback != "":
-                import base64
-                with open(imagemFeedback,"rb") as img:
-                    img_encoded = base64.b64encode(img.read())
-                    feedback += '&lt;br /&gt;&lt;img alt="" border="0" hspace="0" src="data:image/jpeg;base64,'
-                    feedback += str(img_encoded, 'utf-8') + '"'
-                    feedback += 'style="border:0px solid black; height:946px; margin-bottom:0px; margin-left:0px; margin-right:0px; margin-top:0px; width:1024px" vspace="0" /&gt;&lt;br /&gt;'
-            else:
-                pass
-            idQuestao = self.tutor.requestPostQuestao(enunciado, feedback, idComplexidade, destino_prova, destino_atv, idOrigem, idTipoQuestao)
-            self.txt_idQuestao.SetValue(idQuestao)
-            self.add_questao_frame.Destroy()
+            try:
+                enunciado = self.add_questao_frame.tx_enunciado.GetValue().replace("\n","<br>").encode("latin-1")
+                feedback = self.add_questao_frame.tx_resposta.GetValue().replace("\n","<br>").encode("latin-1")
+                complexidade = self.add_questao_frame.ch_complexidade.GetStringSelection()
+                if complexidade == "Fácil":
+                    idComplexidade = 1
+                elif complexidade == "Médio":
+                    idComplexidade = 2
+                else:
+                    idComplexidade = 3
+                if self.add_questao_frame.cb_destinoProva.GetValue() == True:
+                    destino_prova = 1
+                else:
+                    destino_prova = None
+                if self.add_questao_frame.cb_destinoAtv.GetValue() == True:
+                    destino_atv = 4
+                else:
+                    destino_atv = None
+                origem = self.add_questao_frame.ch_origem.GetStringSelection()
+                idOrigem = dic_tags["idMacroOrigem"].get(origem)
+                tipoQuestao = self.add_questao_frame.cb_tipoQuestao.GetStringSelection()
+                idTipoQuestao = dic_tags["idMacroTipoQuestao"].get(tipoQuestao)
+                imagemEnunciado = self.add_questao_frame.fileCtrlEnun.GetPath()
+                if imagemEnunciado != "":
+                    import base64
+                    with open(imagemEnunciado,"rb") as img:
+                        img_encoded = base64.b64encode(img.read())
+                        enunciado += '&lt;br /&gt;&lt;img alt="" border="0" hspace="0" src="data:image/jpeg;base64,'
+                        enunciado += str(img_encoded, 'utf-8') + '"'
+                        enunciado += 'style="border:0px solid black; height:946px; margin-bottom:0px; margin-left:0px; margin-right:0px; margin-top:0px; width:1024px" vspace="0" /&gt;&lt;br /&gt;'
+                else:
+                    pass
+                imagemFeedback = self.add_questao_frame.fileCtrlFeedback.GetPath()
+                if imagemFeedback != "":
+                    import base64
+                    with open(imagemFeedback,"rb") as img:
+                        img_encoded = base64.b64encode(img.read())
+                        feedback += '&lt;br /&gt;&lt;img alt="" border="0" hspace="0" src="data:image/jpeg;base64,'
+                        feedback += str(img_encoded, 'utf-8') + '"'
+                        feedback += 'style="border:0px solid black; height:946px; margin-bottom:0px; margin-left:0px; margin-right:0px; margin-top:0px; width:1024px" vspace="0" /&gt;&lt;br /&gt;'
+                else:
+                    pass
+                idQuestao = self.tutor.requestPostQuestao(enunciado, feedback, idComplexidade, destino_prova, destino_atv, idOrigem, idTipoQuestao)
+                self.txt_idQuestao.SetValue(idQuestao)
+                self.add_questao_frame.Destroy()
+                resp = "Retorno: Questão de número " + idQuestao + " adicionada com sucesso."
+                logf = open(dir_path+"\log.txt","a+")
+                logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
+                logf.close()
+            except Exception as e:
+                now = datetime.now()
+                logf = open(dir_path+"\log.txt","a+")
+                logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
+                logf.close()
         else:
             return self.warn(self,"É necessário o preenchimento de todos os campos!")
 
@@ -185,38 +197,48 @@ class PyFeed(gui.PyFeed):
             result_questao = serializaRequest(dados_questao)
             if result_questao != '[]':
                 # salva/atualiza dados da questão no banco de dados interno
-                dbQuestao(result_questao)
-                session = Session()
-                query = session.query(Questao).filter(Questao.idQuestao == codigo_questao)
-                result = query.one_or_none()
-                url_questaoCompleta = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/"+result.urlVisualizar
-                dados_completosQuestao = self.tutor.br.open(url_questaoCompleta).get_data().decode("latin1")
-                q_estruturaCompleta = json.loads(dados_completosQuestao)["data"]
-                if result.dsTipoQuestao in self.tipo_questao_suportado:
-                    # verifica se há alternativas já cadastadas
-                    if (q_estruturaCompleta.get("alternativaList") == []):
-                        # aplica estruturação de questão
-                        dicionario = dic_alternativas[result.dsTipoQuestao][result.dsComplexidade]
-                        for payload in dicionario.items():
-                            alternativas.append(payload[1].get("dsAlternativa"))
-                        self.alternativa_panel = AlternativaTag(self, alternativas)
-                        self.alternativa_panel.ShowModal()
-                        op_correta = self.alternativa_panel.rb_alt_correta.GetSelection()
-                        self.tutor.requestAlternativa(codigo_questao, op_correta, dicionario)
-                        curso = self.alternativa_panel.cb_curso.GetStringSelection()
-                        unLivro = self.alternativa_panel.cb_unLivro.GetStringSelection()
-                        self.tutor.compoeTempDict(curso, unLivro, self.alternativa_panel)
-                        self.tutor.requestTags(self.txt_idQuestao.GetValue())
-                        self.tutor.dic_temp.clear() # reinicializar dic_temp para permitir novo cadastro na msm sessao
-                        self.txt_idQuestao.Clear()
-                        return self.info(self,"Estruturação de alternativas realizada com sucesso!")
-                    else:
-                        self.tutor.dic_temp.clear() # reinicializar dic_temp para permitir novo cadastro na msm sessao
-                        self.txt_idQuestao.Clear()
-                        return self.warn(self, "Atenção! Essa questão já tem estrutura de alternativas cadastradas.\n\
-                            Não foi possível realizar o processo.")
-                self.txt_idQuestao.Clear()
-                return self.info(self, "Estruturação ainda não suportada para esse tipo de questão: {}".format(str(q_estruturaCompleta["tipoQuestao"].get("dsTipoQuestao"))))
+                try:
+                    dbQuestao(result_questao)
+                    session = Session()
+                    query = session.query(Questao).filter(Questao.idQuestao == codigo_questao)
+                    result = query.one_or_none()
+                    url_questaoCompleta = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/"+result.urlVisualizar
+                    dados_completosQuestao = self.tutor.br.open(url_questaoCompleta).get_data().decode("latin1")
+                    q_estruturaCompleta = json.loads(dados_completosQuestao)["data"]
+                    if result.dsTipoQuestao in self.tipo_questao_suportado:
+                        # verifica se há alternativas já cadastadas
+                        if (q_estruturaCompleta.get("alternativaList") == []):
+                            # aplica estruturação de questão
+                            dicionario = dic_alternativas[result.dsTipoQuestao][result.dsComplexidade]
+                            for payload in dicionario.items():
+                                alternativas.append(payload[1].get("dsAlternativa"))
+                            self.alternativa_panel = AlternativaTag(self, alternativas)
+                            self.alternativa_panel.ShowModal()
+                            op_correta = self.alternativa_panel.rb_alt_correta.GetSelection()
+                            self.tutor.requestAlternativa(codigo_questao, op_correta, dicionario)
+                            curso = self.alternativa_panel.cb_curso.GetStringSelection()
+                            unLivro = self.alternativa_panel.cb_unLivro.GetStringSelection()
+                            self.tutor.compoeTempDict(curso, unLivro, self.alternativa_panel)
+                            self.tutor.requestTags(self.txt_idQuestao.GetValue())
+                            self.tutor.dic_temp.clear() # reinicializar dic_temp para permitir novo cadastro na msm sessao
+                            self.txt_idQuestao.Clear()
+                            resp = "Retorno: Estruturação de questão realizada com sucesso"
+                            logf = open(dir_path+"\log.txt","a+")
+                            logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
+                            logf.close()
+                            return self.info(self,"Estruturação de questão realizada com sucesso!")
+                        else:
+                            self.tutor.dic_temp.clear() # reinicializar dic_temp para permitir novo cadastro na msm sessao
+                            self.txt_idQuestao.Clear()
+                            return self.warn(self, "Atenção! Essa questão já tem estrutura de alternativas cadastradas.\n\
+                                Não foi possível realizar o processo.")
+                    self.txt_idQuestao.Clear()
+                    return self.info(self, "Estruturação ainda não suportada para esse tipo de questão: {}".format(str(q_estruturaCompleta["tipoQuestao"].get("dsTipoQuestao"))))
+                except Exception as e:
+                    now = datetime.now()
+                    logf = open(dir_path+"\log.txt","a+")
+                    logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
+                    logf.close()
             else:
                 self.txt_idQuestao.Clear()
                 return self.warn(self, "Ops, algo deu errado!\nOu essa questão não foi cadastrada pelo seu usuario ou você não tem permissão para acessar essa funcionalidade.")

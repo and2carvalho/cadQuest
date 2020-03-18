@@ -1,11 +1,15 @@
-# coding=utf-8
+﻿# coding=utf-8
+from db.conn import dir_path
+from datetime import datetime
 
 def loginApp(Usuario):
     try:
         Usuario.loginIntranet()
     except Exception as e:
-        print("Nao foi possivel fazer login no sistema\nVerificar dados de usuario e senha.\n")
-        print(e)
+        now = datetime.now()
+        logf = open(dir_path+"\log.txt","a+")
+        logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
+        logf.close()
 
 def serializaRequest(payload):
     # TODO colocar filtro de variaveis reservadas, para usuario nao ter acesso 
@@ -15,22 +19,10 @@ def serializaRequest(payload):
         dados_questao = json.dumps(dados_questao.get("data"))
         return dados_questao
     except Exception as e:
-        print(e)
-
-def printLog(browser_response):
-    ''' Gera arq com respelho da resposta html.
-    ex. printLog( BROWSER.response() ) '''
-    from bs4 import BeautifulSoup
-    bs = BeautifulSoup(browser_response.read(),'lxml')
-    with open('log.html','w') as f:
-        f.writelines(bs.prettify())
-
-def _cadastraUSUARIO():
-    '''O SISTEMA DE GESTAO DE BANCO DE QUESTOES NÃƒO FAZ CADASTRO DE USUARIO NEM FAZ QUALQUER TIPO
-    DE CONTROLE DE PERMISSAO AO ACESSO DAS INFORMACOES DO SISTEMA DA UNICESUMAR. A UNICA FUNCAO
-    DESEMPENHADA E O ACESSO A API DE CADASTRO DE QUESTOES PARA ENVIAR AS INFORMACOES AO SISTEMA
-    DE FORMA MAIS EFICIENTE'''
-    pass
+        now = datetime.now()
+        logf = open(dir_path+"\log.txt","a+")
+        logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
+        logf.close()
 
 def dbQuestao(request_args):
     ''' os argumentos precisam vir como dicionario ou lista de dicionaro
@@ -51,14 +43,20 @@ def dbQuestao(request_args):
                 session.commit()
                 print("Questao {} atualizada com sucesso\n".format(questao.idQuestao))
             except Exception as e:
-                print(e)
+                now = datetime.now()
+                logf = open(dir_path+"\log.txt","a+")
+                logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
+                logf.close()
         else:
             try:
                 session.add(questao)
                 session.commit()
                 print("\nQuestao {} adicionado ao banco de dados".format(questao.idQuestao))
             except Exception as e:
-                print(e)
+                now = datetime.now()
+                logf = open(dir_path+"\log.txt","a+")
+                logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
+                logf.close()
 
 def viewQuestao(id=None):
     from db.model import Questao, Session
@@ -70,18 +68,20 @@ def viewQuestao(id=None):
             for questao in result:
                 print(questao)
         except Exception as e:
-            print(e)
+            now = datetime.now()
+            logf = open(dir_path+"\log.txt","a+")
+            logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
+            logf.close()
     else:
         try:
             query = session.query(Questao).filter(Questao.idQuestao == id )
             result = query.one()
             print(result)
         except Exception as e:
-            print(e)
-            
-def addOcorrencia():
-    #TODO Pegar os dados de tutor, id questao e horario para registro
-    pass
+            now = datetime.now()
+            logf = open(dir_path+"\log.txt","a+")
+            logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
+            logf.close()
 
 dic_alternativas = {
   "Objetiva de resposta múltipla": {
@@ -153,19 +153,19 @@ dic_alternativas = {
       "payload_1": {
         "action": "inserir",
         "idQuestao": None,
-        "dsAlternativa": "II e III, apenas.",
+        "dsAlternativa": "I e IV, apenas.",
         "correta": 0
       },
       "payload_2": {
         "action": "inserir",
         "idQuestao": None,
-        "dsAlternativa": "I e IV, apenas.",
+        "dsAlternativa": "II e III, apenas.",
         "correta": 0
       },
       "payload_3": {
         "action": "inserir",
         "idQuestao": None,
-        "dsAlternativa": "II e III, apenas.",
+        "dsAlternativa": "III e IV, apenas.",
         "correta": 0
       },
       "payload_4": {
