@@ -98,6 +98,8 @@ class Login ( wx.Frame ):
 	def acessar_intranet( self, event ):
 		event.Skip()
 
+	def onTabEnter( self, event ):
+		event.Skip()
 
 ###########################################################################
 ## Class AddQuestao
@@ -217,7 +219,7 @@ class AddQuestao ( wx.Frame ):
 
 		bSizer12.Add( self.lb_enunciado, 0, wx.ALL, 5 )
 
-		self.tx_enunciado = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 500,250 ), wx.TE_MULTILINE )
+		self.tx_enunciado = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 500,250 ), wx.TE_MULTILINE|wx.TE_RICH2 )
 		bSizer12.Add( self.tx_enunciado, 0, wx.ALL|wx.EXPAND, 5 )
 
 		self.lb_resposta = wx.StaticText( self, wx.ID_ANY, u"Resposta Esperada", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -237,7 +239,7 @@ class AddQuestao ( wx.Frame ):
 		bSizer12.Add(row1, 1, wx.ALL|wx.EXPAND, 0)
 		bSizer12.Add( self.lb_resposta, 0, wx.ALL, 5 )
 
-		self.tx_resposta = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 500,100 ), wx.TE_MULTILINE )
+		self.tx_resposta = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 500,100 ), wx.TE_MULTILINE|wx.TE_RICH2 )
 		bSizer12.Add( self.tx_resposta, 0, wx.ALL|wx.EXPAND, 5 )
 
 		self.lb_fileFeedback = wx.StaticText( self, wx.ID_ANY, u"Selecione um arquivo de imagem para o FeedBack", wx.DefaultPosition, wx.DefaultSize, 0 )

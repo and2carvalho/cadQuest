@@ -67,7 +67,7 @@ class PyFeed(gui.PyFeed):
         dialog = wx.MessageDialog(self, message = "Tem certeza que deseja sair?", caption = "Caption", style = wx.YES_NO, pos = wx.DefaultPosition)
         response = dialog.ShowModal()
         if (response == wx.ID_YES):
-            self.Destroy()
+            wx.GetApp().ExitMainLoop()
         else:
             event.StopPropagation()
     # modal de msg disponíveis no frame
@@ -86,7 +86,7 @@ class PyFeed(gui.PyFeed):
         ''' Realiza login na intranet unicesumar e acessa o Formulário
         de busca das questões. '''
 
-        self.tutor = Usuario(self.login_frame.txt_login.GetValue(), self.login_frame.txt_senha.GetValue())#
+        self.tutor = Usuario("luciana.tavone","31415*Pi")#self.login_frame.txt_login.GetValue(), self.login_frame.txt_senha.GetValue()
         loginApp(self.tutor)
         if (self.tutor.br.response().geturl() == "http://intranet.unicesumar.edu.br/?erro_login"):
             self.warn(self, "Não foi possivel realizar o acesso com os dados digitados")
@@ -100,26 +100,44 @@ class PyFeed(gui.PyFeed):
 
     def corrigeTxt(self, event):
         from symspellpy import SymSpell
+        import re, string
+
         sym_spell = SymSpell()
-        sym_spell.load_dictionary("frequency_dictionary_pt_82_765.txt", 0, 1,encoding="latin-1")
+        sym_spell.load_dictionary("static/frequency_dictionary_pt_82_765.txt", 0, 1,encoding="windows-1252")
         input_term = self.add_questao_frame.tx_enunciado.GetValue()
-        suggestions = sym_spell.word_segmentation(input_term, max_edit_distance=2 )
-        self.add_questao_frame.tx_enunciado.SetValue(suggestions.corrected_string)
+        # retira caracteres que não são de word nem de space, e separa texto em lista de palavras
+        regex = re.compile('[%s]' % re.escape(string.punctuation))
+        texto = sym_spell.word_segmentation(regex.sub("",input_term), max_edit_distance=2 ).segmented_string.split()
+        sugestao = sym_spell.word_segmentation(regex.sub("",input_term), max_edit_distance=2 ).corrected_string.split()
+        # referencia: https://stackoverflow.com/questions/41592759/python-textctrl-search-and-highlight-functionality
+        for i in range(self.add_questao_frame.tx_enunciado.GetNumberOfLines()):
+            line = self.add_questao_frame.tx_enunciado.GetLineText(i)
+            for palavra in texto:
+                if palavra in line and palavra not in sugestao:
+                    startPos = self.add_questao_frame.tx_enunciado.GetValue().find(palavra)
+                    endPos = startPos + len(palavra)
+                    self.add_questao_frame.tx_enunciado.SetStyle(startPos, endPos, wx.TextAttr("red", "white"))
+        # retoma formatação correta do campo de texto
+        self.add_questao_frame.SetForegroundColour(wx.BLACK)
+        for i in range(len(texto)):
+            if texto[i] != sugestao[i]:
+                self.warn(self, "`" + texto[i] + "`" + " você quis dizer " + "`" + sugestao[i] + "` ?")
 
     def addQuestao(self, event):
-        idQuestao = None # necessário para permitir múltiplos cadastros na mesma sessão do app (caso contrario o valor do id da segunda questão seria mantido e geraria erro no novo cadastro.
         # cria condição para fazer necessário o preenchimento de um dos 2 checkbox do campo 'destino'
         destino = False
+
         if (self.add_questao_frame.cb_destinoProva.GetValue() is False) & (self.add_questao_frame.cb_destinoAtv.GetValue() is False):
             pass
-        else:             # condição para definir o preenchimento de pelo menos 1 dos campos como obrigatório.
+        else:
             destino = True
+
         if (self.add_questao_frame.tx_enunciado.GetValue() != "") & (self.add_questao_frame.tx_resposta.GetValue() != "") \
                 & (self.add_questao_frame.ch_complexidade.GetStringSelection() != "") & (self.add_questao_frame.cb_tipoQuestao.GetStringSelection() != "")\
                 & (destino == True):
             try:
-                enunciado = self.add_questao_frame.tx_enunciado.GetValue().replace("\n","<br>").encode("latin-1")
-                feedback = self.add_questao_frame.tx_resposta.GetValue().replace("\n","<br>").encode("latin-1")
+                enunciado = self.add_questao_frame.tx_enunciado.GetValue().replace("\n","<br>").encode("windows-1252")
+                feedback = self.add_questao_frame.tx_resposta.GetValue().replace("\n","<br>").encode("windows-1252")
                 complexidade = self.add_questao_frame.ch_complexidade.GetStringSelection()
                 if complexidade == "Fácil":
                     idComplexidade = 1
@@ -159,13 +177,15 @@ class PyFeed(gui.PyFeed):
                         feedback += 'style="border:0px solid black; height:946px; margin-bottom:0px; margin-left:0px; margin-right:0px; margin-top:0px; width:1024px" vspace="0" /&gt;&lt;br /&gt;'
                 else:
                     pass
-                idQuestao = self.tutor.requestPostQuestao(enunciado, feedback, idComplexidade, destino_prova, destino_atv, idOrigem, idTipoQuestao)
+                idQuestao = self.tutor.requestPostQuestao(enunciado, feedback, idComplexidade, destino_prova,
+                                                          destino_atv, idOrigem, idTipoQuestao)
                 self.txt_idQuestao.SetValue(idQuestao)
                 self.add_questao_frame.Destroy()
                 resp = "Retorno: Questão de número " + idQuestao + " adicionada com sucesso."
                 logf = open(dir_path+"\log.txt","a+")
                 logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
                 logf.close()
+                #idQuestao = None # necessário para permitir múltiplos cadastros na mesma sessão do app (caso contrario o valor do id da segunda questão seria mantido e geraria erro no novo cadastro.
             except Exception as e:
                 now = datetime.now()
                 logf = open(dir_path+"\log.txt","a+")
