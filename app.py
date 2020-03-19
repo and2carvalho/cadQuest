@@ -86,7 +86,7 @@ class PyFeed(gui.PyFeed):
         ''' Realiza login na intranet unicesumar e acessa o Formulário
         de busca das questões. '''
 
-        self.tutor = Usuario("luciana.tavone","31415*Pi")#self.login_frame.txt_login.GetValue(), self.login_frame.txt_senha.GetValue()
+        self.tutor = Usuario("andre.antero@unicesumar.edu.br","Shabala1234.")#self.login_frame.txt_login.GetValue(), self.login_frame.txt_senha.GetValue()
         loginApp(self.tutor)
         if (self.tutor.br.response().geturl() == "http://intranet.unicesumar.edu.br/?erro_login"):
             self.warn(self, "Não foi possivel realizar o acesso com os dados digitados")
@@ -100,15 +100,14 @@ class PyFeed(gui.PyFeed):
 
     def corrigeTxt(self, event):
         from symspellpy import SymSpell
-        import re, string
-
+        #TODO entender porque o corretor não ilumina as mesmas palavras após a primeira ocorrência
         sym_spell = SymSpell()
         sym_spell.load_dictionary("static/frequency_dictionary_pt_82_765.txt", 0, 1,encoding="windows-1252")
-        input_term = self.add_questao_frame.tx_enunciado.GetValue()
-        # retira caracteres que não são de word nem de space, e separa texto em lista de palavras
-        regex = re.compile('[%s]' % re.escape(string.punctuation))
-        texto = sym_spell.word_segmentation(regex.sub("",input_term), max_edit_distance=2 ).segmented_string.split()
-        sugestao = sym_spell.word_segmentation(regex.sub("",input_term), max_edit_distance=2 ).corrected_string.split()
+        input_term = self.add_questao_frame.tx_enunciado.GetValue().lower()
+        # retira caracteres usando `translate` e separa texto em lista de palavras
+        ignorar = r'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~1234567890“”–'
+        texto = sym_spell.word_segmentation(input_term.translate(str.maketrans("","",ignorar)), max_edit_distance=2 ).segmented_string.split()
+        sugestao = sym_spell.word_segmentation(input_term.translate(str.maketrans("","",ignorar)), max_edit_distance=2 ).corrected_string.split()
         # referencia: https://stackoverflow.com/questions/41592759/python-textctrl-search-and-highlight-functionality
         for i in range(self.add_questao_frame.tx_enunciado.GetNumberOfLines()):
             line = self.add_questao_frame.tx_enunciado.GetLineText(i)
@@ -136,8 +135,8 @@ class PyFeed(gui.PyFeed):
                 & (self.add_questao_frame.ch_complexidade.GetStringSelection() != "") & (self.add_questao_frame.cb_tipoQuestao.GetStringSelection() != "")\
                 & (destino == True):
             try:
-                enunciado = self.add_questao_frame.tx_enunciado.GetValue().replace("\n","<br>").encode("windows-1252")
-                feedback = self.add_questao_frame.tx_resposta.GetValue().replace("\n","<br>").encode("windows-1252")
+                enunciado = self.add_questao_frame.tx_enunciado.GetValue().replace("\n","<br>").translate(str.maketrans({'“':'"', '”':'"', '–':'-'})).encode("windows-1252")
+                feedback = self.add_questao_frame.tx_resposta.GetValue().replace("\n","<br>").translate(str.maketrans({'“':'"', '”':'"', '–':'-'})).encode("windows-1252")
                 complexidade = self.add_questao_frame.ch_complexidade.GetStringSelection()
                 if complexidade == "Fácil":
                     idComplexidade = 1
@@ -162,7 +161,7 @@ class PyFeed(gui.PyFeed):
                     import base64
                     with open(imagemEnunciado,"rb") as img:
                         img_encoded = base64.b64encode(img.read())
-                        enunciado += '&lt;br /&gt;&lt;img alt="" border="0" hspace="0" src="data:image/jpeg;base64,'
+                        enunciado += '&lt;br /&gt;&lt;img alt="" border="0" hspace="0" src="data:image/jpeg;base64,'  #referencia tirada da api da intranet
                         enunciado += str(img_encoded, 'utf-8') + '"'
                         enunciado += 'style="border:0px solid black; height:946px; margin-bottom:0px; margin-left:0px; margin-right:0px; margin-top:0px; width:1024px" vspace="0" /&gt;&lt;br /&gt;'
                 else:
@@ -172,7 +171,7 @@ class PyFeed(gui.PyFeed):
                     import base64
                     with open(imagemFeedback,"rb") as img:
                         img_encoded = base64.b64encode(img.read())
-                        feedback += '&lt;br /&gt;&lt;img alt="" border="0" hspace="0" src="data:image/jpeg;base64,'
+                        feedback += '&lt;br /&gt;&lt;img alt="" border="0" hspace="0" src="data:image/jpeg;base64,'   #referencia tirada da api da intranet
                         feedback += str(img_encoded, 'utf-8') + '"'
                         feedback += 'style="border:0px solid black; height:946px; margin-bottom:0px; margin-left:0px; margin-right:0px; margin-top:0px; width:1024px" vspace="0" /&gt;&lt;br /&gt;'
                 else:
