@@ -3,3 +3,8 @@ intranet.unicesumar.edu.br_session.dat
 __pycache__/
 */__pycache__/
 db_questoes.db
+.idea/
+*.iml
+build/
+dist/
+venv/

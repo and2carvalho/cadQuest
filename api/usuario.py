@@ -3,6 +3,8 @@
 import mechanize
 from http.cookiejar import LWPCookieJar
 from urllib import parse
+from db.conn import dir_path
+from datetime import datetime
 
 class Usuario():
 
@@ -49,8 +51,15 @@ class Usuario():
             l_formQuestao = self.br.find_link(nr=16)
             self.br.follow_link(l_formQuestao)
             #self.br.select_form(nr=0)
+            resp = "Retorno: Login realizado com sucesso."
+            logf = open(dir_path+"\log.txt","a+")
+            logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
+            logf.close()
         except Exception as e:
-            print(e)
+            now = datetime.now()
+            logf = open(dir_path+"\log.txt","a+")
+            logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
+            logf.close()
             
     def requestGetQuestao(self, id_questao):
 
@@ -70,28 +79,39 @@ class Usuario():
             request_form_questao = mechanize.Request(url_api,data)
             response = self.br.open(request_form_questao)
             dados_questao = response.get_data().decode("latin1")
+            resp = "Retorno: " + str(self.br.response().getcode()) + " -> " +str(self.br.response().geturl())
+            logf = open(dir_path+"\log.txt","a+")
+            logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
+            logf.close()
             return dados_questao
         except Exception as e:
-            print(e)
+            now = datetime.now()
+            logf = open(dir_path+"\log.txt","a+")
+            logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
+            logf.close()
 
-    def requestPostQuestao(self, enunciado, feedback, idComplexidade, idOrigem, idTipoQuestao):
+    def requestPostQuestao(self, enunciado, feedback, idComplexidade, destino_prova, destino_atv, idOrigem, idTipoQuestao):
 
         ''' Realiza primeiro cadastro da questão na API apartir do form do programa. '''
 
         url_api = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php"
-        payload = {
-            "action" : "inserir",
-            "ativo" : 1,
-            "enunciado" : enunciado,
-            "feedback" : feedback,
-            "fileImgGabaritoBase64": None,
-            "fileImgGabaritoNomeOriginal": None,
-            "idComplexidade": idComplexidade,
-            "idImgGabarito": None,
-            "idNodeRaiz": 1,
-            "idOrigem":idOrigem,
-            "idTipoQuestao":idTipoQuestao
-        }
+        from urllib3._collections import HTTPHeaderDict
+        payload = HTTPHeaderDict()
+        payload.add("action" , "inserir")
+        payload.add("ativo", 1)
+        payload.add("enunciado" , enunciado)
+        payload.add("feedback", feedback)
+        payload.add("fileImgGabaritoBase64", None)
+        payload.add("fileImgGabaritoNomeOriginal", None)
+        payload.add("idComplexidade", idComplexidade)
+        payload.add("idImgGabarito", None)
+        payload.add("idNodeRaiz", 1)
+        payload.add("idOrigem",idOrigem)
+        payload.add("idTipoQuestao",idTipoQuestao)
+        if destino_prova != None:
+            payload.add("idDestinoList[]",1)
+        if destino_atv != None:
+            payload.add("idDestinoList[]",4)
         try:
             data = parse.urlencode(payload)
             request_form_questao = mechanize.Request(url_api,data)
@@ -99,9 +119,16 @@ class Usuario():
             from bs4 import BeautifulSoup
             soup = BeautifulSoup(response.read(), "lxml")
             idQuestao = soup.find("input", {"id":"idQuestao"}).get("value")
+            resp = "Retorno: " + str(self.br.response().getcode()) + " -> " +str(self.br.response().geturl())
+            logf = open(dir_path+"\log.txt","a+")
+            logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
+            logf.close()
             return idQuestao
         except Exception as e:
-            print(e)
+            now = datetime.now()
+            logf = open(dir_path+"\log.txt","a+")
+            logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
+            logf.close()
 
     def requestAlternativa(self, idQuestao, op_correta, dic_alternativas):
         
@@ -128,9 +155,16 @@ class Usuario():
                 data = parse.urlencode(payload[1])
                 request_insereAlternativa = mechanize.Request(url_api, data)
                 self.br.open(request_insereAlternativa)
+            resp = "Retorno: " + str(self.br.response().getcode()) + " -> " +str(self.br.response().geturl())
+            logf = open(dir_path+"\log.txt","a+")
+            logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
+            logf.close()
             return "{ Status : Success }"
         except Exception as e:
-            print(e)
+            now = datetime.now()
+            logf = open(dir_path+"\log.txt","a+")
+            logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
+            logf.close()
         #except Exception as e:
         #    return "Erro de conexao com o servidor Intranet\n{}".format(e)
 
@@ -150,7 +184,7 @@ class Usuario():
             payload.add("idQuestao", idQuestao)
             payload.add("idTagList[]", self.dic_temp.get("34"))
             payload.add("idTagList[]", self.dic_temp.get("atv1"))
-            if self.dic_temp["atv2"]:
+            if "atv2" in self.dic_temp:
                 payload.add("idTagList[]", self.dic_temp.get("atv2"))
             else:
                 pass
@@ -175,50 +209,71 @@ class Usuario():
             data = parse.urlencode(payload)
             request_form_questao = mechanize.Request(url_api,data)
             self.br.open(request_form_questao)
+            resp = "Retorno: " + str(self.br.response().getcode()) + " -> " +str(self.br.response().geturl())
+            logf = open(dir_path+"\log.txt","a+")
+            logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
+            logf.close()
             return "{ Status : Success }"
         except Exception as e:
-            print(e)
+            now = datetime.now()
+            logf = open(dir_path+"\log.txt","a+")
+            logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
+            logf.close()
 
     def compoeTempDict(self, curso, unLivro, frame):
         # dicionario necessário para criar tags
-        from api.util import dic_tags
-        self.dic_temp = {
-            "34": "131",
-            "curso": dic_tags["idNodeMacro30"].get(curso),
-            "unLivro": dic_tags["idMacroNode2"].get(unLivro),
-            #TODO ajustar componente grafico do destino e pegar valor da seleção do usuario
-        }
-        if frame.cb_mod51.GetValue():
-            self.dic_temp["mod1"] = "1"
-        else:
-            self.dic_temp["mod1"] = None
-        if frame.cb_mod52.GetValue():
-            self.dic_temp["mod2"] = "2"
-        else:
-            self.dic_temp["mod2"] = None
-        if frame.cb_mod53.GetValue():
-            self.dic_temp["mod3"] = "3"
-        else:
-            self.dic_temp["mod3"] = None
-        if frame.cb_mod54.GetValue():
-            self.dic_temp["mod4"] = "4"
-        else:
-            self.dic_temp["mod4"] = None
-        # atividade prova é enviada como valor padrão para todos os cadastros
-        self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("PROVA")
-        if frame.cb_atv1.GetValue():
-            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv1")
-        elif frame.cb_atv2.GetValue():
-            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv2")
-        elif frame.cb_atv3.GetValue():
-            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv3")
-        elif frame.cb_atv4.GetValue():
-            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv4")
-        elif frame.cb_atv5.GetValue():
-            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv5")
-        elif frame.cb_atv6.GetValue():
-            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv6")
-        elif frame.cb_atv7.GetValue():
-            self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv7")
-        else:
-            self.dic_temp["atv2"] = None
+        from api.utils import dic_tags
+        try:
+            self.dic_temp = {
+                "curso": dic_tags["idNodeMacro30"].get(curso),
+                "unLivro": dic_tags["idMacroNode2"].get(unLivro),
+                #TODO ajustar componente grafico do destino e pegar valor da seleção do usuario
+            }
+            if frame.cb_mod51.GetValue():
+                self.dic_temp["mod1"] = "1"
+            else:
+                self.dic_temp["mod1"] = None
+            if frame.cb_mod52.GetValue():
+                self.dic_temp["mod2"] = "2"
+            else:
+                self.dic_temp["mod2"] = None
+            if frame.cb_mod53.GetValue():
+                self.dic_temp["mod3"] = "3"
+            else:
+                self.dic_temp["mod3"] = None
+            if frame.cb_mod54.GetValue():
+                self.dic_temp["mod4"] = "4"
+            else:
+                self.dic_temp["mod4"] = None
+            # atividade prova é enviada como valor padrão para todos os cadastros
+            if frame.cb_prova.GetValue():
+                self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("Prova")
+                self.dic_temp["34"] = "131"
+            else:
+                self.dic_temp["34"] = "132"
+            if frame.cb_atv1.GetValue():
+                if "atv1" in self.dic_temp:
+                    self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv2")
+                else:
+                    self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("Atv2")
+            if frame.cb_atv2.GetValue():
+                if "atv1" in self.dic_temp:
+                    self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv3")
+                else:
+                    self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("Atv3")
+            if frame.cb_atv3.GetValue():
+                if "atv1" in self.dic_temp:
+                    self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv4")
+                else:
+                    self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("Atv4")
+            if frame.cb_atv4.GetValue():
+                if "atv1" in self.dic_temp:
+                    self.dic_temp["atv2"] = dic_tags["idNodeMacro8"].get("Atv1")
+                else:
+                    self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("Atv1")
+        except Exception as e:
+            now = datetime.now()
+            logf = open(dir_path+"\log.txt","a+")
+            logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
+            logf.close()
+

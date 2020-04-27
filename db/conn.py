@@ -1,9 +1,22 @@
 # coding=utf-8
 
-from sqlalchemy import create_engine
+import sqlalchemy
+import os
+from datetime import datetime
+
+# necessário criar uma pasta no %userprofile%/appdata para que o executável
+# consiga localizar o banco de dados.
+dir_path = os.path.join(os.environ['APPDATA'], 'CadQuest')
+if not os.path.exists(dir_path):
+    os.makedirs(dir_path)
+file_path = os.path.join(dir_path, 'db_questoes.db')
+print(file_path)
 
 try:
-    db = create_engine('sqlite:///db_questoes.db')#mysql+pymysql://pyFeed:masterkey@localhost:3306/pyFeed
+    db = sqlalchemy.create_engine("sqlite:///" + file_path )#mysql+pymysql://pyFeed:masterkey@localhost:3306/pyFeed
     print("Conexão com banco de dados realizada com sucesso!")
 except Exception as e:
-    print(e)
+    now = datetime.now()
+    logf = open(dir_path+"log.txt","a+")
+    logf.write(now.strftime("%H:%M:%S") + " - " + str(e) + "\n")
+    logf.close()

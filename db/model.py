@@ -1,7 +1,6 @@
 # coding=utf-8
 
-from sqlalchemy import Column, String, Integer, Date, Boolean, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, String, Integer, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from db.conn import db
