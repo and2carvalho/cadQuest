@@ -20,7 +20,7 @@ def serializaRequest(payload):
         return dados_questao
     except Exception as e:
         now = datetime.now()
-        logf = open(dir_path+"\log.txt","a+")
+        logf = open("\log.txt","a+")
         logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
         logf.close()
 
@@ -44,7 +44,7 @@ def dbQuestao(request_args):
                 print("Questao {} atualizada com sucesso\n".format(questao.idQuestao))
             except Exception as e:
                 now = datetime.now()
-                logf = open(dir_path+"\log.txt","a+")
+                logf = open("\log.txt","a+")
                 logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
                 logf.close()
         else:
@@ -54,7 +54,7 @@ def dbQuestao(request_args):
                 print("\nQuestao {} adicionado ao banco de dados".format(questao.idQuestao))
             except Exception as e:
                 now = datetime.now()
-                logf = open(dir_path+"\log.txt","a+")
+                logf = open("\log.txt","a+")
                 logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
                 logf.close()
 
@@ -113,7 +113,7 @@ dic_alternativas = {
       "payload_5": {
         "action": "inserir",
         "idQuestao": None,
-        "dsAlternativa": "I, II e III, apenas",
+        "dsAlternativa": "I, II e III.",
         "correta": 0
       }
     },
@@ -145,7 +145,7 @@ dic_alternativas = {
       "payload_5": {
         "action": "inserir",
         "idQuestao": None,
-        "dsAlternativa": "I, II, III e IV, apenas.",
+        "dsAlternativa": "I, II, III e IV.",
         "correta": 0
       }
     },

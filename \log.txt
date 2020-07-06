@@ -1,0 +1,190 @@
+06/07/2020, 11:23:05 - Retorno: Login realizado com sucesso.
+06/07/2020, 11:37:40 - Retorno: Login realizado com sucesso.
+06/07/2020, 11:57:34 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?CWfecUOIZYMxkuKfEtI03GMKHbx/M48cQl7gtNumSQaAYl39l/FQ3Cw56lrnPlzPZEEZy2VGEaSPmugXN7FhDnN7QYW1uz7O9JdLIcYZ/nAjMy1Ok3LoW9HmEst8XVbY4sdpKrIzgzkYkvjCjpasVIBmNpwSvfOpbpSG5n815MNtKeaKM8fAJWRW6o8cuqOiftYfi+fBdHMGVdqN4OuEqA==
+06/07/2020, 11:57:34 - Retorno: Questão de número 317970 adicionada com sucesso.
+06/07/2020, 11:57:52 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 11:58:11 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php
+06/07/2020, 11:58:12 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php
+06/07/2020, 11:58:12 - Retorno: Estruturação de questão realizada com sucesso
+06/07/2020, 12:02:42 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?CWfecUOIZYN5KzV1BEgls2MKHbx/M48cQl7gtNumSQaAYl39l/FQ3Cw56lrnPlzPZEEZy2VGEaSPmugXN7FhDnN7QYW1uz7O9JdLIcYZ/nAjMy1Ok3LoW9HmEst8XVbY4sdpKrIzgzkYkvjCjpasVIBmNpwSvfOpbpSG5n815MNtKeaKM8fAJWRW6o8cuqOiftYfi+fBdHMGVdqN4OuEqA==
+06/07/2020, 12:02:42 - Retorno: Questão de número 317973 adicionada com sucesso.
+06/07/2020, 12:03:02 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 12:03:21 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php
+06/07/2020, 12:03:21 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php
+06/07/2020, 12:03:21 - Retorno: Estruturação de questão realizada com sucesso
+06/07/2020, 12:14:50 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?CWfecUOIZYMq9nlUvTwVrWMKHbx/M48cQl7gtNumSQaAYl39l/FQ3Cw56lrnPlzPZEEZy2VGEaSPmugXN7FhDnN7QYW1uz7O9JdLIcYZ/nAjMy1Ok3LoW9HmEst8XVbY4sdpKrIzgzkYkvjCjpasVIBmNpwSvfOpbpSG5n815MNtKeaKM8fAJWRW6o8cuqOiftYfi+fBdHMGVdqN4OuEqA==
+06/07/2020, 12:14:50 - Retorno: Questão de número 317975 adicionada com sucesso.
+06/07/2020, 12:15:07 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 12:15:23 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php
+06/07/2020, 12:15:23 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php
+06/07/2020, 12:15:23 - Retorno: Estruturação de questão realizada com sucesso
+06/07/2020, 12:30:23 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?CWfecUOIZYPcMxydo/ALCGMKHbx/M48cQl7gtNumSQaAYl39l/FQ3Cw56lrnPlzPZEEZy2VGEaSPmugXN7FhDnN7QYW1uz7O9JdLIcYZ/nAjMy1Ok3LoW9HmEst8XVbY4sdpKrIzgzkYkvjCjpasVIBmNpwSvfOpbpSG5n815MNtKeaKM8fAJWRW6o8cuqOiftYfi+fBdHMGVdqN4OuEqA==
+06/07/2020, 12:30:23 - Retorno: Questão de número 317977 adicionada com sucesso.
+06/07/2020, 12:30:34 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 12:30:48 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php
+06/07/2020, 12:30:49 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php
+06/07/2020, 12:30:49 - Retorno: Estruturação de questão realizada com sucesso
+06/07/2020, 12:35:22 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?CWfecUOIZYMojDjWp2yD82MKHbx/M48cQl7gtNumSQaAYl39l/FQ3Cw56lrnPlzPZEEZy2VGEaSPmugXN7FhDnN7QYW1uz7O9JdLIcYZ/nAjMy1Ok3LoW9HmEst8XVbY4sdpKrIzgzkYkvjCjpasVIBmNpwSvfOpbpSG5n815MNtKeaKM8fAJWRW6o8cuqOiftYfi+fBdHMGVdqN4OuEqA==
+06/07/2020, 12:35:22 - Retorno: Questão de número 317978 adicionada com sucesso.
+06/07/2020, 12:35:30 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 12:51:08 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php
+06/07/2020, 12:51:09 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php
+06/07/2020, 12:51:09 - Retorno: Estruturação de questão realizada com sucesso
+06/07/2020, 13:38:28 - 'NoneType' object has no attribute 'get'
+06/07/2020, 13:38:28 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 13:38:42 - 'NoneType' object has no attribute 'get'
+06/07/2020, 13:38:42 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 13:38:43 - 'NoneType' object has no attribute 'get'
+06/07/2020, 13:38:43 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 13:38:44 - 'NoneType' object has no attribute 'get'
+06/07/2020, 13:38:44 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 13:38:44 - 'NoneType' object has no attribute 'get'
+06/07/2020, 13:38:44 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 13:38:44 - 'NoneType' object has no attribute 'get'
+06/07/2020, 13:38:44 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 13:39:20 - 'NoneType' object has no attribute 'get'
+06/07/2020, 13:39:20 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 13:40:57 - 'NoneType' object has no attribute 'get'
+06/07/2020, 13:40:57 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 13:42:19 - 'NoneType' object has no attribute 'get'
+06/07/2020, 13:42:19 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 13:42:23 - 'NoneType' object has no attribute 'get'
+06/07/2020, 13:42:23 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 13:43:01 - 'NoneType' object has no attribute 'get'
+06/07/2020, 13:43:01 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 13:45:30 - 'NoneType' object has no attribute 'get'
+06/07/2020, 13:45:30 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 13:46:26 - 'NoneType' object has no attribute 'get'
+06/07/2020, 13:46:26 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 13:46:28 - 'NoneType' object has no attribute 'get'
+06/07/2020, 13:46:28 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 13:47:36 - 'NoneType' object has no attribute 'get'
+06/07/2020, 13:47:36 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 13:50:40 - 'NoneType' object has no attribute 'get'
+06/07/2020, 13:50:40 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 14:09:19 - 'NoneType' object has no attribute 'get'
+06/07/2020, 14:09:19 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 14:09:23 - 'NoneType' object has no attribute 'get'
+06/07/2020, 14:09:23 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 14:09:23 - 'NoneType' object has no attribute 'get'
+06/07/2020, 14:09:23 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 14:16:31 - 'NoneType' object has no attribute 'get'
+06/07/2020, 14:16:31 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 14:16:33 - 'NoneType' object has no attribute 'get'
+06/07/2020, 14:16:33 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 14:18:14 - Retorno: Login realizado com sucesso.
+06/07/2020, 14:18:35 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?CWfecUOIZYMlit0EtWcin2MKHbx/M48cQl7gtNumSQaAYl39l/FQ3Cw56lrnPlzPZEEZy2VGEaSPmugXN7FhDnN7QYW1uz7O9JdLIcYZ/nAjMy1Ok3LoW9HmEst8XVbY4sdpKrIzgzkYkvjCjpasVIBmNpwSvfOpbpSG5n815MNtKeaKM8fAJWRW6o8cuqOiftYfi+fBdHMGVdqN4OuEqA==
+06/07/2020, 14:18:35 - Retorno: Questão de número 317984 adicionada com sucesso.
+06/07/2020, 14:20:26 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 14:22:24 - wrapped C/C++ object of type RadioBox has been deleted
+06/07/2020, 14:26:35 - Retorno: Login realizado com sucesso.
+06/07/2020, 14:28:45 - Retorno: Login realizado com sucesso.
+06/07/2020, 14:29:22 - Retorno: Login realizado com sucesso.
+06/07/2020, 14:31:46 - Retorno: Login realizado com sucesso.
+06/07/2020, 14:31:52 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 14:32:00 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php
+06/07/2020, 14:32:00 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php
+06/07/2020, 14:32:00 - Retorno: Estruturação de questão realizada com sucesso
+06/07/2020, 14:34:03 - Retorno: Login realizado com sucesso.
+06/07/2020, 14:34:12 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 14:34:35 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 14:36:03 - Retorno: Login realizado com sucesso.
+06/07/2020, 14:36:31 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 14:38:02 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?CWfecUOIZYMJhtdVJKHll2MKHbx/M48cQl7gtNumSQaAYl39l/FQ3Cw56lrnPlzPZEEZy2VGEaSPmugXN7FhDnN7QYW1uz7O9JdLIcYZ/nAjMy1Ok3LoW9HmEst8XVbY4sdpKrIzgzkYkvjCjpasVIBmNpwSvfOpbpSG5n815MNtKeaKM8fAJWRW6o8cuqOiftYfi+fBdHMGVdqN4OuEqA==
+06/07/2020, 14:38:02 - Retorno: Questão de número 317987 adicionada com sucesso.
+06/07/2020, 14:40:07 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 14:40:16 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php
+06/07/2020, 14:40:17 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php
+06/07/2020, 14:40:17 - Retorno: Estruturação de questão realizada com sucesso
+06/07/2020, 14:42:05 - Retorno: Login realizado com sucesso.
+06/07/2020, 14:43:09 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?CWfecUOIZYPCRjyywqIda2MKHbx/M48cQl7gtNumSQaAYl39l/FQ3Cw56lrnPlzPZEEZy2VGEaSPmugXN7FhDnN7QYW1uz7O9JdLIcYZ/nAjMy1Ok3LoW9HmEst8XVbY4sdpKrIzgzkYkvjCjpasVIBmNpwSvfOpbpSG5n815MNtKeaKM8fAJWRW6o8cuqOiftYfi+fBdHMGVdqN4OuEqA==
+06/07/2020, 14:43:09 - Retorno: Questão de número 317989 adicionada com sucesso.
+06/07/2020, 14:43:16 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 14:43:26 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php
+06/07/2020, 14:43:26 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php
+06/07/2020, 14:43:26 - Retorno: Estruturação de questão realizada com sucesso
+06/07/2020, 14:51:34 - Retorno: Login realizado com sucesso.
+06/07/2020, 14:52:29 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?CWfecUOIZYPZtGLXCvQ8m2MKHbx/M48cQl7gtNumSQaAYl39l/FQ3Cw56lrnPlzPZEEZy2VGEaSPmugXN7FhDnN7QYW1uz7O9JdLIcYZ/nAjMy1Ok3LoW9HmEst8XVbY4sdpKrIzgzkYkvjCjpasVIBmNpwSvfOpbpSG5n815MNtKeaKM8fAJWRW6o8cuqOiftYfi+fBdHMGVdqN4OuEqA==
+06/07/2020, 14:52:29 - Retorno: Questão de número 317993 adicionada com sucesso.
+06/07/2020, 14:52:42 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 14:52:51 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php
+06/07/2020, 14:52:52 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php
+06/07/2020, 14:52:52 - Retorno: Estruturação de questão realizada com sucesso
+06/07/2020, 14:55:34 - Retorno: Login realizado com sucesso.
+06/07/2020, 14:55:58 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?CWfecUOIZYONgQ1ZA7Xa0mMKHbx/M48cQl7gtNumSQaAYl39l/FQ3Cw56lrnPlzPZEEZy2VGEaSPmugXN7FhDnN7QYW1uz7O9JdLIcYZ/nAjMy1Ok3LoW9HmEst8XVbY4sdpKrIzgzkYkvjCjpasVIBmNpwSvfOpbpSG5n815MNtKeaKM8fAJWRW6o8cuqOiftYfi+fBdHMGVdqN4OuEqA==
+06/07/2020, 14:55:58 - Retorno: Questão de número 317996 adicionada com sucesso.
+06/07/2020, 14:56:07 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 14:56:14 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php
+06/07/2020, 14:56:15 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php
+06/07/2020, 14:56:15 - Retorno: Estruturação de questão realizada com sucesso
+06/07/2020, 14:56:57 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?CWfecUOIZYPWWsveC0Gfe2MKHbx/M48cQl7gtNumSQaAYl39l/FQ3Cw56lrnPlzPZEEZy2VGEaSPmugXN7FhDnN7QYW1uz7O9JdLIcYZ/nAjMy1Ok3LoW9HmEst8XVbY4sdpKrIzgzkYkvjCjpasVIBmNpwSvfOpbpSG5n815MNtKeaKM8fAJWRW6o8cuqOiftYfi+fBdHMGVdqN4OuEqA==
+06/07/2020, 14:56:57 - Retorno: Questão de número 317998 adicionada com sucesso.
+06/07/2020, 14:57:11 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 15:01:27 - wrapped C/C++ object of type RadioBox has been deleted
+06/07/2020, 15:01:39 - Retorno: Login realizado com sucesso.
+06/07/2020, 15:02:03 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 15:04:24 - wrapped C/C++ object of type RadioBox has been deleted
+06/07/2020, 15:04:41 - Retorno: Login realizado com sucesso.
+06/07/2020, 15:07:47 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 15:08:13 - wrapped C/C++ object of type RadioBox has been deleted
+06/07/2020, 15:08:40 - Retorno: Login realizado com sucesso.
+06/07/2020, 15:08:46 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 15:09:11 - wrapped C/C++ object of type RadioBox has been deleted
+06/07/2020, 15:09:23 - Retorno: Login realizado com sucesso.
+06/07/2020, 15:09:46 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 15:17:58 - Retorno: Login realizado com sucesso.
+06/07/2020, 15:18:21 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 15:19:06 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php
+06/07/2020, 15:19:06 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php
+06/07/2020, 15:19:06 - Retorno: Estruturação de questão realizada com sucesso
+06/07/2020, 15:19:25 - Retorno: Login realizado com sucesso.
+06/07/2020, 15:28:54 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?CWfecUOIZYN2dXfIdzn3Y2MKHbx/M48cQl7gtNumSQaAYl39l/FQ3Cw56lrnPlzPZEEZy2VGEaSPmugXN7FhDnN7QYW1uz7O9JdLIcYZ/nAjMy1Ok3LoW9HmEst8XVbY4sdpKrIzgzkYkvjCjpasVIBmNpwSvfOpbpSG5n815MNtKeaKM8fAJWRW6o8cuqOiftYfi+fBdHMGVdqN4OuEqA==
+06/07/2020, 15:29:07 - Retorno: Questão de número 318008 adicionada com sucesso.
+06/07/2020, 15:29:33 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 15:39:30 - Retorno: Login realizado com sucesso.
+06/07/2020, 15:39:51 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 15:41:58 - Retorno: Login realizado com sucesso.
+06/07/2020, 15:42:22 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 15:46:50 - Retorno: Login realizado com sucesso.
+06/07/2020, 15:47:30 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 15:49:48 - Retorno: Login realizado com sucesso.
+06/07/2020, 15:49:54 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 15:51:11 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php
+06/07/2020, 15:51:11 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php
+06/07/2020, 15:51:11 - Retorno: Estruturação de questão realizada com sucesso
+06/07/2020, 15:51:51 - 'NoneType' object has no attribute 'get'
+06/07/2020, 15:51:51 - TextEntry.SetValue(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 15:53:08 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?CWfecUOIZYMadXgkFc7gm2MKHbx/M48cQl7gtNumSQaAYl39l/FQ3Cw56lrnPlzPZEEZy2VGEaSPmugXN7FhDnN7QYW1uz7O9JdLIcYZ/nAjMy1Ok3LoW9HmEst8XVbY4sdpKrIzgzkYkvjCjpasVIBmNpwSvfOpbpSG5n815MNtKeaKM8fAJWRW6o8cuqOiftYfi+fBdHMGVdqN4OuEqA==
+06/07/2020, 15:53:08 - Retorno: Questão de número 318013 adicionada com sucesso.
+06/07/2020, 15:53:16 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 15:53:40 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php
+06/07/2020, 15:53:40 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php
+06/07/2020, 15:53:40 - Retorno: Estruturação de questão realizada com sucesso
+06/07/2020, 15:53:56 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?CWfecUOIZYPUNE+CBP2GvmMKHbx/M48cQl7gtNumSQaAYl39l/FQ3Cw56lrnPlzPZEEZy2VGEaSPmugXN7FhDnN7QYW1uz7O9JdLIcYZ/nAjMy1Ok3LoW9HmEst8XVbY4sdpKrIzgzkYkvjCjpasVIBmNpwSvfOpbpSG5n815MNtKeaKM8fAJWRW6o8cuqOiftYfi+fBdHMGVdqN4OuEqA==
+06/07/2020, 15:53:56 - Retorno: Questão de número 318014 adicionada com sucesso.
+06/07/2020, 15:54:08 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 15:54:31 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php
+06/07/2020, 15:54:32 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php
+06/07/2020, 15:54:32 - Retorno: Estruturação de questão realizada com sucesso
+06/07/2020, 16:31:23 - Retorno: Login realizado com sucesso.
+06/07/2020, 16:32:38 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?CWfecUOIZYO6uI1V7m1OB2MKHbx/M48cQl7gtNumSQaAYl39l/FQ3Cw56lrnPlzPZEEZy2VGEaSPmugXN7FhDnN7QYW1uz7O9JdLIcYZ/nAjMy1Ok3LoW9HmEst8XVbY4sdpKrIzgzkYkvjCjpasVIBmNpwSvfOpbpSG5n815MNtKeaKM8fAJWRW6o8cuqOiftYfi+fBdHMGVdqN4OuEqA==
+06/07/2020, 16:32:38 - Retorno: Questão de número 318029 adicionada com sucesso.
+06/07/2020, 16:33:20 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 16:33:40 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php
+06/07/2020, 16:33:40 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php
+06/07/2020, 16:33:40 - Retorno: Estruturação de questão realizada com sucesso
+06/07/2020, 16:33:58 - Retorno: Login realizado com sucesso.
+06/07/2020, 16:58:54 - 'NoneType' object has no attribute 'get'
+06/07/2020, 16:58:54 - TextEntry.AppendText(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 16:58:58 - 'NoneType' object has no attribute 'get'
+06/07/2020, 16:58:58 - TextEntry.AppendText(): argument 1 has unexpected type 'NoneType'
+06/07/2020, 17:05:13 - Retorno: Login realizado com sucesso.
+06/07/2020, 17:07:31 - Retorno: Login realizado com sucesso.
+06/07/2020, 17:07:56 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?CWfecUOIZYOu2RNOXH7iYWMKHbx/M48cQl7gtNumSQaAYl39l/FQ3Cw56lrnPlzPZEEZy2VGEaSPmugXN7FhDnN7QYW1uz7O9JdLIcYZ/nAjMy1Ok3LoW9HmEst8XVbY4sdpKrIzgzkYkvjCjpasVIBmNpwSvfOpbpSG5n815MNtKeaKM8fAJWRW6o8cuqOiftYfi+fBdHMGVdqN4OuEqA==
+06/07/2020, 17:07:56 - Retorno: Questão de número 318042 adicionada com sucesso.
+06/07/2020, 17:08:00 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php
+06/07/2020, 17:08:11 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/alternativaAction.php
+06/07/2020, 17:08:12 - Retorno: 200 -> http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoTagAction.php
+06/07/2020, 17:08:12 - Retorno: Estruturação de questão realizada com sucesso
+06/07/2020, 17:30:09 - 'NoneType' object has no attribute 'get'
+06/07/2020, 17:30:21 - TextEntry.AppendText(): argument 1 has unexpected type 'NoneType'

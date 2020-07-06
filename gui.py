@@ -89,6 +89,8 @@ class Login ( wx.Frame ):
 
 		# Connect Events
 		self.bt_login.Bind( wx.EVT_BUTTON, self.acessar_intranet )
+		self.txt_login.Bind(wx.EVT_KEY_DOWN, self.onTabEnter)
+		self.txt_senha.Bind(wx.EVT_KEY_DOWN, self.onTabEnter)
 
 	def __del__( self ):
 		pass
@@ -488,17 +490,17 @@ class AlternativaTag ( wx.Dialog ):
 		self.cb_atv1 = wx.CheckBox( self, wx.ID_ANY, u"Atv2", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cb_atv1.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
 
-		bSizer21.Add( self.cb_atv1, 0, wx.ALL, 5 )
+		bSizer21.Add( self.cb_atv1, 1, wx.ALL, 5 )
 
 		self.cb_atv2 = wx.CheckBox( self, wx.ID_ANY, u"Atv3", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cb_atv2.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
 
-		bSizer21.Add( self.cb_atv2, 0, wx.ALL, 5 )
+		bSizer21.Add( self.cb_atv2, 1, wx.ALL, 5 )
 
 		self.cb_atv3 = wx.CheckBox( self, wx.ID_ANY, u"Atv4", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cb_atv3.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
 
-		bSizer21.Add( self.cb_atv3, 0, wx.ALL, 5 )
+		bSizer21.Add( self.cb_atv3, 1, wx.ALL, 5 )
 
 		bSizer20.Add( bSizer21, 1, wx.EXPAND, 5 )
 
@@ -507,7 +509,7 @@ class AlternativaTag ( wx.Dialog ):
 		self.cb_atv4 = wx.CheckBox( self, wx.ID_ANY, u"Atv1", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cb_atv4.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
 
-		bSizer21.Add( self.cb_atv4, 0, wx.ALL, 5 )
+		bSizer21.Add( self.cb_atv4, 1, wx.ALL, 5 )
 
 		bSizer5.Add( bSizer20, 0, wx.EXPAND, 5 )
 

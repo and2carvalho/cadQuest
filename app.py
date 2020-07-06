@@ -2,7 +2,6 @@
 
 from api.usuario import Usuario
 from api.utils import loginApp, serializaRequest, dbQuestao, dic_alternativas, dic_tags
-from db.conn import dir_path
 from datetime import datetime
 import wx
 import gui
@@ -27,12 +26,21 @@ class AlternativaTag(gui.AlternativaTag):
             event.StopPropagation()
 
     def validaCampos(self):
-        if (self.cb_mod51.GetValue() == "") | (self.cb_mod52.GetValue() == "") | \
-                (self.cb_mod53.GetValue() == "") | (self.cb_mod54.GetValue() == "") | \
-                (self.cb_curso.GetValue() == "") | (self.cb_unLivro.GetValue() == ""):
-            return False
-        else:
+        stg1 = False
+        stg2 = False
+        if not (self.cb_mod51.GetValue() == "") | (self.cb_mod52.GetValue() == "") | \
+        (self.cb_mod53.GetValue() == "") | (self.cb_mod54.GetValue() == "") | \
+        (self.cb_curso.GetValue() == "") | (self.cb_unLivro.GetValue() == ""):
+            stg1 = True
+        if stg1:
+            if self.cb_atv1.GetValue() != False or self.cb_atv2.GetValue() != False or \
+            self.cb_atv3.GetValue() != False or self.cb_atv4.GetValue() != False or \
+            self.cb_prova.GetValue() != False:
+                stg2 = True
+        if stg1 & stg2:
             return True
+        else:
+            return False
 
     def setAlternativaTag(self, event):
         if not self.validaCampos():
@@ -61,7 +69,16 @@ class PyFeed(gui.PyFeed):
         self.btn_confereQuestao.ToolTip = wx.ToolTip("Revisa Questão")
         self.btn_configApp.ToolTip = wx.ToolTip("Configurações")
 
-        self.login_frame.bt_login.Bind( wx.EVT_BUTTON, self.acessar_intranet )
+        self.login_frame.bt_login.Bind(wx.EVT_BUTTON, self.acessar_intranet)
+        self.login_frame.txt_login.Bind(wx.EVT_KEY_DOWN, self.onTabEnter)
+        self.login_frame.txt_senha.Bind(wx.EVT_KEY_DOWN, self.onTabEnter)
+
+    def onTabEnter(self, event):
+        
+        keycode = event.GetKeyCode()
+        if keycode == wx.WXK_TAB or keycode == wx.WXK_RETURN or keycode == wx.WXK_NUMPAD_ENTER:
+            event.EventObject.Navigate()
+        event.Skip()
 
     def fechaTela(self, event):
         dialog = wx.MessageDialog(self, message = "Tem certeza que deseja sair?", caption = "Caption", style = wx.YES_NO, pos = wx.DefaultPosition)
@@ -86,7 +103,7 @@ class PyFeed(gui.PyFeed):
         ''' Realiza login na intranet unicesumar e acessa o Formulário
         de busca das questões. '''
 
-        self.tutor = Usuario("andre.antero@unicesumar.edu.br","Shabala1234.")#self.login_frame.txt_login.GetValue(), self.login_frame.txt_senha.GetValue()
+        self.tutor = Usuario("andre.antero","Shabala1234.")#self.login_frame.txt_login.GetValue(), self.login_frame.txt_senha.GetValue()
         loginApp(self.tutor)
         if (self.tutor.br.response().geturl() == "http://intranet.unicesumar.edu.br/?erro_login"):
             self.warn(self, "Não foi possivel realizar o acesso com os dados digitados")
@@ -103,6 +120,7 @@ class PyFeed(gui.PyFeed):
         #TODO entender porque o corretor não ilumina as mesmas palavras após a primeira ocorrência
         sym_spell = SymSpell()
         sym_spell.load_dictionary("static/frequency_dictionary_pt_82_765.txt", 0, 1,encoding="windows-1252")
+        import re
         input_term = self.add_questao_frame.tx_enunciado.GetValue().lower()
         # retira caracteres usando `translate` e separa texto em lista de palavras
         ignorar = r'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~1234567890“”–'
@@ -113,9 +131,10 @@ class PyFeed(gui.PyFeed):
             line = self.add_questao_frame.tx_enunciado.GetLineText(i)
             for palavra in texto:
                 if palavra in line and palavra not in sugestao:
-                    startPos = self.add_questao_frame.tx_enunciado.GetValue().find(palavra)
-                    endPos = startPos + len(palavra)
-                    self.add_questao_frame.tx_enunciado.SetStyle(startPos, endPos, wx.TextAttr("red", "white"))
+                    startPos = [i for i in range(len(texto)) if palavra.startswith(palavra, i)]
+                    for ocor in startPos:
+                        endPos = ocor + len(palavra)
+                        self.add_questao_frame.tx_enunciado.SetStyle(ocor, endPos, wx.TextAttr("red", "white"))
         # retoma formatação correta do campo de texto
         self.add_questao_frame.SetForegroundColour(wx.BLACK)
         for i in range(len(texto)):
@@ -135,8 +154,8 @@ class PyFeed(gui.PyFeed):
                 & (self.add_questao_frame.ch_complexidade.GetStringSelection() != "") & (self.add_questao_frame.cb_tipoQuestao.GetStringSelection() != "")\
                 & (destino == True):
             try:
-                enunciado = self.add_questao_frame.tx_enunciado.GetValue().replace("\n","<br>").translate(str.maketrans({'“':'"', '”':'"', '–':'-'})).encode("windows-1252")
-                feedback = self.add_questao_frame.tx_resposta.GetValue().replace("\n","<br>").translate(str.maketrans({'“':'"', '”':'"', '–':'-'})).encode("windows-1252")
+                enunciado = self.add_questao_frame.tx_enunciado.GetValue().replace("\n","<br>").translate(str.maketrans({'“':'"', '”':'"', '–':'-','—':'-'})).encode("windows-1252")
+                feedback = self.add_questao_frame.tx_resposta.GetValue().replace("\n","<br>").translate(str.maketrans({'“':'"', '”':'"', '–':'-','—':'-'})).encode("windows-1252")
                 complexidade = self.add_questao_frame.ch_complexidade.GetStringSelection()
                 if complexidade == "Fácil":
                     idComplexidade = 1
@@ -176,18 +195,24 @@ class PyFeed(gui.PyFeed):
                         feedback += 'style="border:0px solid black; height:946px; margin-bottom:0px; margin-left:0px; margin-right:0px; margin-top:0px; width:1024px" vspace="0" /&gt;&lt;br /&gt;'
                 else:
                     pass
-                idQuestao = self.tutor.requestPostQuestao(enunciado, feedback, idComplexidade, destino_prova,
-                                                          destino_atv, idOrigem, idTipoQuestao)
-                self.txt_idQuestao.SetValue(idQuestao)
+                try:
+                    idQuestao = self.tutor.requestPostQuestao(enunciado, feedback, idComplexidade, destino_prova,
+                                                              destino_atv, idOrigem, idTipoQuestao)
+                except Exception as e:
+                    now = datetime.now()
+                    logf = open("\log.txt","a+")
+                    logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
+                    logf.close()
+                self.txt_idQuestao.AppendText(idQuestao)
                 self.add_questao_frame.Destroy()
                 resp = "Retorno: Questão de número " + idQuestao + " adicionada com sucesso."
-                logf = open(dir_path+"\log.txt","a+")
+                logf = open("\log.txt","a+")
                 logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
                 logf.close()
                 #idQuestao = None # necessário para permitir múltiplos cadastros na mesma sessão do app (caso contrario o valor do id da segunda questão seria mantido e geraria erro no novo cadastro.
             except Exception as e:
                 now = datetime.now()
-                logf = open(dir_path+"\log.txt","a+")
+                logf = open("\log.txt","a+")
                 logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
                 logf.close()
         else:
@@ -242,7 +267,7 @@ class PyFeed(gui.PyFeed):
                             self.tutor.dic_temp.clear() # reinicializar dic_temp para permitir novo cadastro na msm sessao
                             self.txt_idQuestao.Clear()
                             resp = "Retorno: Estruturação de questão realizada com sucesso"
-                            logf = open(dir_path+"\log.txt","a+")
+                            logf = open("\log.txt","a+")
                             logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
                             logf.close()
                             return self.info(self,"Estruturação de questão realizada com sucesso!")
@@ -255,7 +280,7 @@ class PyFeed(gui.PyFeed):
                     return self.info(self, "Estruturação ainda não suportada para esse tipo de questão: {}".format(str(q_estruturaCompleta["tipoQuestao"].get("dsTipoQuestao"))))
                 except Exception as e:
                     now = datetime.now()
-                    logf = open(dir_path+"\log.txt","a+")
+                    logf = open("\log.txt","a+")
                     logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
                     logf.close()
             else:
