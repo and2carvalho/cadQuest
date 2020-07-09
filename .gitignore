@@ -8,3 +8,5 @@ db_questoes.db
 build/
 dist/
 venv/
+log.txt
+.pylintrc

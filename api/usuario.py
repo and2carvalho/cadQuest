@@ -1,7 +1,6 @@
 # coding=utf-8
 
 import mechanize
-from http.cookiejar import LWPCookieJar
 from urllib import parse
 from datetime import datetime
 from db.conn import dir_path
@@ -13,7 +12,8 @@ class Usuario():
         self.usuario = usuario
         self.senha = senha
         self.br = mechanize.Browser()
-        self.cookiejar = mechanize.LWPCookieJar()
+        cookiejar = mechanize.LWPCookieJar("cookies.yml",'ignore_discard="True",ignore_expired="True"')
+        self.br.set_cookiejar(cookiejar)
         ##### Browser options #######
         self.br.set_handle_equiv(False)
         self.br.set_handle_gzip(False)
@@ -26,7 +26,11 @@ class Usuario():
         #self.br.set_debug_redirects(True)
         self.br.set_debug_responses(True)
         ########----------###########
-        self.br.addheaders = [('User-agent','Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1')]
+        self.br.addheaders = [
+            ('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1'),
+            ('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre=check=0'),
+            ('Pragma', 'no-cache')
+            ]
         #TODO buscar forma melhor de fazer o processo de cadastro das tags
         self.dic_temp = {} # necessario para guardar informações para cadastro de tags
 
@@ -50,9 +54,6 @@ class Usuario():
             l_formQuestao = self.br.find_link(nr=16)
             self.br.follow_link(l_formQuestao)
             #self.br.select_form(nr=0)
-            #self.br._ua_handlers["_cookies"].cookiejar) #mostra cookiejar usado pelo browser
-            self.cookiejar.save(dir_path+"cookiejar.txt",ignore_expires=True,ignore_discard=True)
-            self.br.set_cookie(cookiejar)
             resp = "Retorno: Login realizado com sucesso."
             logf = open(dir_path+"log.txt","a+")
             logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
@@ -115,7 +116,6 @@ class Usuario():
         if destino_atv != None:
             payload.add("idDestinoList[]", 4)
         try:
-            
             data = parse.urlencode(payload)
             request_form_questao = mechanize.Request(url_api, data)
             response = self.br.open(request_form_questao)

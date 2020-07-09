@@ -6,12 +6,17 @@ from api.utils import loginApp, serializaRequest, dbQuestao, dic_alternativas, d
 from datetime import datetime
 import wx
 import gui
+import time
+#import wx.lib.inspection
+
 
 class AddQuestao(gui.AddQuestao):
 
     def __init__(self, parent, tipo_questao_suportado):
         gui.AddQuestao.__init__(self, parent, tipo_questao_suportado)
 
+'''
+TODO
 class DialogQtdAfirmativas (gui.DialogQtdAfirmativas):
 
     def __init__(self, parent):
@@ -24,7 +29,7 @@ class DialogQtdAfirmativas (gui.DialogQtdAfirmativas):
             self.alt == "5"
         event.StopPropagation()
         return self.alt
-        
+'''
 
 class AlternativaTag(gui.AlternativaTag):
 
@@ -74,8 +79,10 @@ class PyFeed(gui.PyFeed):
 
     def __init__(self, parent):
         gui.PyFeed.__init__(self, parent)
+        #wx.lib.inspection.InspectionTool().Show()
         self.login_frame = gui.Login(self)
         self.login_frame.Show()
+        
         # lista de tipo de questoes suportados pelo programa; necessário adicionar um dicionario de alternativas
         # em 'api.util.dic_alternativas' para novos tipos de questões.
         self.tipo_questao_suportado = ["Objetiva de resposta única", "Objetiva de resposta múltipla"]
@@ -89,7 +96,8 @@ class PyFeed(gui.PyFeed):
         self.login_frame.txt_senha.Bind(wx.EVT_KEY_DOWN, self.onTabEnter)
 
     def onTabEnter(self, event):
-        
+        ''' Atalho para tecla TAB direcionar o cursor para o próximo campo'''
+
         keycode = event.GetKeyCode()
         if keycode == wx.WXK_TAB or keycode == wx.WXK_RETURN or keycode == wx.WXK_NUMPAD_ENTER:
             event.EventObject.Navigate()
@@ -124,7 +132,6 @@ class PyFeed(gui.PyFeed):
             self.warn(self, "Não foi possivel realizar o acesso com os dados digitados")
             self.login_frame.txt_login.Clear()
             self.login_frame.txt_senha.Clear()
-            self.br.cookiejar.save()
         else:
             self.tutor.acessaFrmQuestao()
             wx.SafeYield() # espera a próxima ação ser executada
@@ -142,15 +149,12 @@ class PyFeed(gui.PyFeed):
         ignorar = r'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~1234567890“”–'
         texto = sym_spell.word_segmentation(input_term.translate(str.maketrans("","",ignorar)), max_edit_distance=2 ).segmented_string.split()
         sugestao = sym_spell.word_segmentation(input_term.translate(str.maketrans("","",ignorar)), max_edit_distance=2 ).corrected_string.split()
-        # repositório de palavras a serem iluminadas
-        iluminar = []
         # referencia: https://stackoverflow.com/questions/41592759/python-textctrl-search-and-highlight-functionality
         for i in range(self.add_questao_frame.tx_enunciado.GetNumberOfLines()):
             line = self.add_questao_frame.tx_enunciado.GetLineText(i)
             for palavra in texto:
                 if palavra in line and palavra not in sugestao:
                     startPos = [i for i in range(len(texto)) if palavra.startswith(palavra, i)]
-                    iluminar += palavra
                     for ocor in startPos:
                         endPos = ocor + len(palavra)
                         self.add_questao_frame.tx_enunciado.SetStyle(ocor, endPos, wx.TextAttr("red", "white"))
@@ -163,6 +167,7 @@ class PyFeed(gui.PyFeed):
     def addQuestao(self, event):
         # cria condição para fazer necessário o preenchimento de um dos 2 checkbox do campo 'destino'
         destino = False
+        self.acessar_intranet(event)
 
         if (self.add_questao_frame.cb_destinoProva.GetValue() is False) & (self.add_questao_frame.cb_destinoAtv.GetValue() is False):
             pass
@@ -244,7 +249,7 @@ class PyFeed(gui.PyFeed):
     def form_novaQuestao( self, event ):
         self.add_questao_frame = gui.AddQuestao(self, self.tipo_questao_suportado)
         self.add_questao_frame.Show()
-        self.add_questao_frame.bt_corretorOrt.Bind( wx.EVT_BUTTON, self.corrigeTxt )
+        #self.add_questao_frame.bt_corretorOrt.Bind( wx.EVT_BUTTON, self.corrigeTxt )
         self.add_questao_frame.bt_salvarQuestao.Bind( wx.EVT_BUTTON, self.addQuestao )
 
     def form_qtdAfirmativas( self, event) :
