@@ -4,6 +4,7 @@ import mechanize
 from http.cookiejar import LWPCookieJar
 from urllib import parse
 from datetime import datetime
+from db.conn import dir_path
 
 class Usuario():
 
@@ -12,8 +13,7 @@ class Usuario():
         self.usuario = usuario
         self.senha = senha
         self.br = mechanize.Browser()
-        cookiejar = LWPCookieJar()
-        self.br.set_cookiejar(cookiejar)
+        self.cookiejar = mechanize.LWPCookieJar()
         ##### Browser options #######
         self.br.set_handle_equiv(False)
         self.br.set_handle_gzip(False)
@@ -22,9 +22,9 @@ class Usuario():
         self.br.set_handle_robots(False)
         self.br.set_handle_refresh(False)#mechanize._http.HTTPRefreshProcessor(), max_time=1)
         self.br.set_debug_http(True)
-        #self.br.set_debug_http(True)
+        self.br.set_debug_http(True)
         #self.br.set_debug_redirects(True)
-        #self.br.set_debug_responses(True)
+        self.br.set_debug_responses(True)
         ########----------###########
         self.br.addheaders = [('User-agent','Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1')]
         #TODO buscar forma melhor de fazer o processo de cadastro das tags
@@ -50,13 +50,16 @@ class Usuario():
             l_formQuestao = self.br.find_link(nr=16)
             self.br.follow_link(l_formQuestao)
             #self.br.select_form(nr=0)
+            #self.br._ua_handlers["_cookies"].cookiejar) #mostra cookiejar usado pelo browser
+            self.cookiejar.save(dir_path+"cookiejar.txt",ignore_expires=True,ignore_discard=True)
+            self.br.set_cookie(cookiejar)
             resp = "Retorno: Login realizado com sucesso."
-            logf = open("\log.txt","a+")
+            logf = open(dir_path+"log.txt","a+")
             logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
             logf.close()
         except Exception as e:
             now = datetime.now()
-            logf = open("\log.txt","a+")
+            logf = open(dir_path+"log.txt","a+")
             logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
             logf.close()
             
@@ -79,13 +82,13 @@ class Usuario():
             response = self.br.open(request_form_questao)
             dados_questao = response.get_data().decode("latin1")
             resp = "Retorno: " + str(self.br.response().getcode()) + " -> " +str(self.br.response().geturl())
-            logf = open("\log.txt","a+")
+            logf = open(dir_path+"log.txt","a+")
             logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
             logf.close()
             return dados_questao
         except Exception as e:
             now = datetime.now()
-            logf = open("\log.txt","a+")
+            logf = open(dir_path+"log.txt","a+")
             logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
             logf.close()
 
@@ -93,39 +96,40 @@ class Usuario():
 
         ''' Realiza primeiro cadastro da questão na API apartir do form do programa. '''
 
-        url_api = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php"
+        url_api = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoAction.php?cPV+dh//Zfo="
         from urllib3._collections import HTTPHeaderDict
         payload = HTTPHeaderDict()
-        payload.add("action" , "inserir")
+        payload.add("action", "inserir")
         payload.add("ativo", 1)
-        payload.add("enunciado" , enunciado)
+        payload.add("enunciado", enunciado)
         payload.add("feedback", feedback)
         payload.add("fileImgGabaritoBase64", None)
         payload.add("fileImgGabaritoNomeOriginal", None)
         payload.add("idComplexidade", idComplexidade)
         payload.add("idImgGabarito", None)
         payload.add("idNodeRaiz", 1)
-        payload.add("idOrigem",idOrigem)
-        payload.add("idTipoQuestao",idTipoQuestao)
+        payload.add("idOrigem", idOrigem)
+        payload.add("idTipoQuestao", idTipoQuestao)
         if destino_prova != None:
-            payload.add("idDestinoList[]",1)
+            payload.add("idDestinoList[]", 1)
         if destino_atv != None:
-            payload.add("idDestinoList[]",4)
+            payload.add("idDestinoList[]", 4)
         try:
+            
             data = parse.urlencode(payload)
-            request_form_questao = mechanize.Request(url_api,data)
+            request_form_questao = mechanize.Request(url_api, data)
             response = self.br.open(request_form_questao)
             from bs4 import BeautifulSoup
             soup = BeautifulSoup(response.read(), "lxml")
             idQuestao = soup.find("input", {"id":"idQuestao"}).get("value")
             resp = "Retorno: " + str(self.br.response().getcode()) + " -> " +str(self.br.response().geturl())
-            logf = open("\log.txt","a+")
+            logf = open(dir_path+"log.txt","a+")
             logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
             logf.close()
             return idQuestao
         except Exception as e:
             now = datetime.now()
-            logf = open("\log.txt","a+")
+            logf = open(dir_path+"log.txt","a+")
             logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
             logf.close()
 
@@ -155,13 +159,13 @@ class Usuario():
                 request_insereAlternativa = mechanize.Request(url_api, data)
                 self.br.open(request_insereAlternativa)
             resp = "Retorno: " + str(self.br.response().getcode()) + " -> " +str(self.br.response().geturl())
-            logf = open("\log.txt","a+")
+            logf = open(dir_path+"log.txt","a+")
             logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
             logf.close()
             return "{ Status : Success }"
         except Exception as e:
             now = datetime.now()
-            logf = open("\log.txt","a+")
+            logf = open(dir_path+"log.txt","a+")
             logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
             logf.close()
         #except Exception as e:
@@ -209,13 +213,13 @@ class Usuario():
             request_form_questao = mechanize.Request(url_api,data)
             self.br.open(request_form_questao)
             resp = "Retorno: " + str(self.br.response().getcode()) + " -> " +str(self.br.response().geturl())
-            logf = open("\log.txt","a+")
+            logf = open(dir_path+"log.txt","a+")
             logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
             logf.close()
             return "{ Status : Success }"
         except Exception as e:
             now = datetime.now()
-            logf = open("\log.txt","a+")
+            logf = open(dir_path+"log.txt","a+")
             logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
             logf.close()
 
@@ -272,6 +276,6 @@ class Usuario():
                     self.dic_temp["atv1"] = dic_tags["idNodeMacro8"].get("Atv1")
         except Exception as e:
             now = datetime.now()
-            logf = open("log.txt","a+")
+            logf = open(dir_path+"log.txt","a+")
             logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
             logf.close()

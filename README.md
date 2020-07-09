@@ -10,4 +10,3 @@ Utilizar função resource_path() para direcionar o load para pasta temp:
 2. Conferir/adicionar arquivos estáticos no arquivo app.spec
 3. `$ pyinstaller --onefile app.spec`
 
-Inserir banco de dados na mesma pasta do executável

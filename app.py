@@ -1,7 +1,8 @@
 # coding=utf-8
 
+from db.conn import dir_path
 from api.usuario import Usuario
-from api.utils import loginApp, serializaRequest, dbQuestao, dic_alternativas, dic_tags
+from api.utils import loginApp, serializaRequest, dbQuestao, dic_alternativas, dic_5afirmativas, dic_tags
 from datetime import datetime
 import wx
 import gui
@@ -10,6 +11,20 @@ class AddQuestao(gui.AddQuestao):
 
     def __init__(self, parent, tipo_questao_suportado):
         gui.AddQuestao.__init__(self, parent, tipo_questao_suportado)
+
+class DialogQtdAfirmativas (gui.DialogQtdAfirmativas):
+
+    def __init__(self, parent):
+        gui.DialogQtdAfirmativas.__init__(self, parent)
+
+    def setQtdAfirmativas(self, event):
+        if self.rb_4afirmativas.GetValue():
+            self.alt == "4"
+        else:
+            self.alt == "5"
+        event.StopPropagation()
+        return self.alt
+        
 
 class AlternativaTag(gui.AlternativaTag):
 
@@ -109,6 +124,7 @@ class PyFeed(gui.PyFeed):
             self.warn(self, "Não foi possivel realizar o acesso com os dados digitados")
             self.login_frame.txt_login.Clear()
             self.login_frame.txt_senha.Clear()
+            self.br.cookiejar.save()
         else:
             self.tutor.acessaFrmQuestao()
             wx.SafeYield() # espera a próxima ação ser executada
@@ -126,12 +142,15 @@ class PyFeed(gui.PyFeed):
         ignorar = r'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~1234567890“”–'
         texto = sym_spell.word_segmentation(input_term.translate(str.maketrans("","",ignorar)), max_edit_distance=2 ).segmented_string.split()
         sugestao = sym_spell.word_segmentation(input_term.translate(str.maketrans("","",ignorar)), max_edit_distance=2 ).corrected_string.split()
+        # repositório de palavras a serem iluminadas
+        iluminar = []
         # referencia: https://stackoverflow.com/questions/41592759/python-textctrl-search-and-highlight-functionality
         for i in range(self.add_questao_frame.tx_enunciado.GetNumberOfLines()):
             line = self.add_questao_frame.tx_enunciado.GetLineText(i)
             for palavra in texto:
                 if palavra in line and palavra not in sugestao:
                     startPos = [i for i in range(len(texto)) if palavra.startswith(palavra, i)]
+                    iluminar += palavra
                     for ocor in startPos:
                         endPos = ocor + len(palavra)
                         self.add_questao_frame.tx_enunciado.SetStyle(ocor, endPos, wx.TextAttr("red", "white"))
@@ -157,12 +176,17 @@ class PyFeed(gui.PyFeed):
                 enunciado = self.add_questao_frame.tx_enunciado.GetValue().replace("\n","<br>").translate(str.maketrans({'“':'"', '”':'"', '–':'-','—':'-'})).encode("windows-1252")
                 feedback = self.add_questao_frame.tx_resposta.GetValue().replace("\n","<br>").translate(str.maketrans({'“':'"', '”':'"', '–':'-','—':'-'})).encode("windows-1252")
                 complexidade = self.add_questao_frame.ch_complexidade.GetStringSelection()
+                alternativas = self.add_questao_frame.cb_qtdAfirmativas.GetStringSelection()
                 if complexidade == "Fácil":
                     idComplexidade = 1
                 elif complexidade == "Médio":
                     idComplexidade = 2
                 else:
                     idComplexidade = 3
+                if alternativas == "4":
+                    self.tutor.dic_temp['idAlternativas'] = "4"
+                else:
+                    self.tutor.dic_temp['idAlternativas'] = "5"
                 if self.add_questao_frame.cb_destinoProva.GetValue() == True:
                     destino_prova = 1
                 else:
@@ -200,19 +224,18 @@ class PyFeed(gui.PyFeed):
                                                               destino_atv, idOrigem, idTipoQuestao)
                 except Exception as e:
                     now = datetime.now()
-                    logf = open("\log.txt","a+")
+                    logf = open(dir_path+"log.txt","a+")
                     logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
                     logf.close()
                 self.txt_idQuestao.AppendText(idQuestao)
                 self.add_questao_frame.Destroy()
                 resp = "Retorno: Questão de número " + idQuestao + " adicionada com sucesso."
-                logf = open("\log.txt","a+")
+                logf = open(dir_path+"log.txt","a+")
                 logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
                 logf.close()
-                #idQuestao = None # necessário para permitir múltiplos cadastros na mesma sessão do app (caso contrario o valor do id da segunda questão seria mantido e geraria erro no novo cadastro.
             except Exception as e:
                 now = datetime.now()
-                logf = open("\log.txt","a+")
+                logf = open(dir_path+"log.txt","a+")
                 logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
                 logf.close()
         else:
@@ -223,6 +246,10 @@ class PyFeed(gui.PyFeed):
         self.add_questao_frame.Show()
         self.add_questao_frame.bt_corretorOrt.Bind( wx.EVT_BUTTON, self.corrigeTxt )
         self.add_questao_frame.bt_salvarQuestao.Bind( wx.EVT_BUTTON, self.addQuestao )
+
+    def form_qtdAfirmativas( self, event) :
+        self.setQtdAfirmativas = DialogQtdAfirmativas(self)
+        self.setQtdAfirmativas.Show()
 
     def estrutura_questao(self, event):
 
@@ -253,7 +280,18 @@ class PyFeed(gui.PyFeed):
                         # verifica se há alternativas já cadastadas
                         if (q_estruturaCompleta.get("alternativaList") == []):
                             # aplica estruturação de questão
-                            dicionario = dic_alternativas[result.dsTipoQuestao][result.dsComplexidade]
+                            # testa se são 4 ou 5 afirmações na pergunta
+                            #if (result.dsTipoQuestao == "Objetiva de resposta múltipla") and \
+                            #   (result.dsComplexidade == "Difícil") and not self.tutor.dic_temp:
+                            if (result.dsTipoQuestao == "Objetiva de resposta múltipla") and \
+                            (result.dsComplexidade == "Difícil") and not self.tutor.dic_temp:
+                                return self.warn(self, "Atenção! Essa questão não tem definida a quantidade de afirmativas, \
+                                por hora é necessário fazer o cadastro pela intranet")
+                            if (result.dsTipoQuestao == "Objetiva de resposta múltipla") and \
+                            (result.dsComplexidade == "Difícil") and (self.tutor.dic_temp['idAlternativas'] == "5"):
+                                dicionario = dic_5afirmativas[result.dsTipoQuestao][result.dsComplexidade]
+                            else:
+                                dicionario = dic_alternativas[result.dsTipoQuestao][result.dsComplexidade]
                             for payload in dicionario.items():
                                 alternativas.append(payload[1].get("dsAlternativa"))
                             self.alternativa_panel = AlternativaTag(self, alternativas)
@@ -267,7 +305,7 @@ class PyFeed(gui.PyFeed):
                             self.tutor.dic_temp.clear() # reinicializar dic_temp para permitir novo cadastro na msm sessao
                             self.txt_idQuestao.Clear()
                             resp = "Retorno: Estruturação de questão realizada com sucesso"
-                            logf = open("\log.txt","a+")
+                            logf = open(dir_path+"log.txt","a+")
                             logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
                             logf.close()
                             return self.info(self,"Estruturação de questão realizada com sucesso!")
@@ -280,7 +318,7 @@ class PyFeed(gui.PyFeed):
                     return self.info(self, "Estruturação ainda não suportada para esse tipo de questão: {}".format(str(q_estruturaCompleta["tipoQuestao"].get("dsTipoQuestao"))))
                 except Exception as e:
                     now = datetime.now()
-                    logf = open("\log.txt","a+")
+                    logf = open(dir_path+"log.txt","a+")
                     logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
                     logf.close()
             else:

@@ -7,7 +7,7 @@ def loginApp(Usuario):
         Usuario.loginIntranet()
     except Exception as e:
         now = datetime.now()
-        logf = open(dir_path+"\log.txt","a+")
+        logf = open(dir_path+"log.txt","a+")
         logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
         logf.close()
 
@@ -20,7 +20,7 @@ def serializaRequest(payload):
         return dados_questao
     except Exception as e:
         now = datetime.now()
-        logf = open("\log.txt","a+")
+        logf = open(dir_path+"log.txt","a+")
         logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
         logf.close()
 
@@ -44,7 +44,7 @@ def dbQuestao(request_args):
                 print("Questao {} atualizada com sucesso\n".format(questao.idQuestao))
             except Exception as e:
                 now = datetime.now()
-                logf = open("\log.txt","a+")
+                logf = open(dir_path+"log.txt","a+")
                 logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
                 logf.close()
         else:
@@ -69,7 +69,7 @@ def viewQuestao(id=None):
                 print(questao)
         except Exception as e:
             now = datetime.now()
-            logf = open(dir_path+"\log.txt","a+")
+            logf = open(dir_path+"log.txt","a+")
             logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
             logf.close()
     else:
@@ -79,9 +79,46 @@ def viewQuestao(id=None):
             print(result)
         except Exception as e:
             now = datetime.now()
-            logf = open(dir_path+"\log.txt","a+")
+            logf = open(dir_path+"log.txt","a+")
             logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
             logf.close()
+
+dic_5afirmativas = {
+  "Objetiva de resposta múltipla": {
+    "Difícil": {
+      "payload_1": {
+            "action": "inserir",
+            "idQuestao": None,
+            "dsAlternativa": "I e IV.",
+            "correta": 0
+      },
+      "payload_2": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I, II e III.",
+        "correta": 0
+      },
+      "payload_3": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "I, II e V.",
+        "correta": 0
+      },
+      "payload_4": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "III, IV e V.",
+        "correta": 0
+      },
+      "payload_5": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "II, III, IV e V.",
+        "correta": 0
+      }
+    }
+  }
+}
 
 dic_alternativas = {
   "Objetiva de resposta múltipla": {
