@@ -54,7 +54,7 @@ def dbQuestao(request_args):
                 print("\nQuestao {} adicionado ao banco de dados".format(questao.idQuestao))
             except Exception as e:
                 now = datetime.now()
-                logf = open("\log.txt","a+")
+                logf = open(dir_path+"log.txt","a+")
                 logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
                 logf.close()
 

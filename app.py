@@ -37,7 +37,7 @@ class AlternativaTag(gui.AlternativaTag):
         gui.AlternativaTag.__init__(self, parent, alternativas)
 
     def fechaTela(self, event):
-        dialog = wx.MessageDialog(self, message = "Tem certeza que deseja sair?", caption = "Caption", style = wx.YES_NO, pos = wx.DefaultPosition)
+        dialog = wx.MessageDialog(self, message = "Tem certeza que deseja sair?", caption = "Atenção", style = wx.YES_NO, pos = wx.DefaultPosition)
         response = dialog.ShowModal()
         if (response == wx.ID_YES):
             self.rb_alt_correta.Destroy()
@@ -138,35 +138,35 @@ class PyFeed(gui.PyFeed):
             self.login_frame.Hide()
             self.Show()
 
-    def corrigeTxt(self, event):
-        from symspellpy import SymSpell
-        #TODO entender porque o corretor não ilumina as mesmas palavras após a primeira ocorrência
-        sym_spell = SymSpell()
-        sym_spell.load_dictionary("static/frequency_dictionary_pt_82_765.txt", 0, 1,encoding="windows-1252")
-        import re
-        input_term = self.add_questao_frame.tx_enunciado.GetValue().lower()
-        # retira caracteres usando `translate` e separa texto em lista de palavras
-        ignorar = r'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~1234567890“”–'
-        texto = sym_spell.word_segmentation(input_term.translate(str.maketrans("","",ignorar)), max_edit_distance=2 ).segmented_string.split()
-        sugestao = sym_spell.word_segmentation(input_term.translate(str.maketrans("","",ignorar)), max_edit_distance=2 ).corrected_string.split()
-        # referencia: https://stackoverflow.com/questions/41592759/python-textctrl-search-and-highlight-functionality
-        for i in range(self.add_questao_frame.tx_enunciado.GetNumberOfLines()):
-            line = self.add_questao_frame.tx_enunciado.GetLineText(i)
-            for palavra in texto:
-                if palavra in line and palavra not in sugestao:
-                    startPos = [i for i in range(len(texto)) if palavra.startswith(palavra, i)]
-                    for ocor in startPos:
-                        endPos = ocor + len(palavra)
-                        self.add_questao_frame.tx_enunciado.SetStyle(ocor, endPos, wx.TextAttr("red", "white"))
-        # retoma formatação correta do campo de texto
-        self.add_questao_frame.SetForegroundColour(wx.BLACK)
-        for i in range(len(texto)):
-            if texto[i] != sugestao[i]:
-                self.warn(self, "`" + texto[i] + "`" + " você quis dizer " + "`" + sugestao[i] + "` ?")
+    #def corrigeTxt(self, event):
+    #    from symspellpy import SymSpell
+    #    #TODO entender porque o corretor não ilumina as mesmas palavras após a primeira ocorrência
+    #    sym_spell = SymSpell()
+    #    sym_spell.load_dictionary("static/frequency_dictionary_pt_82_765.txt", 0, 1,encoding="windows-1252")
+    #    import re
+    #    input_term = self.add_questao_frame.tx_enunciado.GetValue().lower()
+    #    # retira caracteres usando `translate` e separa texto em lista de palavras
+    #    ignorar = r'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~1234567890“”–'
+    #    texto = sym_spell.word_segmentation(input_term.translate(str.maketrans("","",ignorar)), max_edit_distance=2 ).segmented_string.split()
+    #    sugestao = sym_spell.word_segmentation(input_term.translate(str.maketrans("","",ignorar)), max_edit_distance=2 ).corrected_string.split()
+    #    # referencia: https://stackoverflow.com/questions/41592759/python-textctrl-search-and-highlight-functionality
+    #    for i in range(self.add_questao_frame.tx_enunciado.GetNumberOfLines()):
+    #        line = self.add_questao_frame.tx_enunciado.GetLineText(i)
+    #        for palavra in texto:
+    #            if palavra in line and palavra not in sugestao:
+    #                startPos = [i for i in range(len(texto)) if palavra.startswith(palavra, i)]
+    #                for ocor in startPos:
+    #                    endPos = ocor + len(palavra)
+    #                    self.add_questao_frame.tx_enunciado.SetStyle(ocor, endPos, wx.TextAttr("red", "white"))
+    #    # retoma formatação correta do campo de texto
+    #    self.add_questao_frame.SetForegroundColour(wx.BLACK)
+    #    for i in range(len(texto)):
+    #        if texto[i] != sugestao[i]:
+    #            self.warn(self, "`" + texto[i] + "`" + " você quis dizer " + "`" + sugestao[i] + "` ?")
 
     def addQuestao(self, event):
         # cria condição para fazer necessário o preenchimento de um dos 2 checkbox do campo 'destino'
-        destino = False
+        destino = None
         self.acessar_intranet(event)
 
         if (self.add_questao_frame.cb_destinoProva.GetValue() is False) & (self.add_questao_frame.cb_destinoAtv.GetValue() is False):
@@ -178,20 +178,20 @@ class PyFeed(gui.PyFeed):
                 & (self.add_questao_frame.ch_complexidade.GetStringSelection() != "") & (self.add_questao_frame.cb_tipoQuestao.GetStringSelection() != "")\
                 & (destino == True):
             try:
-                enunciado = self.add_questao_frame.tx_enunciado.GetValue().replace("\n","<br>").translate(str.maketrans({'“':'"', '”':'"', '–':'-','—':'-'})).encode("windows-1252")
-                feedback = self.add_questao_frame.tx_resposta.GetValue().replace("\n","<br>").translate(str.maketrans({'“':'"', '”':'"', '–':'-','—':'-'})).encode("windows-1252")
+                #foi aplicado o encode no final do método para possibilitar adicionar as imagens aos respectivos campos 
+                enunciado = self.add_questao_frame.tx_enunciado.GetValue().replace("\n","<br>").translate(str.maketrans({'“':'"', '”':'"', '–':'-','—':'-','\u202F':' ','\u2009':' '}))#.encode("windows-1252")
+                feedback = self.add_questao_frame.tx_resposta.GetValue().replace("\n","<br>").translate(str.maketrans({'“':'"', '”':'"', '–':'-','—':'-','\u202F':' ','\u2009':' '}))#.encode("windows-1252")
                 complexidade = self.add_questao_frame.ch_complexidade.GetStringSelection()
-                alternativas = self.add_questao_frame.cb_qtdAfirmativas.GetStringSelection()
+                if self.add_questao_frame.rb_4afirm.GetValue():
+                    self.tutor.dic_temp['idAlternativas'] = '4'
+                else:
+                    self.tutor.dic_temp['idAlternativas'] = '5'
                 if complexidade == "Fácil":
                     idComplexidade = 1
                 elif complexidade == "Médio":
                     idComplexidade = 2
                 else:
                     idComplexidade = 3
-                if alternativas == "4":
-                    self.tutor.dic_temp['idAlternativas'] = "4"
-                else:
-                    self.tutor.dic_temp['idAlternativas'] = "5"
                 if self.add_questao_frame.cb_destinoProva.GetValue() == True:
                     destino_prova = 1
                 else:
@@ -225,13 +225,15 @@ class PyFeed(gui.PyFeed):
                 else:
                     pass
                 try:
-                    idQuestao = self.tutor.requestPostQuestao(enunciado, feedback, idComplexidade, destino_prova,
+                    idQuestao = self.tutor.requestPostQuestao(str(enunciado).encode("windows-1252"), str(feedback).encode("windows-1252"), idComplexidade, destino_prova,
                                                               destino_atv, idOrigem, idTipoQuestao)
                 except Exception as e:
                     now = datetime.now()
                     logf = open(dir_path+"log.txt","a+")
                     logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
                     logf.close()
+                    return self.warn(self,"Ops, algo deu errado! Entre em contato com o suporte")
+                self.txt_idQuestao.Clear()
                 self.txt_idQuestao.AppendText(idQuestao)
                 self.add_questao_frame.Destroy()
                 resp = "Retorno: Questão de número " + idQuestao + " adicionada com sucesso."
@@ -243,6 +245,7 @@ class PyFeed(gui.PyFeed):
                 logf = open(dir_path+"log.txt","a+")
                 logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
                 logf.close()
+                return self.warn(self,"Ops, algo deu errado! Entre em contato com o suporte")
         else:
             return self.warn(self,"É necessário o preenchimento de todos os campos!")
 
@@ -252,9 +255,9 @@ class PyFeed(gui.PyFeed):
         #self.add_questao_frame.bt_corretorOrt.Bind( wx.EVT_BUTTON, self.corrigeTxt )
         self.add_questao_frame.bt_salvarQuestao.Bind( wx.EVT_BUTTON, self.addQuestao )
 
-    def form_qtdAfirmativas( self, event) :
-        self.setQtdAfirmativas = DialogQtdAfirmativas(self)
-        self.setQtdAfirmativas.Show()
+    #def form_qtdAfirmativas( self, event) :
+    #    self.setQtdAfirmativas = DialogQtdAfirmativas(self)
+    #    self.setQtdAfirmativas.Show()
 
     def estrutura_questao(self, event):
 
@@ -290,8 +293,8 @@ class PyFeed(gui.PyFeed):
                             #   (result.dsComplexidade == "Difícil") and not self.tutor.dic_temp:
                             if (result.dsTipoQuestao == "Objetiva de resposta múltipla") and \
                             (result.dsComplexidade == "Difícil") and not self.tutor.dic_temp:
-                                return self.warn(self, "Atenção! Essa questão não tem definida a quantidade de afirmativas, \
-                                por hora é necessário fazer o cadastro pela intranet")
+                                self.txt_idQuestao.Clear()
+                                return self.warn(self, "Atenção! Essa questão não tem definida a quantidade de afirmativas, por hora é necessário fazer o cadastro pela intranet")
                             if (result.dsTipoQuestao == "Objetiva de resposta múltipla") and \
                             (result.dsComplexidade == "Difícil") and (self.tutor.dic_temp['idAlternativas'] == "5"):
                                 dicionario = dic_5afirmativas[result.dsTipoQuestao][result.dsComplexidade]
@@ -309,11 +312,11 @@ class PyFeed(gui.PyFeed):
                             self.tutor.requestTags(self.txt_idQuestao.GetValue())
                             self.tutor.dic_temp.clear() # reinicializar dic_temp para permitir novo cadastro na msm sessao
                             self.txt_idQuestao.Clear()
-                            resp = "Retorno: Estruturação de questão realizada com sucesso"
+                            resp = "Retorno: Estruturação de questão " + codigo_questao + " realizada com sucesso"
                             logf = open(dir_path+"log.txt","a+")
                             logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
                             logf.close()
-                            return self.info(self,"Estruturação de questão realizada com sucesso!")
+                            return self.info(self,"Estruturação de questão " + codigo_questao + " realizada com sucesso!")
                         else:
                             self.tutor.dic_temp.clear() # reinicializar dic_temp para permitir novo cadastro na msm sessao
                             self.txt_idQuestao.Clear()
@@ -327,7 +330,6 @@ class PyFeed(gui.PyFeed):
                     logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
                     logf.close()
             else:
-                self.txt_idQuestao.Clear()
                 return self.warn(self, "Ops, algo deu errado!\nOu essa questão não foi cadastrada pelo seu usuario ou você não tem permissão para acessar essa funcionalidade.")
         else:
             self.txt_idQuestao.Clear()

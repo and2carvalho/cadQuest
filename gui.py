@@ -30,9 +30,9 @@ def resource_path(relative_path):  #necessário para inserir imagens no executá
 class Login ( wx.Frame ):
 
     def __init__( self, parent ):
-        wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"PyFeed - Unicesumar EAD", pos = wx.DefaultPosition, size = wx.Size( 298,325 ), style = wx.DEFAULT_FRAME_STYLE|wx.STAY_ON_TOP|wx.TAB_TRAVERSAL )
+        wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"PyFeed - Unicesumar EAD", pos = wx.DefaultPosition, size = wx.Size( 298,339 ), style = wx.DEFAULT_FRAME_STYLE|wx.STAY_ON_TOP|wx.TAB_TRAVERSAL )
 
-        self.SetSizeHints( wx.Size( 298,325 ), wx.Size( 298,325 ) )
+        self.SetSizeHints( wx.Size( 298,339 ), wx.Size( 298,339 ) )
         self.SetExtraStyle( wx.FRAME_EX_METAL )
         self.SetBackgroundColour( wx.Colour( 0, 93, 126 ) )
 
@@ -79,8 +79,12 @@ class Login ( wx.Frame ):
         bSizerMain.Add( gSizer2, 0, wx.EXPAND, 5 )
 
         bSizerMain.Add( ( 0, 0), 1, 0, 5 )
-        bsizer_credits = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Desenvolvido por André C. Antero de Carvalho" ), wx.VERTICAL )
-        bSizerMain.Add( bsizer_credits, 0, wx.ALIGN_CENTER, 5 )
+        
+        self.st_credits = wx.StaticText( self, wx.ID_ANY, u"Desenvolvido por André C. Antero de Carvalho", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.st_credits.Wrap(-1)
+        self.st_credits.SetForegroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_3DLIGHT))
+
+        bSizerMain.Add( self.st_credits, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
         bSizerApp.Add( bSizerMain, 1, wx.EXPAND, 5 )
 
@@ -113,7 +117,7 @@ class Login ( wx.Frame ):
 class AddQuestao ( wx.Frame ):
 
     def __init__( self, parent, tipo_questao_suportado ):
-        wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"PyFeed - Unicesumar EAD", pos = wx.DefaultPosition, size = wx.Size( 771,715 ), style = wx.DEFAULT_FRAME_STYLE|wx.STAY_ON_TOP|wx.TAB_TRAVERSAL )
+        wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"PyFeed - Unicesumar EAD", pos = wx.DefaultPosition, size = wx.Size( 900,715 ), style = wx.DEFAULT_FRAME_STYLE|wx.STAY_ON_TOP|wx.TAB_TRAVERSAL )
 
         self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
         self.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOWFRAME ) )
@@ -197,11 +201,20 @@ class AddQuestao ( wx.Frame ):
         self.lb_destino.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
         self.lb_destino.Wrap( -1 )
 
-        lb_qtdAfirmativas = ["4", "5"]
-        self.cb_qtdAfirmativas = wx.RadioBox( self, wx.ID_ANY, u"Nº de Afirmativas", wx.DefaultPosition, wx.DefaultSize, lb_qtdAfirmativas, 0, wx.RA_SPECIFY_COLS)
-        self.cb_qtdAfirmativas.SetSelection( 1 )
-        self.cb_qtdAfirmativas.SetForegroundColour( wx.Colour( 229,229, 229))
-        bSizer10.Add( self.cb_qtdAfirmativas, 0, wx.ALL, 5)
+        self.rb_5afirm = wx.RadioButton(self,wx.ID_ANY, '', style=wx.RB_GROUP)
+        self.rb_4afirm = wx.RadioButton(self,wx.ID_ANY, '')
+        self.lb_rb4afirm = wx.StaticText(self, wx.ID_ANY, u"4 afirmativas", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.lb_rb4afirm.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
+        self.lb_rb4afirm.SetForegroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_3DLIGHT))
+        self.lb_rb4afirm.Wrap( -1 )
+        self.lb_rb5afirm = wx.StaticText(self, wx.ID_ANY, u"5 afirmativas", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.lb_rb5afirm.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Hack" ) )
+        self.lb_rb5afirm.SetForegroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_3DLIGHT))
+        self.lb_rb5afirm.Wrap( -1 )
+        bSizer10.Add( self.rb_4afirm, 0, wx.ALL|wx.ALIGN_CENTER, 5)
+        bSizer10.Add( self.lb_rb4afirm, 0, wx.ALL|wx.ALIGN_CENTER, 5)
+        bSizer10.Add( self.rb_5afirm, 0, wx.ALL|wx.ALIGN_CENTER, 5)
+        bSizer10.Add( self.lb_rb5afirm, 0, wx.ALL|wx.ALIGN_CENTER, 5)
         
         self.lb_destino.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
 
