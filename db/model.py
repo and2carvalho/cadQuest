@@ -40,10 +40,5 @@ class Questao(Base):
     cryp_aprovar = Column(String(250))
     cryp_rejeitar = Column(String(250))
     cryp_publicar = Column(String(250))
-    
-    def __repr__(self):
-        return "Id da Questao: {}\nUsuario de Cadastro: {}\n\
-        Situcao: {}\n".format(self.idQuestao,self.dsUsuario, self.dsSituacao)
-
 
 Base.metadata.create_all(db)

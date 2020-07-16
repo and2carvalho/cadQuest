@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['app.py'],
-             pathex=['%userprofile%\\My Documents\\cadQuest'],
+             pathex=['C:\\Users\\andy\\Documents\\cadQuest'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -15,12 +15,12 @@ a = Analysis(['app.py'],
              win_private_assemblies=False,
              cipher=block_cipher,
              noarchive=False)
-a.datas += [('logoCesumar.png', '%userprofile%\\My Documents\\cadQuest\\static\\logoCesumar.png', 'DATA')]
-a.datas += [('icon-arvore.png', '%userprofile%\\My Documents\\cadQuest\\static\\icon-arvore.png', 'DATA')]
-a.datas += [('icon-estrut.png', '%userprofile%\\My Documents\\cadQuest\\static\\icon-estrut.png', 'DATA')]
-a.datas += [('icon-settings.png', '%userprofile%\\My Documents\\cadQuest\\static\\icon-settings.png', 'DATA')]
-a.datas += [('icon-txtQuestao.png', '%userprofile%\\My Documents\\cadQuest\\static\\icon-txtQuestao.png', 'DATA')]
-a.datas += [('frequency_dictionary_pt_82_765.txt', '%userprofile%\\My Documents\\cadQuest\\pyFeed\\static\\frequency_dictionary_pt_82_765.txt', 'DATA')]
+a.datas += [('logoCesumar.png', 'C:\\Users\\andy\\Documents\\cadQuest\\static\\logoCesumar.png', 'DATA')]
+a.datas += [('icon-arvore.png', 'C:\\Users\\andy\\Documents\\cadQuest\\static\\icon-arvore.png', 'DATA')]
+a.datas += [('icon-estrut.png', 'C:\\Users\\andy\\Documents\\cadQuest\\static\\icon-estrut.png', 'DATA')]
+a.datas += [('icon-settings.png', 'C:\\Users\\andy\\Documents\\cadQuest\\static\\icon-settings.png', 'DATA')]
+a.datas += [('icon-txtQuestao.png', 'C:\\Users\\andy\\Documents\\cadQuest\\static\\icon-txtQuestao.png', 'DATA')]
+a.datas += [('frequency_dictionary_pt_82_765.txt', 'C:\\Users\\andy\\Documents\\cadQuest\\static\\frequency_dictionary_pt_82_765.txt', 'DATA')]
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,

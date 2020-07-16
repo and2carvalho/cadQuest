@@ -31,6 +31,12 @@ class DialogQtdAfirmativas (gui.DialogQtdAfirmativas):
         return self.alt
 '''
 
+class EditaEstrutura(gui.EditaEstrutura):
+
+    def __init__(self, parent, tipo_questao_suportado):
+        gui.EditaEstrutura.__init__(self, parent, tipo_questao_suportado)
+
+
 class AlternativaTag(gui.AlternativaTag):
 
     def __init__(self, parent, alternativas):
@@ -82,6 +88,8 @@ class PyFeed(gui.PyFeed):
         #wx.lib.inspection.InspectionTool().Show()
         self.login_frame = gui.Login(self)
         self.login_frame.Show()
+        self.backUp_dic5afirmativas = dic_5afirmativas
+        self.backUp_dic_alternativas = dic_alternativas
         
         # lista de tipo de questoes suportados pelo programa; necessário adicionar um dicionario de alternativas
         # em 'api.util.dic_alternativas' para novos tipos de questões.
@@ -94,6 +102,7 @@ class PyFeed(gui.PyFeed):
         self.login_frame.bt_login.Bind(wx.EVT_BUTTON, self.acessar_intranet)
         self.login_frame.txt_login.Bind(wx.EVT_KEY_DOWN, self.onTabEnter)
         self.login_frame.txt_senha.Bind(wx.EVT_KEY_DOWN, self.onTabEnter)
+        self.login_frame.Bind(wx.EVT_CLOSE, self.fechaTela)
 
     def onTabEnter(self, event):
         ''' Atalho para tecla TAB direcionar o cursor para o próximo campo'''
@@ -126,7 +135,7 @@ class PyFeed(gui.PyFeed):
         ''' Realiza login na intranet unicesumar e acessa o Formulário
         de busca das questões. '''
 
-        self.tutor = Usuario("andre.antero","Shabala1234.")#self.login_frame.txt_login.GetValue(), self.login_frame.txt_senha.GetValue()
+        self.tutor = Usuario('andre.antero','Shabala1234.')#self.login_frame.txt_login.GetValue(), self.login_frame.txt_senha.GetValue())
         loginApp(self.tutor)
         if (self.tutor.br.response().geturl() == "http://intranet.unicesumar.edu.br/?erro_login"):
             self.warn(self, "Não foi possivel realizar o acesso com os dados digitados")
@@ -250,10 +259,77 @@ class PyFeed(gui.PyFeed):
             return self.warn(self,"É necessário o preenchimento de todos os campos!")
 
     def form_novaQuestao( self, event ):
+        '''
+            Tela de formulário usado para adicionar nova questão na api
+            da Intranet. Acessada ao clicar no 1 botão do menu principal.
+        '''
+        
         self.add_questao_frame = gui.AddQuestao(self, self.tipo_questao_suportado)
         self.add_questao_frame.Show()
         #self.add_questao_frame.bt_corretorOrt.Bind( wx.EVT_BUTTON, self.corrigeTxt )
         self.add_questao_frame.bt_salvarQuestao.Bind( wx.EVT_BUTTON, self.addQuestao )
+
+    def salva_estrutura(self, event):
+         
+
+        tipo_questao = self.edita_estrutura_frame.cb_tipoQuestao.StringSelection
+        dificuldade = self.edita_estrutura_frame.ch_dificuldade.StringSelection
+        
+        if self.edita_estrutura_frame.m_textCtrl36.GetValue() != '':
+            dic_5afirmativas[tipo_questao][dificuldade]['payload_1']['dsAlternativa'] = self.edita_estrutura_frame.m_textCtrl36.GetValue()
+        if self.edita_estrutura_frame.m_textCtrl37.GetValue() != '':
+            dic_5afirmativas[tipo_questao][dificuldade]['payload_2']['dsAlternativa'] = self.edita_estrutura_frame.m_textCtrl37.GetValue()
+        if self.edita_estrutura_frame.m_textCtrl38.GetValue() != '':
+            dic_5afirmativas[tipo_questao][dificuldade]['payload_3']['dsAlternativa'] = self.edita_estrutura_frame.m_textCtrl38.GetValue()
+        if self.edita_estrutura_frame.m_textCtrl39.GetValue() != '':
+            dic_5afirmativas[tipo_questao][dificuldade]['payload_4']['dsAlternativa'] = self.edita_estrutura_frame.m_textCtrl39.GetValue()
+        if self.edita_estrutura_frame.m_textCtrl40.GetValue() != '':
+            dic_5afirmativas[tipo_questao][dificuldade]['payload_5']['dsAlternativa'] = self.edita_estrutura_frame.m_textCtrl40.GetValue()
+    
+        if self.edita_estrutura_frame.m_textCtrl51.GetValue() != '':
+            dic_alternativas[tipo_questao][dificuldade]['payload_1']['dsAlternativa'] = self.edita_estrutura_frame.m_textCtrl51.GetValue()
+        if self.edita_estrutura_frame.m_textCtrl52.GetValue() != '':
+            dic_alternativas[tipo_questao][dificuldade]['payload_2']['dsAlternativa'] = self.edita_estrutura_frame.m_textCtrl52.GetValue()
+        if self.edita_estrutura_frame.m_textCtrl53.GetValue() != '':
+            dic_alternativas[tipo_questao][dificuldade]['payload_3']['dsAlternativa'] = self.edita_estrutura_frame.m_textCtrl53.GetValue()
+        if self.edita_estrutura_frame.m_textCtrl54.GetValue() != '':
+            dic_alternativas[tipo_questao][dificuldade]['payload_4']['dsAlternativa'] = self.edita_estrutura_frame.m_textCtrl54.GetValue()
+        if self.edita_estrutura_frame.m_textCtrl55.GetValue() != '':
+            dic_alternativas[tipo_questao][dificuldade]['payload_5']['dsAlternativa'] = self.edita_estrutura_frame.m_textCtrl55.GetValue()
+
+        self.edita_estrutura_frame.Destroy()
+
+    def carrega_dic(self, event):
+
+        tipo_questao = self.edita_estrutura_frame.cb_tipoQuestao.StringSelection
+        dificuldade = self.edita_estrutura_frame.ch_dificuldade.StringSelection
+        
+        self.edita_estrutura_frame.txt_primeiraResp5Alt.SetValue(dic_5afirmativas[tipo_questao][dificuldade]['payload_1']['dsAlternativa'])
+        self.edita_estrutura_frame.txt_segundaResp5Alt.SetValue(dic_5afirmativas[tipo_questao][dificuldade]['payload_2']['dsAlternativa'])
+        self.edita_estrutura_frame.txt_terceiraResp5Alt.SetValue(dic_5afirmativas[tipo_questao][dificuldade]['payload_3']['dsAlternativa'])
+        self.edita_estrutura_frame.txt_quartaResp5Alt.SetValue(dic_5afirmativas[tipo_questao][dificuldade]['payload_4']['dsAlternativa'])
+        self.edita_estrutura_frame.txt_quintaResp5Alt.SetValue(dic_5afirmativas[tipo_questao][dificuldade]['payload_5']['dsAlternativa'])
+
+        self.edita_estrutura_frame.txt_primeiraResp4Alt.SetValue(dic_alternativas[tipo_questao][dificuldade]['payload_1']['dsAlternativa'])
+        self.edita_estrutura_frame.txt_segundaResp4Alt.SetValue(dic_alternativas[tipo_questao][dificuldade]['payload_2']['dsAlternativa'])
+        self.edita_estrutura_frame.txt_terceiraResp4Alt.SetValue(dic_alternativas[tipo_questao][dificuldade]['payload_3']['dsAlternativa'])
+        self.edita_estrutura_frame.txt_quartaResp4Alt.SetValue(dic_alternativas[tipo_questao][dificuldade]['payload_4']['dsAlternativa'])
+        self.edita_estrutura_frame.txt_quintaResp4Alt.SetValue(dic_alternativas[tipo_questao][dificuldade]['payload_5']['dsAlternativa'])
+
+    def form_editaEstrutura(self,event):
+         '''
+            Tela de formulário usado para estruturar alternativas das questões 
+            no app. Acessada ao clicar no 2 botão do menu principal.  '''
+         from api.utils import dic_5afirmativas,dic_alternativas
+
+         self.resp5Alternativas = dic_5afirmativas
+         self.resp4Alternativas = dic_alternativas
+         self.edita_estrutura_frame = gui.EditaEstrutura(self,
+          self.tipo_questao_suportado, self.resp5Alternativas, self.resp4Alternativas)
+         self.edita_estrutura_frame.Show()
+
+         self.edita_estrutura_frame.bt_salvar.Bind( wx.EVT_BUTTON, self.salva_estrutura )
+         self.edita_estrutura_frame.bt_carregaDic.Bind( wx.EVT_BUTTON, self.carrega_dic )
 
     #def form_qtdAfirmativas( self, event) :
     #    self.setQtdAfirmativas = DialogQtdAfirmativas(self)
@@ -261,9 +337,9 @@ class PyFeed(gui.PyFeed):
 
     def estrutura_questao(self, event):
 
-        ''' Realiza busca na base de dados da intranet pelo número da questão.
-        Adiciona/atualiza informações no db interno e cadastra estrutura de alternativas
-        e tags via requisição api '''
+        ''' Ação do Botão Central do app. Realiza busca na base de dados da intranet pelo 
+        número da questão. Adiciona/atualiza informações no db interno e cadastra estrutura 
+        de alternativas e tags via requisição api '''
 
         import json
         from db.model import Session, Questao

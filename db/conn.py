@@ -6,7 +6,7 @@ from datetime import datetime
 
 # necessário criar uma pasta no %userprofile%/appdata para que o executável
 # consiga localizar o banco de dados.
-#dir_path = os.path.join(os.path.join(os.environ['APPDATA'], 'CadQuest')
+#dir_path = os.path.join(os.path.join(os.environ['APPDATA'], 'CadQuest'))
 dir_path = './'
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)

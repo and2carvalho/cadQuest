@@ -84,7 +84,71 @@ def viewQuestao(id=None):
             logf.close()
 
 dic_5afirmativas = {
-  "Objetiva de resposta múltipla": {
+  "Objetiva de resposta múltipla": {    
+    "Fácil": {
+      "payload_1": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_2": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_3": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_4": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_5": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      }
+    },
+    "Médio": {
+      "payload_1": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_2": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_3": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_4": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_5": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      }
+    },
     "Difícil": {
       "payload_1": {
             "action": "inserir",
@@ -117,8 +181,105 @@ dic_5afirmativas = {
         "correta": 0
       }
     }
-  }
-}
+  },
+  "Objetiva de resposta única": {
+    "Fácil": {
+      "payload_1": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_2": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_3": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_4": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_5": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      }
+    },
+    "Médio": {
+      "payload_1": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_2": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_3": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_4": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_5": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      }
+    },
+    "Difícil": {
+      "payload_1": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_2": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_3": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_4": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      },
+      "payload_5": {
+        "action": "inserir",
+        "idQuestao": None,
+        "dsAlternativa": "",
+        "correta": 0
+      }
+    }
+}}
 
 dic_alternativas = {
   "Objetiva de resposta múltipla": {
