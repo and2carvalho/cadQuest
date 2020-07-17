@@ -15,21 +15,23 @@ class AddQuestao(gui.AddQuestao):
     def __init__(self, parent, tipo_questao_suportado):
         gui.AddQuestao.__init__(self, parent, tipo_questao_suportado)
 
-'''
-TODO
 class DialogQtdAfirmativas (gui.DialogQtdAfirmativas):
 
-    def __init__(self, parent):
+    def __init__(self, parent, tutor):
         gui.DialogQtdAfirmativas.__init__(self, parent)
+        
+        self.tutor = tutor
+
+        self.bt_confNumAfirm.Bind( wx.EVT_BUTTON, self.setQtdAfirmativas )
 
     def setQtdAfirmativas(self, event):
+
         if self.rb_4afirmativas.GetValue():
-            self.alt == "4"
+            self.tutor.dic_temp['idAlternativas'] = "4"
         else:
-            self.alt == "5"
-        event.StopPropagation()
-        return self.alt
-'''
+            self.tutor.dic_temp['idAlternativas'] = "5"
+            
+        self.Destroy()
 
 class EditaEstrutura(gui.EditaEstrutura):
 
@@ -88,6 +90,7 @@ class PyFeed(gui.PyFeed):
         #wx.lib.inspection.InspectionTool().Show()
         self.login_frame = gui.Login(self)
         self.login_frame.Show()
+        
         self.backUp_dic5afirmativas = dic_5afirmativas
         self.backUp_dic_alternativas = dic_alternativas
         
@@ -264,8 +267,11 @@ class PyFeed(gui.PyFeed):
             da Intranet. Acessada ao clicar no 1 botão do menu principal.
         '''
         
+        self.tutor.dic_temp.clear()
+
         self.add_questao_frame = gui.AddQuestao(self, self.tipo_questao_suportado)
         self.add_questao_frame.Show()
+        
         #self.add_questao_frame.bt_corretorOrt.Bind( wx.EVT_BUTTON, self.corrigeTxt )
         self.add_questao_frame.bt_salvarQuestao.Bind( wx.EVT_BUTTON, self.addQuestao )
 
@@ -331,9 +337,10 @@ class PyFeed(gui.PyFeed):
          self.edita_estrutura_frame.bt_salvar.Bind( wx.EVT_BUTTON, self.salva_estrutura )
          self.edita_estrutura_frame.bt_carregaDic.Bind( wx.EVT_BUTTON, self.carrega_dic )
 
-    #def form_qtdAfirmativas( self, event) :
-    #    self.setQtdAfirmativas = DialogQtdAfirmativas(self)
-    #    self.setQtdAfirmativas.Show()
+    def form_qtdAfirmativas( self, event) :
+        self.setQtdAfirmativas = DialogQtdAfirmativas(self, self.tutor)
+        self.setQtdAfirmativas.Show()
+
 
     def estrutura_questao(self, event):
 
@@ -369,8 +376,7 @@ class PyFeed(gui.PyFeed):
                             #   (result.dsComplexidade == "Difícil") and not self.tutor.dic_temp:
                             if (result.dsTipoQuestao == "Objetiva de resposta múltipla") and \
                             (result.dsComplexidade == "Difícil") and not self.tutor.dic_temp:
-                                self.txt_idQuestao.Clear()
-                                return self.warn(self, "Atenção! Essa questão não tem definida a quantidade de afirmativas, por hora é necessário fazer o cadastro pela intranet")
+                                return self.form_qtdAfirmativas(self)
                             if (result.dsTipoQuestao == "Objetiva de resposta múltipla") and \
                             (result.dsComplexidade == "Difícil") and (self.tutor.dic_temp['idAlternativas'] == "5"):
                                 dicionario = dic_5afirmativas[result.dsTipoQuestao][result.dsComplexidade]

@@ -853,27 +853,60 @@ class EditaEstrutura ( wx.Frame ):
 
 class DialogQtdAfirmativas ( wx.Frame ):
 
-	def __init__( self, parent):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 309,185 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+	def __init__( self, parent ):
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 293,185 ), style = wx.DEFAULT_FRAME_STYLE|wx.STAY_ON_TOP|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+		self.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+		self.SetBackgroundColour( wx.Colour( 0, 93, 126 ) )
 
 		gSizer7 = wx.GridSizer( 2, 1, 0, 0 )
 
-		sbSizer3 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Informe a Quantidade de Afirmativas da Questão" ), wx.HORIZONTAL )
+		bSizer33 = wx.BoxSizer( wx.VERTICAL )
 
-		self.rb_4afirmativas = wx.RadioButton( sbSizer3.GetStaticBox(), wx.ID_ANY, u"4 Afirmativas", wx.Point( -1,-1 ), wx.DefaultSize, 0 )
-		self.rb_4afirmativas.SetMinSize( wx.Size( 150,80 ) )
+		self.m_staticText29 = wx.StaticText( self, wx.ID_ANY, u"Quantidade de Alternativas da Questão", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText29.Wrap( -1 )
 
-		sbSizer3.Add( self.rb_4afirmativas, 0, wx.ALL, 5 )
-
-		self.rb_5afirmativas = wx.RadioButton( sbSizer3.GetStaticBox(), wx.ID_ANY, u"5 Afirmativas", wx.Point( -1,-1 ), wx.DefaultSize, 0 )
-		self.rb_5afirmativas.SetMinSize( wx.Size( 150,80 ) )
-
-		sbSizer3.Add( self.rb_5afirmativas, 0, wx.ALL, 5 )
+		self.m_staticText29.SetFont( wx.Font( 11, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
+		self.m_staticText29.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+		
+		bSizer33.Add( self.m_staticText29, 0, wx.ALL, 5 )
 
 
-		gSizer7.Add( sbSizer3, 1, wx.EXPAND, 5 )
+		bSizer33.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+		bSizer34 = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.rb_4afirmativas = wx.RadioButton( self, wx.ID_ANY, wx.EmptyString, wx.Point( -1,-1 ), wx.DefaultSize, 0 )
+
+		bSizer34.Add( self.rb_4afirmativas, 0, wx.ALL, 5 )
+
+		self.m_staticText27 = wx.StaticText( self, wx.ID_ANY, u"4 Afirmativas", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText27.Wrap( -1 )
+
+		self.m_staticText27.SetFont( wx.Font( 12, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
+		self.m_staticText27.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+
+		bSizer34.Add( self.m_staticText27, 0, wx.ALL, 5 )
+		
+		bSizer34.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+		self.rb_5afirmativas = wx.RadioButton( self, wx.ID_ANY, wx.EmptyString, wx.Point( -1,-1 ), wx.DefaultSize, 0 )
+		bSizer34.Add( self.rb_5afirmativas, 0, wx.ALL, 5 )
+
+		self.m_staticText28 = wx.StaticText( self, wx.ID_ANY, u"5 Afirmativas", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText28.Wrap( -1 )
+
+		self.m_staticText28.SetFont( wx.Font( 12, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
+		self.m_staticText28.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+
+		bSizer34.Add( self.m_staticText28, 0, wx.ALL, 5 )
+
+
+		bSizer33.Add( bSizer34, 1, wx.EXPAND, 5 )
+
+
+		gSizer7.Add( bSizer33, 1, wx.EXPAND, 5 )
 
 		bSizer24 = wx.BoxSizer( wx.HORIZONTAL )
 
