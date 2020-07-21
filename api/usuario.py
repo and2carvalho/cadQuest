@@ -223,6 +223,45 @@ class Usuario():
             logf.write(now.strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(e) + "\n")
             logf.close()
 
+    def requestArvore(self, idQuestao, idTema=None):
+        
+        
+        url_api = "http://intranet.unicesumar.edu.br/sistemas/bancoDeQuestoes/action/questaoNodeAction.php"
+        
+        from urllib3._collections import HTTPHeaderDict
+        payload = HTTPHeaderDict()
+
+        payload.add("idQuestao",idQuestao)
+
+        if idTema != None:
+            payload.add("action","inserir")
+            payload.add('idNodeList[]','10027')
+            payload.add('idNodeList[]','10027')
+            payload.add("idTemaList[]", idTema)
+            data = parse.urlencode(payload)
+            request_getArvore = mechanize.Request(url_api, data)
+            response = self.br.open(request_getArvore)
+        else:
+            payload.add("action","filtrarTema")
+            payload.add("idDisciplina", "10027")
+
+            data = parse.urlencode(payload)
+            request_getArvore = mechanize.Request(url_api, data)
+            response = self.br.open(request_getArvore)
+            #from bs4 import BeautifulSoup
+            #soup = BeautifulSoup(response.read(), "lxml")
+            #selector_arvore = soup.find_all("table")
+            arvore_lista=[]
+            import json
+            arvore_json = json.loads(response.get_data())
+            # o retorno é um dicionário com o nome `data`
+            for i in arvore_json["data"]:
+                arvore_lista.append({ i["dsTema"] : i["idTema"]})
+        
+            #arvore_lista = response.get_data().decode("utf-8").encode("latin-1")
+
+            return arvore_lista
+
     def compoeTempDict(self, curso, unLivro, frame):
         # dicionario necessário para criar tags
         from api.utils import dic_tags

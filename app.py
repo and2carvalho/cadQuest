@@ -1,4 +1,5 @@
-# coding=utf-8
+#!/usr/bin/env python
+#*-* coding=utf-8 *-*
 
 from db.conn import dir_path
 from api.usuario import Usuario
@@ -37,6 +38,12 @@ class EditaEstrutura(gui.EditaEstrutura):
 
     def __init__(self, parent, tipo_questao_suportado):
         gui.EditaEstrutura.__init__(self, parent, tipo_questao_suportado)
+
+class ArvoreQuestao(gui.ArvoreQuestao):
+
+    def __init__(self, parent, arvore_lista ):
+
+        gui.ArvoreQuestao.__init__(self, parent, arvore_lista)
 
 
 class AlternativaTag(gui.AlternativaTag):
@@ -340,8 +347,7 @@ class PyFeed(gui.PyFeed):
     def form_qtdAfirmativas( self, event) :
         self.setQtdAfirmativas = DialogQtdAfirmativas(self, self.tutor)
         self.setQtdAfirmativas.Show()
-
-
+    
     def estrutura_questao(self, event):
 
         ''' Ação do Botão Central do app. Realiza busca na base de dados da intranet pelo 
@@ -392,8 +398,16 @@ class PyFeed(gui.PyFeed):
                             unLivro = self.alternativa_panel.cb_unLivro.GetStringSelection()
                             self.tutor.compoeTempDict(curso, unLivro, self.alternativa_panel)
                             self.tutor.requestTags(self.txt_idQuestao.GetValue())
+                            arvore_lista = self.tutor.requestArvore(self.txt_idQuestao.GetValue())
+                            self.form_arvoreQuestao = ArvoreQuestao(self, arvore_lista)
+                            self.form_arvoreQuestao.ShowModal()
+                            self.tutor.requestArvore(self.txt_idQuestao.GetValue(), idTema=self.form_arvoreQuestao.idTema)
+                            self.form_arvoreQuestao.Destroy()
+
+                            # limpa sessao
                             self.tutor.dic_temp.clear() # reinicializar dic_temp para permitir novo cadastro na msm sessao
                             self.txt_idQuestao.Clear()
+
                             resp = "Retorno: Estruturação de questão " + codigo_questao + " realizada com sucesso"
                             logf = open(dir_path+"log.txt","a+")
                             logf.write(datetime.today().strftime("%d/%m/%Y, %H:%M:%S") + " - " + str(resp) + "\n")
@@ -416,6 +430,8 @@ class PyFeed(gui.PyFeed):
         else:
             self.txt_idQuestao.Clear()
             return self.warn(self, "Favor preencher código da questão para prosseguir")
+
+
 
 if __name__ == "__main__":
     

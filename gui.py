@@ -9,6 +9,7 @@
 
 import wx
 import wx.xrc
+import wx.html
 ###########################################################################
 ## Class Login
 ###########################################################################
@@ -932,3 +933,67 @@ class DialogQtdAfirmativas ( wx.Frame ):
 	# Virtual event handlers, overide them in your derived class
 	def setQtdAfirmativas( self, event ):
 		event.Skip()
+
+
+###########################################################################
+## Class ArvoreQuestao
+###########################################################################
+
+class ArvoreQuestao ( wx.Dialog ):
+
+
+	def __init__( self, parent, arvore_lista ):
+
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size(500,220), style = wx.DEFAULT_DIALOG_STYLE )
+		
+		self.arvore_lista = arvore_lista
+		self.idTema = None
+		
+		self.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
+		self.SetBackgroundColour( wx.Colour( 0, 93, 126 ) )
+
+		bSizer37 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText31 = wx.StaticText( self, wx.ID_ANY, u"Árvore de Questão", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText31.Wrap( -1 )
+
+		self.m_staticText31.SetFont( wx.Font( 15, wx.FONTFAMILY_MODERN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
+		bSizer37.Add( self.m_staticText31, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.TOP, 12 )
+
+		self.m_staticText31.SetForegroundColour( wx.Colour( 229, 229, 229 ) )
+
+		bSizer37.Add( ( 0, 25), 0, wx.EXPAND, 5 )
+
+		arvore_choice = []
+		for tema in self.arvore_lista:
+			for info in tema.items():
+				arvore_choice.append(info[0])
+
+		self.ch_arvoreSet = wx.Choice( self, wx.ID_ANY, wx.Point( -1,-1 ), wx.Size(-1,-1), arvore_choice, 0 )
+		bSizer37.Add( self.ch_arvoreSet, 0, wx.ALL|wx.EXPAND, 15 )
+
+		bSizer37.Add( ( 0, 20), 0, wx.EXPAND, 5 )
+
+		self.m_button10 = wx.Button( self, wx.ID_ANY, u"Selecionar Tema", wx.DefaultPosition, wx.DefaultSize, wx.CENTER )
+		bSizer37.Add( self.m_button10, 0, wx.ALL|wx.CENTER, 5 )
+		self.m_button10.Bind(wx.EVT_BUTTON, self.salva_arvore)
+
+		self.SetSizer( bSizer37 )
+		self.Layout()
+
+		self.Centre( wx.BOTH )
+		
+	def salva_arvore(self, event):
+		
+		while self.idTema == None:
+			for tema in self.arvore_lista:
+				for info in tema.items():
+					if info[0] == self.ch_arvoreSet.GetStringSelection():
+						self.idTema = info[1]
+						self.Hide()
+
+		#html = wx.html.HtmlWindow(self)
+		#html.SetPage(arvore_lista)
+
+	def __del__( self ):
+		pass
