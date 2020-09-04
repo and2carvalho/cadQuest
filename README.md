@@ -1,6 +1,10 @@
 # CadQuest
 Otimiza cadastro no banco de questões via comunicação direta API-Rest da intranet.
 
+Problemas Solucionados: Lentidão para acessar o portal da instituição e realizar todo o “caminho” até o link de acesso ao banco de questões;
+Falta de padronização no preenchimento de alternativas da questão (toda nova questão o usuário precisava adicionar o campo referente a cada alternativa no portal e digitar o valor, mesmo essas alternativas sendo padronizadas).
+
+O programa fornece a possibilidade de padronizar cadastro de alternativas de forma automática, variando de acordo com as opções de tipo de questão preenchidas incialmente pelo usuário.
 
 ## Compilar executável:
 
