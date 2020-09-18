@@ -3,7 +3,8 @@
 
 from db.conn import dir_path
 from api.usuario import Usuario
-from api.utils import loginApp, serializaRequest, dbQuestao, dic_alternativas, dic_5afirmativas, dic_tags
+from api.utils import (loginApp, serializaRequest, dbQuestao, 
+dic_alternativas, dic_5afirmativas, dic_tags)
 from datetime import datetime
 import wx
 import gui
@@ -145,7 +146,7 @@ class PyFeed(gui.PyFeed):
         ''' Realiza login na intranet unicesumar e acessa o Formulário
         de busca das questões. '''
 
-        self.tutor = Usuario('andre.antero','Shabala1234.')#self.login_frame.txt_login.GetValue(), self.login_frame.txt_senha.GetValue())
+        self.tutor = Usuario(self.login_frame.txt_login.GetValue(), self.login_frame.txt_senha.GetValue())
         loginApp(self.tutor)
         if (self.tutor.br.response().geturl() == "http://intranet.unicesumar.edu.br/?erro_login"):
             self.warn(self, "Não foi possivel realizar o acesso com os dados digitados")
