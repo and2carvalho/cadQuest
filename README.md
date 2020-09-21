@@ -2,10 +2,6 @@
 <p align="center">Otimiza cadastro no banco de questões via comunicação direta API-Rest da intranet.</p>
 
 <br>
-<div align="center">
-![Python badge](https://img.shields.io/badge/-python-1572B6?style=flat-square&logo=python&logoColor=white)
-</div>
-<br>
 
 Conteúdo
 ===========
@@ -16,7 +12,6 @@ Conteúdo
 <a href="#compilação">Executável</a>
 </p>
 
-====================================
 <br>
 <div align="center">
 <img src="https://and2carvalho.github.io/images/portfolio/cadQuest-1.jpg">

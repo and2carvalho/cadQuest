@@ -428,7 +428,7 @@ class PyFeed ( wx.Frame ):
 
 class AlternativaTag ( wx.Dialog ):
 
-	def __init__( self, parent, alternativas ):
+	def __init__( self, parent, alternativas, cursos ):
 		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Finaliza Estrutura Banco de Questoes", pos = wx.DefaultPosition, size = wx.DefaultSize, style = wx.DEFAULT_DIALOG_STYLE )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
@@ -493,7 +493,7 @@ class AlternativaTag ( wx.Dialog ):
 
 		bSizer17.Add(self.lb_curso, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
 
-		cb_cursoChoices = [ u"TEO", u"TEOL", u"AGRO", u"CCONT", u"GPUB", u"ENG. PROD.", u"ENG. SOFT.", u"EDU", u"GRH", u"ADS", u"SI", u"DM", u"DI", u"ADM", u"PGER", u"MKT", u"MAT", u"HIST", u"SEG. TRAB.", u"PED", u"GAMB", u"GEO", u"T.I", u"GPV", u"GFIN", u"GASTRO", u"GCOM", u"GIMOB", u"LET", u"LOG", u"SEC", u"GH", u"DP", u"SSOC", u"GC", u"GQ", u"GTS", u"ECON", u"CURSO DE ORIGEM", u"EMP", u"BEDU", u"ECIV", u"EELE", u"EMEC", u"EMCA", u"HEPROD", u"HÍBRIDO", u"FSCE", u"PROJETO DE ENSINO", u"SPRIV", u"ARTV", u"CBIO", u"PSICO", u"PCERV", u"SALI", u"FIL", u"SOCIO", u"ECOS", u"POD", u"TINT" ]
+		cb_cursoChoices = cursos
 		self.cb_curso = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, cb_cursoChoices, 0 )
 		bSizer17.Add( self.cb_curso, 1, wx.ALL, 5 )
 

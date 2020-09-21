@@ -49,8 +49,8 @@ class ArvoreQuestao(gui.ArvoreQuestao):
 
 class AlternativaTag(gui.AlternativaTag):
 
-    def __init__(self, parent, alternativas):
-        gui.AlternativaTag.__init__(self, parent, alternativas)
+    def __init__(self, parent, alternativas, cursos):
+        gui.AlternativaTag.__init__(self, parent, alternativas, cursos)
 
     def fechaTela(self, event):
         dialog = wx.MessageDialog(self, message = "Tem certeza que deseja sair?", caption = "Atenção", style = wx.YES_NO, pos = wx.DefaultPosition)
@@ -357,9 +357,11 @@ class PyFeed(gui.PyFeed):
 
         import json
         from db.model import Session, Questao
+        from api.utils import dic_tags
 
         codigo_questao = self.txt_idQuestao.GetValue()
         alternativas = [] # será adicionada as alternativas conforme cada tipo de questão
+        cursos = sorted(dic_tags['idNodeMacro30'].keys())
         # busca questão pelo id informado
         if (codigo_questao != ""):
             dados_questao = self.tutor.requestGetQuestao(codigo_questao)
@@ -391,7 +393,8 @@ class PyFeed(gui.PyFeed):
                                 dicionario = dic_alternativas[result.dsTipoQuestao][result.dsComplexidade]
                             for payload in dicionario.items():
                                 alternativas.append(payload[1].get("dsAlternativa"))
-                            self.alternativa_panel = AlternativaTag(self, alternativas)
+                            
+                            self.alternativa_panel = AlternativaTag(self, alternativas, cursos)
                             self.alternativa_panel.ShowModal()
                             op_correta = self.alternativa_panel.rb_alt_correta.GetSelection()
                             self.tutor.requestAlternativa(codigo_questao, op_correta, dicionario)
