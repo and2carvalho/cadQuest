@@ -16,7 +16,6 @@ Conteúdo
 <a href="#compilação">Executável</a>
 </p>
 
-====================================
 <br>
 <div align="center">
 <img src="https://and2carvalho.github.io/images/portfolio/cadQuest-1.jpg">
