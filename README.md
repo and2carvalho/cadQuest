@@ -3,7 +3,6 @@
 
 Conteúdo
 ===========
-
 <p align="center">
 <a href="#descrição">Descrição</a> |
 <a href="#instalação">Instalação</a> |
@@ -38,7 +37,6 @@ $ python app.py
 ```
 
 ## Compilação
-
 
 **ATENCAO** - pyinstaller não deve ser instalado globalmente para não incluir todos
 os pacotes instalados no ambiente. Usar:
