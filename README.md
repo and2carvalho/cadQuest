@@ -1,11 +1,5 @@
 <h1 align="center"> CadQuest </h1>
-<<<<<<< HEAD
-<p align="center">Otimiza cadastro no banco de questões via comunicação direta API-Rest da intranet.</p>
-
-<br>
-=======
 <p align="center">Otimiza processo de cadastro de questões para colaboradores da Unicesumar, via comunicação direta com API da faculdade. </p>
->>>>>>> 8a52107378a6e2a74fa057e573365e11d625f209
 
 Conteúdo
 ===========
