@@ -1,11 +1,5 @@
 <h1 align="center"> CadQuest </h1>
-<p align="center">Otimiza cadastro no banco de questões via comunicação direta API-Rest da intranet.</p>
-
-<br>
-<div align="center">
-![Python badge](https://img.shields.io/badge/-python-1572B6?style=flat-square&logo=python&logoColor=white)
-</div>
-<br>
+<p align="center">Otimiza processo de cadastro de questões para colaboradores da Unicesumar, via comunicação direta com API da faculdade. </p>
 
 Conteúdo
 ===========
